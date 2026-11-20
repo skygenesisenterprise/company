@@ -2,25 +2,12 @@ packages:
   - apps/*
   - packages/*
   - '!packages/node'
-  - '!packages/agents'
-  - '!packages/vinext'
-  - '!packages/workers-sdk'
-  - '!packages/capnweb'
-  - '!packages/capnweb/packages/*'
-  - '!packages/cli'
-  - '!packages/cli/packages/*'
-  - '!packages/mcp'
-  - '!packages/workerd'
-  - '!packages/workerd/npm/*'
   - '!packages/node/packages/react-screenshot-worker'
-  - '!packages/workers-rs'
   - packages/capnweb/packages/*
   - packages/cli/packages/*
   - packages/node/packages/*
   - packages/workerd/npm/*
   - packages/server/src/emails
-  - web
-  - web/apps/*
 
 linkWorkspacePackages: true
 preferWorkspacePackages: true
