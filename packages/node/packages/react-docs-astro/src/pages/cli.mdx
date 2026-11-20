@@ -1,0 +1,53 @@
+---
+layout: ~/layouts/MdxDocLayout.astro
+title: "CLI"
+description: "Access component documentation and install blocks from your terminal."
+---
+
+import { CLITerminal } from "~/components/demos/CLIDemo";
+
+## Installation
+
+The Kumo CLI is available via npx. No installation required.
+
+```bash
+npx @zenthcloud/kumo help
+```
+
+## Commands
+
+### Blocks
+
+Install copy-paste blocks into your project for full customization.
+
+```bash
+# Initialize kumo.json configuration
+npx @zenthcloud/kumo init
+
+# List all available blocks
+npx @zenthcloud/kumo blocks
+
+# Install a block to your project
+npx @zenthcloud/kumo add PageHeader
+```
+
+### Component Registry
+
+Access component documentation directly from your terminal.
+
+```bash
+# List all Kumo components with categories
+npx @zenthcloud/kumo ls
+
+# Get detailed documentation for a component
+npx @zenthcloud/kumo doc Button
+
+# Get documentation for all components
+npx @zenthcloud/kumo docs
+```
+
+## Try it out
+
+Type commands in the interactive terminal below to explore the CLI.
+
+<CLITerminal client:load />
