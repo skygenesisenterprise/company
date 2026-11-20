@@ -10,19 +10,27 @@ import {
 } from "@phosphor-icons/react";
 import { usePathname, useRouter } from "next/navigation";
 import * as React from "react";
+import {
+	mainNav,
+	utilityNav,
+	type NavLink,
+	type NavSection,
+	type NavSectionId,
+} from "@/lib/content/navigation";
 import { searchIndex } from "@/lib/content/search-index";
-import { cta, mainNav, utilityNav, type NavGroup } from "@/lib/content/site";
+import { cta } from "@/lib/content/site";
 import { cn } from "@/lib/utils";
 import { Container } from "../Container";
 import { LanguageSelector } from "./LanguageSelector";
 import { SiteSearch } from "./SiteSearch";
 
+/** A section is current when the visitor is on its landing page or below it. */
 function isActive(pathname: string, href: string) {
 	if (href === "/") return pathname === "/";
 	return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-/** Every section must sit on one row, so the grid is sized to the section
+/** Every section must sit on one row, so the grid is sized to the column
  * count. Static strings keep Tailwind's scanner able to see each class. */
 const COLUMN_GRID_CLASS: Record<number, string> = {
 	1: "lg:grid-cols-1",
@@ -58,6 +66,33 @@ function columnWidthClass(count: number) {
 	);
 }
 
+/**
+ * The panel is made of columns. Products carries the six formal categories, so
+ * they are mapped onto the same column shape instead of a bespoke mega panel:
+ * one column per category, its projects listed below.
+ */
+interface PanelColumn {
+	title: string;
+	href?: string;
+	links: NavLink[];
+}
+
+function panelColumns(section: NavSection): PanelColumn[] {
+	if (section.categories?.length) {
+		return section.categories.map((category) => ({
+			title: category.name,
+			href: category.href,
+			links: category.products.map((product) => ({
+				href: product.href ?? category.href,
+				label: product.name,
+				description: product.description,
+				external: product.external,
+			})),
+		}));
+	}
+	return section.columns;
+}
+
 /** Utility action rendered as one of the outlined pills in the right cluster. */
 function HeaderPill({
 	href,
@@ -87,29 +122,26 @@ function HeaderPill({
  * is the library popup (portal, positioner and surface handled for us).
  */
 function DesktopNavItem({
-	group,
+	section,
 	pathname,
 	open,
 	onOpen,
 	onClose,
 	onScheduleClose,
 }: {
-	group: NavGroup;
+	section: NavSection;
 	pathname: string;
 	open: boolean;
-	onOpen: (title: string) => void;
+	onOpen: (id: NavSectionId) => void;
 	onClose: () => void;
 	onScheduleClose: () => void;
 }) {
-	const active = isActive(pathname, group.href ?? "/");
-	// The "More" section is rendered as the panel footer, like the reference:
-	// one row of shortcuts beside "See all products".
-	const moreColumn = group.columns.find((column) => column.title === "More");
-	const columns = group.columns.filter((column) => column.title !== "More");
+	const active = section.href ? isActive(pathname, section.href) : false;
+	const columns = panelColumns(section);
 	const triggerRef = React.useRef<HTMLSpanElement>(null);
 	const router = useRouter();
 	// The panel is anchored to the page centre, not to its trigger, so every
-	// mega menu opens in the same place. Measured on open and on resize, from the
+	// panel opens in the same place. Measured on open and on resize, from the
 	// DOM node rather than from an event that Base UI's render prop can drop.
 	const [alignOffset, setAlignOffset] = React.useState(0);
 
@@ -130,10 +162,10 @@ function DesktopNavItem({
 		return () => window.removeEventListener("resize", update);
 	}, [open]);
 
-	if (group.columns.length === 0) {
+	if (columns.length === 0) {
 		return (
 			<Link
-				href={group.href ?? "/"}
+				href={section.href ?? "/"}
 				variant="plain"
 				aria-current={active ? "page" : undefined}
 				onPointerEnter={onClose}
@@ -144,36 +176,36 @@ function DesktopNavItem({
 						: "text-foreground/90 hover:text-foreground",
 				)}
 			>
-				{group.title}
+				{section.label}
 			</Link>
 		);
 	}
 
 	return (
 		<div
-			onPointerEnter={() => onOpen(group.title)}
+			onPointerEnter={() => onOpen(section.id)}
 			// Hover opens the panel, but a click on the label goes to the group's
-			// landing page like company does. Only clicks coming from the trigger
-			// are intercepted; links rendered inside the panel keep working.
+			// landing page. Only clicks coming from the trigger are intercepted;
+			// links rendered inside the panel keep working.
 			onClickCapture={(event) => {
 				const trigger = triggerRef.current;
 				if (!trigger || !(event.target instanceof Node)) return;
 				if (!trigger.contains(event.target)) return;
 				event.stopPropagation();
 				onClose();
-				router.push(group.href ?? "/");
+				router.push(section.href ?? "/");
 			}}
 		>
 			<DropdownMenu
 				open={open}
 				onOpenChange={(next) =>
-					next ? onOpen(group.title) : onScheduleClose()
+					next ? onOpen(section.id) : onScheduleClose()
 				}
 			>
 				<span
 					ref={triggerRef}
 					className="inline-flex"
-					onPointerEnter={() => onOpen(group.title)}
+					onPointerEnter={() => onOpen(section.id)}
 				>
 					<DropdownMenu.Trigger>
 						<Button
@@ -186,7 +218,7 @@ function DesktopNavItem({
 									: "text-foreground/90 hover:text-foreground",
 							)}
 						>
-							{group.title}
+							{section.label}
 							<CaretUpDown
 								className="size-3 text-foreground/60"
 								aria-hidden="true"
@@ -195,7 +227,7 @@ function DesktopNavItem({
 					</DropdownMenu.Trigger>
 				</span>
 				<DropdownMenu.Content
-					onPointerEnter={() => onOpen(group.title)}
+					onPointerEnter={() => onOpen(section.id)}
 					onPointerLeave={onScheduleClose}
 					align="center"
 					alignOffset={alignOffset}
@@ -206,7 +238,7 @@ function DesktopNavItem({
 						columnWidthClass(columns.length),
 					)}
 				>
-					<nav aria-label={`${group.title} menu`}>
+					<nav aria-label={`${section.label} menu`}>
 						<div
 							className={cn(
 								"grid divide-y divide-border overflow-hidden rounded-md border border-border lg:divide-x lg:divide-y-0",
@@ -240,7 +272,8 @@ function DesktopNavItem({
 											key={`${column.title}-${item.label}-${item.href}`}
 											href={item.href}
 											target={item.external ? "_blank" : undefined}
-											rel={item.external ? "noreferrer" : undefined}													className="flex-col items-start gap-0.5 rounded-md px-2 py-2 text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+											rel={item.external ? "noreferrer" : undefined}
+											className="flex-col items-start gap-0.5 rounded-md px-2 py-2 text-foreground focus-visible:ring-2 focus-visible:ring-ring"
 										>
 											<span className="text-sm font-medium leading-snug">
 												{item.label}
@@ -259,29 +292,32 @@ function DesktopNavItem({
 
 					<div className="mt-2 flex flex-col gap-3 border-t border-border px-3 py-4 sm:flex-row sm:items-center sm:justify-between">
 						<div className="flex flex-wrap items-center gap-2">
-							{group.href && (
+							{section.href && (
 								<LinkButton
-									href={group.href}
+									href={section.href}
 									variant="ghost"
 									size="sm"
 									className="text-primary"
 								>
-									See all {group.title.toLowerCase()}
+									See all {section.label.toLowerCase()}
 									<ArrowRight className="size-3.5" aria-hidden="true" />
 								</LinkButton>
 							)}
 						</div>
 						<ul className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground">
-							{(moreColumn?.links ?? utilityNav).map((item) => (
-								<li key={item.label}>
+							{section.footerLinks.map((item) => (
+								<li key={`${item.label}-${item.href}`}>
 									<Link
 										href={item.href}
 										variant="plain"
-										target={"external" in item && item.external ? "_blank" : undefined}
-										rel={"external" in item && item.external ? "noreferrer" : undefined}
+										target={item.external ? "_blank" : undefined}
+										rel={item.external ? "noreferrer" : undefined}
 										className="text-muted-foreground no-underline! transition-colors hover:text-foreground"
 									>
 										{item.label}
+										{item.external ? (
+											<span className="sr-only"> (opens in a new tab)</span>
+										) : null}
 									</Link>
 								</li>
 							))}
@@ -293,6 +329,11 @@ function DesktopNavItem({
 	);
 }
 
+/**
+ * Mobile navigation. The primary entries are a list; a section with a panel
+ * expands in place, keeping the six product categories readable on a narrow
+ * screen without shrinking the desktop panel.
+ */
 function MobileMenu({
 	open,
 	onClose,
@@ -323,93 +364,107 @@ function MobileMenu({
 			<Container className="py-6">
 				<nav aria-label="Mobile">
 					<ul className="space-y-1">
-						{mainNav.map((group) => (
-							<li key={group.title}>
-								{group.columns.length === 0 ? (
-									<Link
-										href={group.href ?? "/"}
-										variant="current"
-										onClick={onClose}
-										aria-current={
-											isActive(pathname, group.href ?? "/")
-												? "page"
-												: undefined
-										}
-										className="block rounded-md px-2 py-3 text-base font-medium no-underline hover:bg-foreground/[0.06]"
-									>
-										{group.title}
-									</Link>
-								) : (
-									<details className="group rounded-md">
-										<summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-md px-2 py-3 text-base font-medium hover:bg-foreground/[0.06] [&::-webkit-details-marker]:hidden">
-											<Link
-												href={group.href ?? "/"}
-												variant="plain"
-												onClick={onClose}
-												className="flex-1 text-base font-medium text-foreground no-underline!"
-											>
-												{group.title}
-											</Link>
-											<CaretDown
-												className="size-4 text-muted-foreground transition-transform group-open:rotate-180"
-												aria-hidden="true"
-											/>
-										</summary>
-										<div className="pb-2 pl-2">
-											{group.columns.map((column, index) => (
-												<div key={column.title || `column-${index}`} className="mb-2">
-													{column.title ? (
-														<div className="px-2 py-1">
-															{column.href ? (
-																<Link
-																	href={column.href}
-																	variant="plain"
-																	onClick={onClose}
-																	className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground no-underline!"
-																>
-																	{column.title}
-																</Link>
-															) : (
-																<p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-																	{column.title}
-																</p>
-															)}
-														</div>
-													) : null}
-													<ul>
-														{column.links.map((item) => (
-															<li key={`${column.title}-${item.label}-${item.href}`}>
-																<Link
-																	href={item.href}
-																	variant="current"
-																	target={item.external ? "_blank" : undefined}
-																	rel={
-																		item.external ? "noreferrer" : undefined
-																	}
-																	onClick={onClose}
-																	className="block rounded-md px-2 py-2 text-sm text-muted-foreground no-underline hover:bg-foreground/[0.06] hover:text-foreground"
-																>
-																	{item.label}
-																</Link>
-															</li>
-														))}
-													</ul>
-												</div>
-											))}
-											<LinkButton
-												href={group.href ?? "/"}
-												variant="ghost"
-												size="sm"
-												onClick={onClose}
-												className="px-2 text-primary"
-											>
-												View all {group.title.toLowerCase()}
-											</LinkButton>
-										</div>
-									</details>
-								)}
-							</li>
-						))}
+						{mainNav.map((section) => {
+							const columns = panelColumns(section);
+							const active = section.href
+								? isActive(pathname, section.href)
+								: false;
+
+							return (
+								<li key={section.id}>
+									{columns.length === 0 ? (
+										<Link
+											href={section.href ?? "/"}
+											variant="current"
+											onClick={onClose}
+											aria-current={active ? "page" : undefined}
+											className="block rounded-md px-2 py-3 text-base font-medium no-underline hover:bg-foreground/[0.06]"
+										>
+											{section.label}
+										</Link>
+									) : (
+										<details className="group rounded-md">
+											<summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-md px-2 py-3 text-base font-medium hover:bg-foreground/[0.06] [&::-webkit-details-marker]:hidden">
+												<Link
+													href={section.href ?? "/"}
+													variant="plain"
+													onClick={onClose}
+													className="flex-1 text-base font-medium text-foreground no-underline!"
+												>
+													{section.label}
+												</Link>
+												<CaretDown
+													className="size-4 text-muted-foreground transition-transform group-open:rotate-180"
+													aria-hidden="true"
+												/>
+											</summary>
+											<div className="pb-2 pl-2">
+												{columns.map((column, index) => (
+													<div
+														key={column.title || `column-${index}`}
+														className="mb-2"
+													>
+														{column.title ? (
+															<div className="px-2 py-1">
+																{column.href ? (
+																	<Link
+																		href={column.href}
+																		variant="plain"
+																		onClick={onClose}
+																		className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground no-underline!"
+																	>
+																		{column.title}
+																	</Link>
+																) : (
+																	<p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+																		{column.title}
+																	</p>
+																)}
+															</div>
+														) : null}
+														<ul>
+															{column.links.map((item) => (
+																<li key={`${column.title}-${item.label}-${item.href}`}>
+																	<Link
+																		href={item.href}
+																		variant="current"
+																		target={
+																			item.external ? "_blank" : undefined
+																		}
+																		rel={
+																			item.external ? "noreferrer" : undefined
+																		}
+																		onClick={onClose}
+																		className="block rounded-md px-2 py-2 text-sm text-muted-foreground no-underline hover:bg-foreground/[0.06] hover:text-foreground"
+																	>
+																		{item.label}
+																		{item.external ? (
+																			<span className="sr-only">
+																				{" "}
+																				(opens in a new tab)
+																			</span>
+																		) : null}
+																	</Link>
+																</li>
+															))}
+														</ul>
+													</div>
+												))}
+												<LinkButton
+													href={section.href ?? "/"}
+													variant="ghost"
+													size="sm"
+													onClick={onClose}
+													className="px-2 text-primary"
+												>
+													View all {section.label.toLowerCase()}
+												</LinkButton>
+											</div>
+										</details>
+									)}
+								</li>
+							);
+						})}
 					</ul>
 				</nav>
 
@@ -460,7 +515,7 @@ export function SiteHeader() {
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 	// One shared menu state: hovering any item switches the open panel, so no
 	// item can be left in a stale "open" state that never re-opens.
-	const [openGroup, setOpenGroup] = React.useState<string | null>(null);
+	const [openSection, setOpenSection] = React.useState<NavSectionId | null>(null);
 	const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const cancelClose = React.useCallback(() => {
@@ -471,42 +526,42 @@ export function SiteHeader() {
 	}, []);
 
 	const openMenu = React.useCallback(
-		(title: string) => {
+		(id: NavSectionId) => {
 			cancelClose();
-			setOpenGroup(title);
+			setOpenSection(id);
 		},
 		[cancelClose],
 	);
 
 	const scheduleClose = React.useCallback(() => {
 		cancelClose();
-		closeTimer.current = setTimeout(() => setOpenGroup(null), 300);
+		closeTimer.current = setTimeout(() => setOpenSection(null), 300);
 	}, [cancelClose]);
 
 	const closeMenu = React.useCallback(() => {
 		cancelClose();
-		setOpenGroup(null);
+		setOpenSection(null);
 	}, [cancelClose]);
 
 	React.useEffect(() => cancelClose, [cancelClose]);
 
 	React.useEffect(() => {
 		setMobileOpen(false);
-		setOpenGroup(null);
+		setOpenSection(null);
 	}, [pathname]);
 
 	return (
-		<header className="relative border-b border-border bg-background text-foreground">
+		<header className="relative z-50 border-b border-border bg-background text-foreground">
 			<Container>
-				<div className="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-6">
+				<div className="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4 xl:gap-6">
 					<Link
 						href="/"
 						variant="plain"
-						aria-label="Company home"
+						aria-label="Sky Genesis Enterprise home"
 						className="flex shrink-0 items-center justify-self-start no-underline!"
 					>
-						<span className="font-display text-[15px] font-bold uppercase tracking-[0.18em] text-foreground">
-							Company
+						<span className="whitespace-nowrap font-display text-[11px] font-bold uppercase tracking-[0.12em] text-foreground sm:text-[12px] xl:text-[14px] xl:tracking-[0.14em]">
+							Sky Genesis Enterprise
 						</span>
 					</Link>
 
@@ -516,13 +571,13 @@ export function SiteHeader() {
 							onPointerEnter={cancelClose}
 							onPointerLeave={scheduleClose}
 						>
-							<ul className="flex items-center gap-8">
-								{mainNav.map((group) => (
-									<li key={group.title}>
+							<ul className="flex items-center gap-5 xl:gap-7">
+								{mainNav.map((section) => (
+									<li key={section.id}>
 										<DesktopNavItem
-											group={group}
+											section={section}
 											pathname={pathname}
-											open={openGroup === group.title}
+											open={openSection === section.id}
 											onOpen={openMenu}
 											onClose={closeMenu}
 											onScheduleClose={scheduleClose}
@@ -533,8 +588,8 @@ export function SiteHeader() {
 						</nav>
 					</div>
 
-					<div className="flex items-center gap-4 justify-self-end">
-						<nav aria-label="Utility" className="hidden items-center gap-2.5 md:flex">
+					<div className="flex items-center gap-2.5 justify-self-end">
+						<nav aria-label="Utility" className="hidden items-center gap-2 md:flex">
 							<HeaderPill
 								href={cta.signIn.href}
 								label={cta.signIn.label}
@@ -553,6 +608,7 @@ export function SiteHeader() {
 							size="sm"
 							onClick={() => setMobileOpen((value) => !value)}
 							aria-expanded={mobileOpen}
+							aria-controls="mobile-navigation"
 							aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
 							className="h-9 w-9 text-muted-foreground hover:bg-muted hover:text-foreground lg:hidden"
 						>

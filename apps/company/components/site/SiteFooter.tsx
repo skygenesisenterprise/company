@@ -26,12 +26,11 @@ export function SiteFooter() {
 						<Link
 							href="/"
 							variant="plain"
-							aria-label="Company home"
+							aria-label="Sky Genesis Enterprise"
 							className="inline-flex items-center gap-2 no-underline!"
 						>
-							<Logo className="size-8 text-primary" />
-							<span className="font-display text-sm font-semibold uppercase tracking-[0.24em] text-foreground">
-								Company
+							<span className="whitespace-nowrap font-display text-[13px] font-semibold uppercase tracking-[0.18em] text-foreground">
+								Sky Genesis Enterprise
 							</span>
 						</Link>
 					</div>
@@ -67,29 +66,8 @@ export function SiteFooter() {
 
 				<div className="flex flex-col gap-4 border-t border-border py-6 md:flex-row md:items-center md:justify-between">
 					<p className="flex flex-wrap items-center gap-x-1.5 text-xs leading-relaxed text-muted-foreground">
-						<span>
-							© {year} {organisation.name}. All rights reserved.
-						</span>
-						<span>A company by</span>
-						<Link
-							href={links.skyGenesis}
-							variant="plain"
-							target="_blank"
-							rel="noreferrer"
-							className="text-muted-foreground no-underline! transition-colors hover:text-foreground hover:underline"
-						>
-							Sky Genesis Enterprise
-						</Link>
-						<span>&amp;</span>
-						<Link
-							href={links.l0ck7}
-							variant="plain"
-							target="_blank"
-							rel="noreferrer"
-							className="text-muted-foreground no-underline! transition-colors hover:text-foreground hover:underline"
-						>
-							LK7Cloud LLC.
-						</Link>
+						<span>								© {year} Sky Genesis Enterprise. All rights reserved.
+						</span>		
 					</p>
 					<ul className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
 						{legalLinks.map((item, index) => (

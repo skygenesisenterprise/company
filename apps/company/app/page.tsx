@@ -1,56 +1,55 @@
 import type { Metadata } from "next";
 import { SignalHero } from "@/components/site/SignalHero";
 import {
-	FamiliesSection,
-	FeaturedProductsSection,
-	WorkloadsSection,
-} from "@/components/site/home/OfferSections";
+	EcosystemSection,
+	ProductsSection,
+	SolutionsSection,
+} from "@/components/site/home/EcosystemSections";
 import {
-	ArchitectureSection,
-	DeploymentSection,
-	DeveloperSection,
-	FootprintSection,
-} from "@/components/site/home/PlatformSections";
+	IndependenceSection,
+	OpenSourceSection,
+} from "@/components/site/home/EngineeringSections";
+import { HomeCtaSection } from "@/components/site/home/HomeCtaSection";
 import {
-	FaqSection,
-	FinalCtaSection,
-	ResourcesSection,
-	SecuritySection,
-	WhySection,
-} from "@/components/site/home/TrustSections";
-import { organisation } from "@/lib/content/site";
-import {
-	FAMILIES,
-	SITE_NAME,
-	SITE_URL,
-	getAllProducts,
-	pageMetadata,
-} from "@/lib/domain/queries";
+	NewsSection,
+	PartnershipsSection,
+	ResearchSection,
+} from "@/components/site/home/InstitutionalSections";
+import { IntroductionSection } from "@/components/site/home/IntroductionSection";
+import { homeSeo, productCategories } from "@/lib/content/ecosystem";
+import { links } from "@/lib/content/site";
+import { SITE_URL, pageMetadata } from "@/lib/domain/queries";
 
-export const metadata: Metadata = pageMetadata({
-	title: "Company — Enterprise cloud infrastructure",
-	description:
-		"Cloud infrastructure, networking, platform and security services on Company-operated and partner infrastructure. Explore products, deployment models and availability published per region.",
+const baseMetadata = pageMetadata({
+	title: homeSeo.title,
+	description: homeSeo.description,
 	path: "/",
 });
 
-const products = getAllProducts();
+/** The global title template still carries the site brand; the homepage
+ * declares the group name explicitly for social and structured data. */
+export const metadata: Metadata = {
+	...baseMetadata,
+	openGraph: {
+		...(baseMetadata.openGraph ?? {}),
+		siteName: "Sky Genesis Enterprise",
+	},
+};
 
 const structuredData = {
 	"@context": "https://schema.org",
 	"@graph": [
 		{
 			"@type": "Organization",
-			name: SITE_NAME,
-			legalName: organisation.legalName,
+			name: "Sky Genesis Enterprise",
 			url: SITE_URL,
 			logo: `${SITE_URL}/icon.svg`,
-			slogan: organisation.positioning,
-			description: organisation.description,
+			description: homeSeo.description,
+			sameAs: [links.skyGenesis, links.githubOrg],
 		},
 		{
 			"@type": "WebSite",
-			name: SITE_NAME,
+			name: "Sky Genesis Enterprise",
 			url: SITE_URL,
 			inLanguage: "en",
 			potentialAction: {
@@ -61,12 +60,12 @@ const structuredData = {
 		},
 		{
 			"@type": "ItemList",
-			name: "Company product catalogue",
-			itemListElement: products.map((product, index) => ({
+			name: "Sky Genesis Enterprise technology domains",
+			itemListElement: productCategories.map((category, index) => ({
 				"@type": "ListItem",
 				position: index + 1,
-				name: product.name,
-				url: `${SITE_URL}${product.route ?? FAMILIES[product.family].route}`,
+				name: category.name,
+				url: `${SITE_URL}${category.href}`,
 			})),
 		},
 	],
@@ -75,9 +74,11 @@ const structuredData = {
 /**
  * Homepage composition.
  *
- * The hero keeps the single saturated brand panel. Everything after it is
- * catalogue-driven: families, products, regions and commercial states come from
- * `lib/domain/queries`, while the editorial copy lives in `lib/content/home`.
+ * The hero (`SignalHero`) and the footer (`SiteFooter`, in the root layout) are
+ * protected and unchanged. Everything between them presents Sky Genesis
+ * Enterprise as a technology group: introduction, the six technology domains,
+ * selected projects, solution patterns, deployment philosophy, open source,
+ * partnerships, research, news and a closing call to action.
  */
 export default function HomePage() {
 	return (
@@ -89,18 +90,16 @@ export default function HomePage() {
 
 			<div className="bg-background text-foreground">
 				<SignalHero />
-				<FamiliesSection />
-				<FeaturedProductsSection />
-				<WorkloadsSection />
-				<ArchitectureSection />
-				<DeploymentSection />
-				<DeveloperSection />
-				<FootprintSection />
-				<SecuritySection />
-				<WhySection />
-				<ResourcesSection />
-				<FaqSection />
-				<FinalCtaSection />
+				<IntroductionSection />
+				<EcosystemSection />
+				<ProductsSection />
+				<SolutionsSection />
+				<IndependenceSection />
+				<OpenSourceSection />
+				<PartnershipsSection />
+				<ResearchSection />
+				<NewsSection />
+				<HomeCtaSection />
 			</div>
 		</>
 	);
