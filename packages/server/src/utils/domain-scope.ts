@@ -29,7 +29,7 @@ const internalRequirements = (scope: DomainScope): DomainRequirements => ({
 
 /**
  * Number of trailing labels kept as the internal DNS zone, mirroring how
- * registrable domains work: `gitlab.zenthcloud.lan` belongs to `zenthcloud.lan`.
+ * registrable domains work: `gitlab.company.lan` belongs to `company.lan`.
  */
 const INTERNAL_ZONE_LABEL_COUNT = 2;
 

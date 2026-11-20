@@ -1,10 +1,10 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	invitation,
 	member,
 	organization,
 	user,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { IS_CLOUD } from "../constants";
@@ -104,9 +104,9 @@ export const removeUserById = async (userId: string) => {
 		.then((res) => res[0]);
 };
 
-export const getZenthcloudUrl = async () => {
+export const getCompanyUrl = async () => {
 	if (IS_CLOUD) {
-		return "https://dash.zenthcloud.com";
+		return "https://dash.company.com";
 	}
 	const settings = await getWebServerSettings();
 

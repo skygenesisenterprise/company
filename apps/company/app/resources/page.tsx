@@ -8,7 +8,7 @@ import Link from "next/link";
 export const metadata: Metadata = pageMetadata({
 	title: "Resources",
 	description:
-		"ZenthCloud documentation, API reference, tutorials, blog, support routes and service status.",
+		"Company documentation, API reference, tutorials, blog, support routes and service status.",
 	path: "/resources",
 });
 

@@ -1,4 +1,4 @@
-import type { customDnsConfigSchema } from "@zenthcloud/server/db/schema";
+import type { customDnsConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import { createDnsHttp, stripTrailingDot } from "../http";
 import type { DnsClient } from "../types";
@@ -19,7 +19,7 @@ interface CustomRecord {
 }
 
 /**
- * Contract for organizations with their own DNS platform. Zenthcloud does not need
+ * Contract for organizations with their own DNS platform. Company does not need
  * to know the product natively — only this small documented interface:
  *
  *   GET    /zones

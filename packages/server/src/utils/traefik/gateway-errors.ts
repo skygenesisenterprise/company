@@ -2,22 +2,22 @@ import { writeTraefikConfig, writeTraefikConfigRemote } from "./application";
 import type { FileConfig } from "./file-types";
 
 export const GATEWAY_ERRORS_CONFIG_NAME = "gateway-errors";
-export const GATEWAY_ERRORS_MIDDLEWARE_NAME = "zenthcloud-gateway-errors";
-export const GATEWAY_ERRORS_SERVICE_NAME = "zenthcloud-gateway-errors";
-export const GATEWAY_ERRORS_ERROR_PATH = "/__zenthclouderror";
+export const GATEWAY_ERRORS_MIDDLEWARE_NAME = "company-gateway-errors";
+export const GATEWAY_ERRORS_SERVICE_NAME = "company-gateway-errors";
+export const GATEWAY_ERRORS_ERROR_PATH = "/__companyerror";
 
 const GATEWAY_ERRORS_PORT = 8080;
 
 export const buildGatewayErrorsConfig = (): FileConfig => ({
 	http: {
 		routers: {
-			"zenthcloud-gateway-errors-web": {
+			"company-gateway-errors-web": {
 				rule: "PathPrefix(`/`)",
 				priority: 1,
 				service: GATEWAY_ERRORS_SERVICE_NAME,
 				entryPoints: ["web"],
 			},
-			"zenthcloud-gateway-errors-websecure": {
+			"company-gateway-errors-websecure": {
 				rule: "PathPrefix(`/`)",
 				priority: 1,
 				service: GATEWAY_ERRORS_SERVICE_NAME,

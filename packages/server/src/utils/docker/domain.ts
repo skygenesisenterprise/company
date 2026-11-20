@@ -1,10 +1,10 @@
 import fs, { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import { db } from "@zenthcloud/server/db";
-import { network, patch } from "@zenthcloud/server/db/schema";
-import type { Compose } from "@zenthcloud/server/services/compose";
-import type { Domain } from "@zenthcloud/server/services/domain";
+import { paths } from "@company/server/constants";
+import { db } from "@company/server/db";
+import { network, patch } from "@company/server/db/schema";
+import type { Compose } from "@company/server/services/compose";
+import type { Domain } from "@company/server/services/domain";
 import { eq, inArray } from "drizzle-orm";
 import { quote } from "shell-quote";
 import { parse, stringify } from "yaml";
@@ -382,7 +382,7 @@ export const addDomainToCompose = async (
 				: "traefik.swarm.network";
 		const networkName = compose.isolatedDeployment
 			? compose.suffix || compose.appName
-			: "zenthcloud-network";
+			: "company-network";
 
 		if (Array.isArray(labels)) {
 			if (!labels.includes("traefik.enable=true")) {
@@ -405,8 +405,8 @@ export const addDomainToCompose = async (
 		}
 
 		if (!compose.isolatedDeployment) {
-			// Add the zenthcloud-network to the service
-			result.services[serviceName].networks = addZenthcloudNetworkToService(
+			// Add the company-network to the service
+			result.services[serviceName].networks = addCompanyNetworkToService(
 				result.services[serviceName].networks,
 			);
 		}
@@ -446,17 +446,17 @@ export const applyServiceNetworks = async (
 		for (const networkId of config.networkIds) {
 			const match = networks.find((n) => n.networkId === networkId);
 			if (!match) continue;
-			service.networks = addZenthcloudNetworkToService(
+			service.networks = addCompanyNetworkToService(
 				service.networks,
 				match.name,
 			);
 			injectedNetworkNames.add(match.name);
 		}
 
-		if (config.detachZenthcloudNetwork) {
-			removeNetworkFromService(service, "zenthcloud-network");
+		if (config.detachCompanyNetwork) {
+			removeNetworkFromService(service, "company-network");
 			removeNetworkFromService(service, "default");
-			removeZenthcloudNetworkLabel(service);
+			removeCompanyNetworkLabel(service);
 		}
 	}
 
@@ -475,12 +475,12 @@ export const declareUsedNetworksInRoot = (
 			return false;
 		});
 
-	if (isUsed("zenthcloud-network")) {
-		result.networks = addZenthcloudNetworkToRoot(result.networks);
+	if (isUsed("company-network")) {
+		result.networks = addCompanyNetworkToRoot(result.networks);
 	}
 	for (const name of injectedNetworkNames) {
 		if (isUsed(name)) {
-			result.networks = addZenthcloudNetworkToRoot(result.networks, name);
+			result.networks = addCompanyNetworkToRoot(result.networks, name);
 		}
 	}
 };
@@ -606,9 +606,9 @@ export const createDomainLabels = (
 	return labels;
 };
 
-export const addZenthcloudNetworkToService = (
+export const addCompanyNetworkToService = (
 	networkService: DefinitionsService["networks"],
-	networkName = "zenthcloud-network",
+	networkName = "company-network",
 ) => {
 	let networks = networkService;
 	const network = networkName;
@@ -648,13 +648,13 @@ export const removeNetworkFromService = (
 	}
 };
 
-const removeZenthcloudNetworkLabel = (service: DefinitionsService) => {
+const removeCompanyNetworkLabel = (service: DefinitionsService) => {
 	const stripped = (labels: DefinitionsService["labels"]) => {
 		if (Array.isArray(labels)) {
 			return labels.filter(
 				(l) =>
-					l !== "traefik.docker.network=zenthcloud-network" &&
-					l !== "traefik.swarm.network=zenthcloud-network",
+					l !== "traefik.docker.network=company-network" &&
+					l !== "traefik.swarm.network=company-network",
 			);
 		}
 		return labels;
@@ -664,9 +664,9 @@ const removeZenthcloudNetworkLabel = (service: DefinitionsService) => {
 		service.deploy.labels = stripped(service.deploy.labels);
 };
 
-export const addZenthcloudNetworkToRoot = (
+export const addCompanyNetworkToRoot = (
 	networkRoot: PropertiesNetworks | undefined,
-	networkName = "zenthcloud-network",
+	networkName = "company-network",
 ) => {
 	let networks = networkRoot;
 	const network = networkName;

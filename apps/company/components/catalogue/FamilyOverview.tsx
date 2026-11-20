@@ -53,7 +53,7 @@ export function FamilyOverview({ family }: { family: ProductFamily }) {
 		url: `${SITE_URL}${meta.route}`,
 		isPartOf: {
 			"@type": "CollectionPage",
-			name: "ZenthCloud Products",
+			name: "Company Products",
 			url: `${SITE_URL}/products`,
 		},
 		hasPart: products.map((product) => ({

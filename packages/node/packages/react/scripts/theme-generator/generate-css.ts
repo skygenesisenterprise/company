@@ -1,5 +1,5 @@
 /**
- * CSS Generator for ZenthCloud themes
+ * CSS Generator for Company themes
  *
  * Generates theme CSS files from the centralized token config:
  * - theme-zenth.css   Base theme (@theme tokens + runtime light/dark vars)
@@ -99,7 +99,7 @@ function renderThemeSelectors(themeName: string): {
 }
 
 /**
- * Generate the base ZenthCloud theme CSS.
+ * Generate the base Company theme CSS.
  * This contains @theme tokens (for Tailwind utility generation) plus
  * explicit mode-scoped variables (avoids transient unresolved light-dark()
  * values during class/DOM mutations).
@@ -236,7 +236,7 @@ export function generateThemeOverrideCSS(
 
 /**
  * Generate the legacy `kumo-*` alias layer. Every alias resolves to the new
- * `zenth-*` token, so applications migrating from `@zenthcloud/kumo` keep
+ * `zenth-*` token, so applications migrating from `@company/kumo` keep
  * their variables working. Deprecated: remove in the next major release.
  */
 export function generateKumoCompatCSS(config: ThemeConfig): string {

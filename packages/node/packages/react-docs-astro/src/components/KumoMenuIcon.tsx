@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { cn } from "@zenthcloud/kumo";
+import { cn } from "@company/kumo";
 
 interface KumoMenuIconProps {
   className?: string;

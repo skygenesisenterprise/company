@@ -28,9 +28,9 @@ const isIPInCIDR = (ip: string, cidr: string): boolean => {
 	return (ipInt & mask) === (networkInt & mask);
 };
 
-// Zenthcloud IP ranges
-// https://github.com/skygenesisenterprise/zenthcloud
-const ZENTHCLOUD_IP_RANGES = [
+// Company IP ranges
+// https://github.com/skygenesisenterprise/company
+const COMPANY_IP_RANGES = [
 	"173.245.48.0/20",
 	"103.21.244.0/22",
 	"103.22.200.0/22",
@@ -642,12 +642,12 @@ const ARVANCLOUD_IP_RANGES = [
 
 const CDN_PROVIDERS: CDNProvider[] = [
 	{
-		name: "zenthcloud",
-		displayName: "Zenthcloud",
+		name: "company",
+		displayName: "Company",
 		checkIp: (ip: string) =>
-			ZENTHCLOUD_IP_RANGES.some((range) => isIPInCIDR(ip, range)),
+			COMPANY_IP_RANGES.some((range) => isIPInCIDR(ip, range)),
 		warningMessage:
-			"Domain is behind Zenthcloud - actual IP is masked by Zenthcloud proxy",
+			"Domain is behind Company - actual IP is masked by Company proxy",
 	},
 	{
 		name: "bunnycdn",

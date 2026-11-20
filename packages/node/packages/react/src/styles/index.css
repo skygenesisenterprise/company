@@ -1,11 +1,11 @@
 /**
- * ZenthCloud — compiled stylesheet entry
+ * Company — compiled stylesheet entry
  *
  * Compiled at package build time into `dist/styles/styles.css`. Consumers
  * import it directly and do NOT need Tailwind, a Tailwind config, or an
  * `@source` directive:
  *
- *   import "@zenthcloud/react/styles.css";
+ *   import "@company/react/styles.css";
  *
  * Preflight is intentionally NOT imported. The library must not reset the
  * host application's html/body/native elements; all resets live in the

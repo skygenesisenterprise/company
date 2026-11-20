@@ -1,6 +1,6 @@
 @source "../../../kumo/dist/**/*.{js,jsx,ts,tsx}";
 @source "../../../kumo/src/**/*.{ts,tsx}";
-@import "@zenthcloud/kumo/styles";
+@import "@company/kumo/styles";
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 

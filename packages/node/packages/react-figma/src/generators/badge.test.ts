@@ -30,7 +30,7 @@ import {
 } from "./_test-utils";
 
 // Import registry as source of truth
-import registry from "@zenthcloud/kumo/ai/component-registry.json";
+import registry from "@company/kumo/ai/component-registry.json";
 
 const badgeComponent = registry.components.Badge;
 const badgeProps = badgeComponent.props;

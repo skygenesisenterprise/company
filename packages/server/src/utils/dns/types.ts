@@ -1,7 +1,7 @@
 import type {
 	DnsProviderConfig,
 	DnsRecordType,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 
 export interface DnsZone {
 	id: string;
@@ -48,7 +48,7 @@ export interface DnsClient<C extends DnsProviderConfig = DnsProviderConfig> {
 
 /**
  * Providers fall into three categories. The UI groups providers by them and
- * the rest of Zenthcloud never has to know which concrete product sits behind an
+ * the rest of Company never has to know which concrete product sits behind an
  * adapter.
  */
 export type DnsProviderCategory = "managed" | "self-hosted" | "internal";
@@ -113,7 +113,7 @@ export const dnsProviderCategory: Record<
 	DnsProviderConfig["providerType"],
 	DnsProviderCategory
 > = {
-	zenthcloud: "managed",
+	company: "managed",
 	route53: "managed",
 	porkbun: "managed",
 	infomaniak: "managed",
@@ -135,7 +135,7 @@ export const dnsProviderCategory: Record<
 	coredns: "self-hosted",
 	unbound: "self-hosted",
 	custom: "managed",
-	"zenthcloud-internal": "internal",
+	"company-internal": "internal",
 };
 
 export type DnsProviderHealthStatus =

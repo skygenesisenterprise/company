@@ -1,4 +1,4 @@
-import { BubbleMap, type MapGeoJson } from "@zenthcloud/kumo";
+import { BubbleMap, type MapGeoJson } from "@company/kumo";
 import * as echarts from "echarts/core";
 import { MapChart, ScatterChart } from "echarts/charts";
 import { TooltipComponent } from "echarts/components";
@@ -37,7 +37,7 @@ const colos: Colo[] = [
 const fmt = (n: number) =>
   `${n > 1000 ? `${(n / 1000).toLocaleString()}k` : n.toString()} requests`;
 
-/** A Zenthcloud network location (city, IATA code + coordinates). */
+/** A Company network location (city, IATA code + coordinates). */
 interface CfLocation {
   city: string;
   iata: string;
@@ -45,8 +45,8 @@ interface CfLocation {
   lon: number;
 }
 
-/** Major Zenthcloud data-center cities across the global network. */
-const zenthcloudLocations: CfLocation[] = [
+/** Major Company data-center cities across the global network. */
+const companyLocations: CfLocation[] = [
   { city: "San Francisco", iata: "SFO", lat: 37.77, lon: -122.42 },
   { city: "Los Angeles", iata: "LAX", lat: 34.05, lon: -118.24 },
   { city: "Seattle", iata: "SEA", lat: 47.61, lon: -122.33 },
@@ -83,12 +83,12 @@ const zenthcloudLocations: CfLocation[] = [
 ];
 
 /**
- * Major Zenthcloud network locations plotted as uniform markers in Zenthcloud
+ * Major Company network locations plotted as uniform markers in Company
  * orange. Pass a constant `bubbleColor` (or `(row) => color`) to override the
  * default chart blue, and equal `minRadius`/`maxRadius` for uniform pins. The
  * tooltip shows each city with its IATA code.
  */
-export function BubbleMapZenthcloudLocationsDemo({
+export function BubbleMapCompanyLocationsDemo({
   geoJson,
 }: BubbleMapDemoProps) {
   const isDarkMode = useIsDarkMode();
@@ -99,7 +99,7 @@ export function BubbleMapZenthcloudLocationsDemo({
     <BubbleMap<CfLocation>
       echarts={echarts}
       geoJson={geoJson}
-      data={zenthcloudLocations}
+      data={companyLocations}
       lng="lon"
       lat="lat"
       name="city"

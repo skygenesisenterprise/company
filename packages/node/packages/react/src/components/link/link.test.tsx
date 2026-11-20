@@ -108,11 +108,11 @@ describe("Link", () => {
 
   it("should render with ExternalIcon as child", () => {
     const props = {
-      href: "https://github.com/skygenesisenterprise/zenthcloud",
+      href: "https://github.com/skygenesisenterprise/company",
       target: "_blank",
       rel: "noopener noreferrer",
       children: [
-        "Visit Zenthcloud ",
+        "Visit Company ",
         createElement(Link.ExternalIcon, { key: "icon" }),
       ],
     };

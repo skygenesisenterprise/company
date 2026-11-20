@@ -1,15 +1,15 @@
 import path from "node:path";
-import { paths } from "@zenthcloud/server/constants";
+import { paths } from "@company/server/constants";
 import {
 	createDeploymentVolumeBackup,
 	updateDeploymentStatus,
-} from "@zenthcloud/server/services/deployment";
-import { findDestinationById } from "@zenthcloud/server/services/destination";
-import { findVolumeBackupById } from "@zenthcloud/server/services/volume-backups";
+} from "@company/server/services/deployment";
+import { findDestinationById } from "@company/server/services/destination";
+import { findVolumeBackupById } from "@company/server/services/volume-backups";
 import {
 	execAsync,
 	execAsyncRemote,
-} from "@zenthcloud/server/utils/process/execAsync";
+} from "@company/server/utils/process/execAsync";
 import { scheduledJobs, scheduleJob } from "node-schedule";
 import { getS3Credentials, normalizeS3Path } from "../backups/utils";
 import { sendVolumeBackupNotifications } from "../notifications/volume-backup";

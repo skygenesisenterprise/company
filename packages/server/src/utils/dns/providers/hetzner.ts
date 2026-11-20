@@ -1,4 +1,4 @@
-import type { hetznerDnsConfigSchema } from "@zenthcloud/server/db/schema";
+import type { hetznerDnsConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import { createDnsHttp, stripTrailingDot, toSubdomain } from "../http";
 import type { DnsClient } from "../types";

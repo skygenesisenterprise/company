@@ -24,10 +24,10 @@ export type TemplateProps = {
 };
 
 export const BuildSuccessEmail = ({
-	projectName = "zenthcloud",
+	projectName = "company",
 	applicationName = "frontend",
 	applicationType = "application",
-	buildLink = "https://zenthcloud.com/projects/zenthcloud-test/applications/zenthcloud-test",
+	buildLink = "https://company.com/projects/company-test/applications/company-test",
 	date = "2023-05-01T00:00:00.000Z",
 	environmentName = "production",
 }: TemplateProps) => {
@@ -42,11 +42,11 @@ export const BuildSuccessEmail = ({
 						<Section className="mt-[32px]">
 							<Img
 								src={
-									"https://raw.githubusercontent.com/skygenesisenterprise/zenthcloud/refs/heads/master/apps/zenthcloud/logo.png"
+									"https://raw.githubusercontent.com/skygenesisenterprise/company/refs/heads/master/apps/company/logo.png"
 								}
 								width="100"
 								height="50"
-								alt="Zenthcloud"
+								alt="Company"
 								className="my-0 mx-auto"
 							/>
 						</Section>

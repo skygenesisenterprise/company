@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * ZenthCloud Token Migration Tool
+ * Company Token Migration Tool
  *
  * Complete migration workflow:
  * 1. Renames Tailwind classes in source files (bg-surface -> bg-kumo-base)
@@ -400,7 +400,7 @@ function parseArgs(
 
 function printHelp(): void {
   console.log(`
-ZenthCloud Token Migration Tool
+Company Token Migration Tool
 
 Migrates Tailwind classes when token names change. This tool:
 1. Updates class names in source files (bg-surface -> bg-kumo-base)

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TableOfContents, useTableOfContentsActiveId } from "@zenthcloud/kumo";
+import { TableOfContents, useTableOfContentsActiveId } from "@company/kumo";
 
 const headings = [
   { text: "Introduction" },

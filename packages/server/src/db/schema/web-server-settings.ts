@@ -33,7 +33,7 @@ export const webServerSettings = pgTable("webServerSettings", {
 	metricsConfig: jsonb("metricsConfig")
 		.$type<{
 			server: {
-				type: "Zenthcloud" | "Remote";
+				type: "Company" | "Remote";
 				refreshRate: number;
 				port: number;
 				token: string;
@@ -56,7 +56,7 @@ export const webServerSettings = pgTable("webServerSettings", {
 		.notNull()
 		.default({
 			server: {
-				type: "Zenthcloud",
+				type: "Company",
 				refreshRate: 60,
 				port: 4500,
 				token: "",
@@ -148,7 +148,7 @@ export const apiUpdateWebServerSettings = createSchema.partial().extend({
 	metricsConfig: z
 		.object({
 			server: z.object({
-				type: z.enum(["Zenthcloud", "Remote"]),
+				type: z.enum(["Company", "Remote"]),
 				refreshRate: z.number(),
 				port: z.number(),
 				token: z.string(),

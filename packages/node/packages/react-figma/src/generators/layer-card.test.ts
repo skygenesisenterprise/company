@@ -21,7 +21,7 @@ import {
 } from "./layer-card";
 
 // Import registry as source of truth
-import registry from "@zenthcloud/kumo/ai/component-registry.json";
+import registry from "@company/kumo/ai/component-registry.json";
 
 const layerCardComponent = registry.components.LayerCard;
 

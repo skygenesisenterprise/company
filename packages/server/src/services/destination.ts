@@ -1,8 +1,8 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateDestination,
 	destinations,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import type { z } from "zod";

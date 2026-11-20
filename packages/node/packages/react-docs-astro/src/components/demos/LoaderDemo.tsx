@@ -1,4 +1,4 @@
-import { Loader } from "@zenthcloud/kumo";
+import { Loader } from "@company/kumo";
 
 export function LoaderBasicDemo() {
   return <Loader />;

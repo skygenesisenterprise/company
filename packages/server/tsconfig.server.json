@@ -12,7 +12,7 @@
 		"rootDir": "./src",
 		"jsx": "react-jsx",
 		"paths": {
-			"@zenthcloud/server/*": ["./src/*"]
+			"@company/server/*": ["./src/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "./src/**/*"],

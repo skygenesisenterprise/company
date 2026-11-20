@@ -1,12 +1,12 @@
-import { findAllDeploymentsByApplicationId } from "@zenthcloud/server/services/deployment";
+import { findAllDeploymentsByApplicationId } from "@company/server/services/deployment";
 import {
 	findRegistryByIdWithCredentials,
 	type Registry,
 	resolveRegistryCredentials,
 	safeDockerLoginCommand,
-} from "@zenthcloud/server/services/registry";
-import { createRollback } from "@zenthcloud/server/services/rollbacks";
-import { registryProviderLabels } from "@zenthcloud/server/utils/registry";
+} from "@company/server/services/registry";
+import { createRollback } from "@company/server/services/rollbacks";
+import { registryProviderLabels } from "@company/server/utils/registry";
 import { quote } from "shell-quote";
 import type { ApplicationNested } from "../builders";
 

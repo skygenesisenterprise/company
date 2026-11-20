@@ -28,9 +28,9 @@ import {
 } from "@/lib/domain/queries";
 
 export const metadata: Metadata = pageMetadata({
-	title: "ZenthCloud — Enterprise cloud infrastructure",
+	title: "Company — Enterprise cloud infrastructure",
 	description:
-		"Cloud infrastructure, networking, platform and security services on ZenthCloud-operated and partner infrastructure. Explore products, deployment models and availability published per region.",
+		"Cloud infrastructure, networking, platform and security services on Company-operated and partner infrastructure. Explore products, deployment models and availability published per region.",
 	path: "/",
 });
 
@@ -61,7 +61,7 @@ const structuredData = {
 		},
 		{
 			"@type": "ItemList",
-			name: "ZenthCloud product catalogue",
+			name: "Company product catalogue",
 			itemListElement: products.map((product, index) => ({
 				"@type": "ListItem",
 				position: index + 1,

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * ZenthCloud Theme Generator CLI
+ * Company Theme Generator CLI
  *
  * Generates theme CSS files from the centralized configuration.
  *
@@ -35,7 +35,7 @@ function parseArgs(args: string[]) {
 
 function printHelp() {
   console.log(`
-ZenthCloud Theme Generator
+Company Theme Generator
 
 Usage:
   tsx scripts/theme-generator/index.ts [options]
@@ -95,7 +95,7 @@ async function main() {
     process.exit(0);
   }
 
-  console.log("ZenthCloud Theme Generator\n");
+  console.log("Company Theme Generator\n");
   console.log(`Output directory: ${STYLES_DIR}`);
   console.log("");
 

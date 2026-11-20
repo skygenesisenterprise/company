@@ -1,4 +1,4 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type TrafficSource,
 	trafficAudienceAggregates,
@@ -6,11 +6,11 @@ import {
 	trafficAudienceSessions,
 	trafficHttpAggregates,
 	trafficHttpRoutes,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import {
 	LATENCY_BUCKET_COUNT,
 	percentileFromHistogram,
-} from "@zenthcloud/server/utils/traffic/aggregate";
+} from "@company/server/utils/traffic/aggregate";
 import { and, asc, desc, gte, inArray, lt, type SQL, sql } from "drizzle-orm";
 import {
 	AUDIENCE_BUCKET_SECONDS,

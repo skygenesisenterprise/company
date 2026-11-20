@@ -8,7 +8,7 @@ echo "Starting beta release process..."
 
 # Configure npm registry authentication
 cat > ~/.npmrc << EOF
-@zenthcloud:registry=https://registry.npmjs.org
+@company:registry=https://registry.npmjs.org
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
 EOF
 
@@ -30,7 +30,7 @@ pnpm run release:beta
 
 # Get the published version
 NEW_VERSION=$(node -p "require('./packages/kumo/package.json').version")
-PACKAGE_NAME="${PACKAGE_NAME:-@zenthcloud/kumo}"
+PACKAGE_NAME="${PACKAGE_NAME:-@company/kumo}"
 
 echo "Published version: $NEW_VERSION"
 

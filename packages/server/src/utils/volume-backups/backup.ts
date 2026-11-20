@@ -1,8 +1,8 @@
 import path from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import { findComposeById } from "@zenthcloud/server/services/compose";
-import { findDestinationById } from "@zenthcloud/server/services/destination";
-import type { findVolumeBackupById } from "@zenthcloud/server/services/volume-backups";
+import { paths } from "@company/server/constants";
+import { findComposeById } from "@company/server/services/compose";
+import { findDestinationById } from "@company/server/services/destination";
+import type { findVolumeBackupById } from "@company/server/services/volume-backups";
 import {
 	getBackupTimestamp,
 	getS3Credentials,
@@ -27,21 +27,21 @@ export const createRestartSafeBackupCommand = ({
 	(
 		${backupCommand}
 	)
-	ZENTHCLOUD_VOLUME_BACKUP_STATUS=$?
+	COMPANY_VOLUME_BACKUP_STATUS=$?
 	(
 		set -e
 		${startCommand}
 	)
-	ZENTHCLOUD_VOLUME_RESTART_STATUS=$?
+	COMPANY_VOLUME_RESTART_STATUS=$?
 	set -e
-	if [ "$ZENTHCLOUD_VOLUME_BACKUP_STATUS" -ne 0 ]; then
-		if [ "$ZENTHCLOUD_VOLUME_RESTART_STATUS" -ne 0 ]; then
-			echo "Service restart also failed with exit code $ZENTHCLOUD_VOLUME_RESTART_STATUS"
+	if [ "$COMPANY_VOLUME_BACKUP_STATUS" -ne 0 ]; then
+		if [ "$COMPANY_VOLUME_RESTART_STATUS" -ne 0 ]; then
+			echo "Service restart also failed with exit code $COMPANY_VOLUME_RESTART_STATUS"
 		fi
-		exit "$ZENTHCLOUD_VOLUME_BACKUP_STATUS"
+		exit "$COMPANY_VOLUME_BACKUP_STATUS"
 	fi
-	if [ "$ZENTHCLOUD_VOLUME_RESTART_STATUS" -ne 0 ]; then
-		exit "$ZENTHCLOUD_VOLUME_RESTART_STATUS"
+	if [ "$COMPANY_VOLUME_RESTART_STATUS" -ne 0 ]; then
+		exit "$COMPANY_VOLUME_RESTART_STATUS"
 	fi
 	${uploadCommand}
 `;

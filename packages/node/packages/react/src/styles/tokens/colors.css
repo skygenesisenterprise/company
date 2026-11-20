@@ -1,5 +1,5 @@
 /**
- * ZenthCloud — color primitives
+ * Company — color primitives
  *
  * Raw palette values. Components must never reference these directly:
  * use the semantic `--color-zenth-*` / `--text-color-zenth-*` tokens

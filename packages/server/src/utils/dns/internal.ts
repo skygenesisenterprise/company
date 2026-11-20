@@ -1,20 +1,20 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type DnsRecordType,
-	type zenthcloudInternalDnsConfigSchema,
+	type companyInternalDnsConfigSchema,
 	dnsRecord,
 	dnsZone,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import type { z } from "zod";
 import type { DnsClient, DnsRecord, DnsZone } from "./types";
 
-type InternalConfig = z.infer<typeof zenthcloudInternalDnsConfigSchema>;
+type InternalConfig = z.infer<typeof companyInternalDnsConfigSchema>;
 
 /**
  * The first-party adapter is scoped to a single provider row: zones and records
- * are stored by Zenthcloud itself, so the provider id has to travel with the
+ * are stored by Company itself, so the provider id has to travel with the
  * config. It is attached by the service layer before the client is called.
  */
 export interface InternalConfigWithProvider extends InternalConfig {

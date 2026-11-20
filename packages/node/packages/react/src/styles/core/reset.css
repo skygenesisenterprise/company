@@ -1,8 +1,8 @@
 /**
- * ZenthCloud — scoped reset
+ * Company — scoped reset
  *
  * Deliberately NOT a global reset: it never touches html, body, button,
- * input or other native elements outside ZenthCloud-owned subtrees. Host
+ * input or other native elements outside Company-owned subtrees. Host
  * applications keep their own preflight/styles intact.
  *
  * Scope is opt-in through `.zenth-root` / `[data-zenth-root]` for layout

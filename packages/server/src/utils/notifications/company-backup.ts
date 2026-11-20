@@ -1,7 +1,7 @@
-import { db } from "@zenthcloud/server/db";
-import { notifications } from "@zenthcloud/server/db/schema";
-import ZenthcloudBackupEmail from "@zenthcloud/server/emails/emails/zenthcloud-backup";
-import { redactSecrets } from "@zenthcloud/server/utils/security/redact";
+import { db } from "@company/server/db";
+import { notifications } from "@company/server/db/schema";
+import CompanyBackupEmail from "@company/server/emails/emails/company-backup";
+import { redactSecrets } from "@company/server/utils/security/redact";
 import { render } from "@react-email/components";
 import { format } from "date-fns";
 import { eq } from "drizzle-orm";
@@ -20,7 +20,7 @@ import {
 	sendTelegramNotification,
 } from "./utils";
 
-export const sendZenthcloudBackupNotifications = async ({
+export const sendCompanyBackupNotifications = async ({
 	type,
 	errorMessage: rawErrorMessage,
 	backupSize,
@@ -35,10 +35,10 @@ export const sendZenthcloudBackupNotifications = async ({
 	const date = new Date();
 	const unixDate = ~~(Number(date) / 1000);
 	const notificationList = await db.query.notifications.findMany({
-		where: eq(notifications.zenthcloudBackup, true),
+		where: eq(notifications.companyBackup, true),
 		with: {
 			email: true,
-			zenthcloud: true,
+			company: true,
 			telegram: true,
 			slack: true,
 			resend: true,
@@ -55,7 +55,7 @@ export const sendZenthcloudBackupNotifications = async ({
 	for (const notification of notificationList) {
 		const {
 			email,
-			zenthcloud,
+			company,
 			telegram,
 			slack,
 			resend,
@@ -71,7 +71,7 @@ export const sendZenthcloudBackupNotifications = async ({
 		try {
 			if (email || resend) {
 				const template = await render(
-					ZenthcloudBackupEmail({
+					CompanyBackupEmail({
 						type,
 						errorMessage,
 						date: date.toLocaleString(),
@@ -82,7 +82,7 @@ export const sendZenthcloudBackupNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Zenthcloud instance backup",
+						"Company instance backup",
 						template,
 					);
 				}
@@ -90,26 +90,26 @@ export const sendZenthcloudBackupNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Zenthcloud instance backup",
+						"Company instance backup",
 						template,
 					);
 				}
 			}
 
-			if (zenthcloud) {
+			if (company) {
 				const decorate = (decoration: string, text: string) =>
-					`${zenthcloud.decoration ? decoration : ""} ${text}`.trim();
+					`${company.decoration ? decoration : ""} ${text}`.trim();
 
-				await sendDiscordNotification(zenthcloud, {
+				await sendDiscordNotification(company, {
 					title:
 						type === "success"
-							? decorate(">", "`✅` Zenthcloud Backup Successful")
-							: decorate(">", "`❌` Zenthcloud Backup Failed"),
+							? decorate(">", "`✅` Company Backup Successful")
+							: decorate(">", "`❌` Company Backup Failed"),
 					color: type === "success" ? 0x57f287 : 0xed4245,
 					fields: [
 						{
 							name: decorate("`📦`", "Backup Type"),
-							value: "Complete Zenthcloud Instance",
+							value: "Complete Company Instance",
 							inline: true,
 						},
 						...(backupSize
@@ -149,7 +149,7 @@ export const sendZenthcloudBackupNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Zenthcloud Instance Backup Notification",
+						text: "Company Instance Backup Notification",
 					},
 				});
 			}
@@ -162,9 +162,9 @@ export const sendZenthcloudBackupNotifications = async ({
 					gotify,
 					decorate(
 						type === "success" ? "✅" : "❌",
-						`Zenthcloud Backup ${type === "success" ? "Successful" : "Failed"}`,
+						`Company Backup ${type === "success" ? "Successful" : "Failed"}`,
 					),
-					`${decorate("📦", "Backup Type: Complete Zenthcloud Instance")}` +
+					`${decorate("📦", "Backup Type: Complete Company Instance")}` +
 						`${backupSize ? decorate("💾", `Backup Size: ${backupSize}`) : ""}` +
 						`${decorate("🕒", `Date: ${date.toLocaleString()}`)}` +
 						`${type === "error" && errorMessage ? decorate("❌", `Error:\n${errorMessage}`) : ""}`,
@@ -174,10 +174,10 @@ export const sendZenthcloudBackupNotifications = async ({
 			if (ntfy) {
 				await sendNtfyNotification(
 					ntfy,
-					`Zenthcloud Backup ${type === "success" ? "Successful" : "Failed"}`,
+					`Company Backup ${type === "success" ? "Successful" : "Failed"}`,
 					`${type === "success" ? "white_check_mark" : "x"}`,
 					"",
-					"📦Backup Type: Complete Zenthcloud Instance\n" +
+					"📦Backup Type: Complete Company Instance\n" +
 						`${backupSize ? `💾Backup Size: ${backupSize}\n` : ""}` +
 						`🕒Date: ${date.toLocaleString()}\n` +
 						`${type === "error" && errorMessage ? `❌Error:\n${errorMessage}` : ""}`,
@@ -196,7 +196,7 @@ export const sendZenthcloudBackupNotifications = async ({
 					? `\n<b>Backup Size:</b> ${backupSize}`
 					: "";
 
-				const messageText = `<b>${statusEmoji} Zenthcloud Backup ${typeStatus}</b>\n\n<b>Backup Type:</b> Complete Zenthcloud Instance${sizeInfo}\n<b>Date:</b> ${format(date, "PP")}\n<b>Time:</b> ${format(date, "pp")}${isError ? errorMsg : ""}`;
+				const messageText = `<b>${statusEmoji} Company Backup ${typeStatus}</b>\n\n<b>Backup Type:</b> Complete Company Instance${sizeInfo}\n<b>Date:</b> ${format(date, "PP")}\n<b>Time:</b> ${format(date, "pp")}${isError ? errorMsg : ""}`;
 
 				await sendTelegramNotification(telegram, messageText);
 			}
@@ -210,8 +210,8 @@ export const sendZenthcloudBackupNotifications = async ({
 							color: type === "success" ? "#00FF00" : "#FF0000",
 							pretext:
 								type === "success"
-									? ":white_check_mark: *Zenthcloud Backup Successful*"
-									: ":x: *Zenthcloud Backup Failed*",
+									? ":white_check_mark: *Company Backup Successful*"
+									: ":x: *Company Backup Failed*",
 							fields: [
 								...(type === "error" && errorMessage
 									? [
@@ -224,7 +224,7 @@ export const sendZenthcloudBackupNotifications = async ({
 									: []),
 								{
 									title: "Backup Type",
-									value: "Complete Zenthcloud Instance",
+									value: "Complete Company Instance",
 									short: true,
 								},
 								...(backupSize
@@ -280,8 +280,8 @@ export const sendZenthcloudBackupNotifications = async ({
 								tag: "plain_text",
 								content:
 									type === "success"
-										? "✅ Zenthcloud Backup Successful"
-										: "❌ Zenthcloud Backup Failed",
+										? "✅ Company Backup Successful"
+										: "❌ Company Backup Failed",
 							},
 							subtitle: {
 								tag: "plain_text",
@@ -304,7 +304,7 @@ export const sendZenthcloudBackupNotifications = async ({
 												{
 													tag: "markdown",
 													content:
-														"**Backup Type:**\nComplete Zenthcloud Instance",
+														"**Backup Type:**\nComplete Company Instance",
 													text_align: "left",
 													text_size: "normal_v2",
 												},
@@ -364,43 +364,43 @@ export const sendZenthcloudBackupNotifications = async ({
 				const statusEmoji = type === "success" ? ":white_check_mark:" : ":x:";
 				const typeStatus = type === "success" ? "Successful" : "Failed";
 				await sendMattermostNotification(mattermost, {
-					text: `${statusEmoji} **Zenthcloud Backup ${typeStatus}**
+					text: `${statusEmoji} **Company Backup ${typeStatus}**
 
-**Backup Type:** Complete Zenthcloud Instance${backupSize ? `\n**Backup Size:** ${backupSize}` : ""}
+**Backup Type:** Complete Company Instance${backupSize ? `\n**Backup Size:** ${backupSize}` : ""}
 **Date:** ${date.toLocaleString()}
 **Status:** ${typeStatus}${type === "error" && errorMessage ? `\n\n**Error:**\n\`\`\`\n${errorMessage}\n\`\`\`` : ""}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Zenthcloud Bot",
+					username: mattermost.username || "Company Bot",
 				});
 			}
 
 			if (custom) {
 				await sendCustomNotification(custom, {
-					title: `Zenthcloud Backup ${type === "success" ? "Successful" : "Failed"}`,
-					message: `Zenthcloud instance backup ${type === "success" ? "completed successfully" : "failed"}`,
-					backupType: "Complete Zenthcloud Instance",
+					title: `Company Backup ${type === "success" ? "Successful" : "Failed"}`,
+					message: `Company instance backup ${type === "success" ? "completed successfully" : "failed"}`,
+					backupType: "Complete Company Instance",
 					...(backupSize ? { backupSize } : {}),
 					...(type === "error" && errorMessage ? { errorMessage } : {}),
 					timestamp: date.toISOString(),
 					date: date.toLocaleString(),
 					status: type,
-					type: "zenthcloud-backup",
+					type: "company-backup",
 				});
 			}
 
 			if (pushover) {
 				await sendPushoverNotification(
 					pushover,
-					`Zenthcloud Backup ${type === "success" ? "Successful" : "Failed"}`,
-					`Backup Type: Complete Zenthcloud Instance${backupSize ? `\nBackup Size: ${backupSize}` : ""}\nDate: ${date.toLocaleString()}${type === "error" && errorMessage ? `\nError: ${errorMessage}` : ""}`,
+					`Company Backup ${type === "success" ? "Successful" : "Failed"}`,
+					`Backup Type: Complete Company Instance${backupSize ? `\nBackup Size: ${backupSize}` : ""}\nDate: ${date.toLocaleString()}${type === "error" && errorMessage ? `\nError: ${errorMessage}` : ""}`,
 				);
 			}
 
 			if (teams) {
 				await sendTeamsNotification(teams, {
-					title: `${type === "success" ? "✅" : "❌"} Zenthcloud Backup ${type === "success" ? "Successful" : "Failed"}`,
+					title: `${type === "success" ? "✅" : "❌"} Company Backup ${type === "success" ? "Successful" : "Failed"}`,
 					facts: [
-						{ name: "Backup Type", value: "Complete Zenthcloud Instance" },
+						{ name: "Backup Type", value: "Complete Company Instance" },
 						...(backupSize ? [{ name: "Backup Size", value: backupSize }] : []),
 						{ name: "Date", value: format(date, "PP pp") },
 						{

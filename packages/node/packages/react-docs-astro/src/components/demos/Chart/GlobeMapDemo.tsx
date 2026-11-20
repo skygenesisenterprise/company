@@ -1,7 +1,7 @@
-import { GlobeMap, type GlobeMapMarker } from "@zenthcloud/kumo";
+import { GlobeMap, type GlobeMapMarker } from "@company/kumo";
 import { useIsDarkMode } from "~/lib/use-is-dark-mode";
 
-const zenthcloudAvailabilityLocations: GlobeMapMarker[] = [
+const companyAvailabilityLocations: GlobeMapMarker[] = [
   {
     name: "SFO",
     description: "San Francisco",
@@ -52,14 +52,14 @@ const zenthcloudAvailabilityLocations: GlobeMapMarker[] = [
   { name: "SYD", description: "Sydney", latitude: -33.87, longitude: 151.21 },
 ];
 
-/** Illustrative Zenthcloud network locations on a draggable SVG globe. */
+/** Illustrative Company network locations on a draggable SVG globe. */
 export function GlobeMapAvailabilityZonesDemo() {
   const isDarkMode = useIsDarkMode();
 
   return (
     <div className="mx-auto max-w-xl">
       <GlobeMap
-        markers={zenthcloudAvailabilityLocations}
+        markers={companyAvailabilityLocations}
         landColor="var(--text-color-kumo-inactive)"
         landHatchSpacing={8}
         oceanColor="transparent"
@@ -67,7 +67,7 @@ export function GlobeMapAvailabilityZonesDemo() {
         markerColor="var(--color-kumo-brand)"
         markerRadius={8}
         autoRotate
-        aria-label="Zenthcloud availability locations"
+        aria-label="Company availability locations"
         isDarkMode={isDarkMode}
       />
     </div>

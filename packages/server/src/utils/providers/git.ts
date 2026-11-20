@@ -1,9 +1,9 @@
 import path, { join } from "node:path";
-import { paths } from "@zenthcloud/server/constants";
+import { paths } from "@company/server/constants";
 import {
 	findSSHKeyById,
 	updateSSHKeyById,
-} from "@zenthcloud/server/services/ssh-key";
+} from "@company/server/services/ssh-key";
 import { quote } from "shell-quote";
 import { execAsync, execAsyncRemote } from "../process/execAsync";
 

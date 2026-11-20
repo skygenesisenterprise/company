@@ -1,4 +1,4 @@
-import { Link } from "@zenthcloud/kumo";
+import { Link } from "@company/kumo";
 
 export function LinkBasicDemo() {
   return (
@@ -27,12 +27,12 @@ export function LinkInParagraphDemo() {
 export function LinkExternalDemo() {
   return (
     <Link
-      href="https://github.com/skygenesisenterprise/zenthcloud"
+      href="https://github.com/skygenesisenterprise/company"
       target="_blank"
       rel="noopener noreferrer"
       className="text-base"
     >
-      Visit Zenthcloud <Link.ExternalIcon />
+      Visit Company <Link.ExternalIcon />
     </Link>
   );
 }
@@ -68,14 +68,14 @@ export function LinkRenderDemo() {
       <Link
         render={
           <CustomRouterLink
-            href="https://github.com/skygenesisenterprise/zenthcloud"
+            href="https://github.com/skygenesisenterprise/company"
             target="_blank"
             rel="noopener noreferrer"
           />
         }
         variant="inline"
       >
-        Zenthcloud Docs <Link.ExternalIcon />
+        Company Docs <Link.ExternalIcon />
       </Link>
     </div>
   );

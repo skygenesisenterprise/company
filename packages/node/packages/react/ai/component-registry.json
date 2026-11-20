@@ -5,7 +5,7 @@
       "name": "Autocomplete",
       "type": "component",
       "description": "Autocomplete — free-form text input with an optional filtered suggestion list.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "items": {
@@ -163,7 +163,7 @@
       "name": "Badge",
       "type": "component",
       "description": "Small status label for categorizing or highlighting content.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "variant": {
@@ -299,7 +299,7 @@
       "name": "Banner",
       "type": "component",
       "description": "Full-width message bar with an optional trailing CTA slot.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Feedback",
       "props": {
         "className": {
@@ -414,7 +414,7 @@
       "name": "Breadcrumbs",
       "type": "component",
       "description": "Breadcrumbs component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "size": {
@@ -483,7 +483,7 @@
       "name": "BubbleMap",
       "type": "component",
       "description": "BubbleMap component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Data Visualization",
       "props": {
         "className": {
@@ -502,7 +502,7 @@
       "name": "Button",
       "type": "component",
       "description": "Primary action trigger. Supports multiple variants, sizes, shapes, icons, and loading state.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Action",
       "props": {
         "shape": {
@@ -674,7 +674,7 @@
       "name": "ButtonGroup",
       "type": "component",
       "description": "Joins a small set of tightly-coupled buttons into a single control — most commonly a **split button**: a primary action next to a dropdown trigger for related, secondary actions.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Action",
       "props": {
         "className": {
@@ -707,7 +707,7 @@
       "name": "Chart",
       "type": "component",
       "description": "Chart — a low-level wrapper around [Apache ECharts](https://echarts.apache.org).",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Data Visualization",
       "props": {
         "className": {
@@ -726,7 +726,7 @@
       "name": "Checkbox",
       "type": "component",
       "description": "Checkbox component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "variant": {
@@ -885,7 +885,7 @@
       "name": "ChoroplethMap",
       "type": "component",
       "description": "ChoroplethMap component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Data Visualization",
       "props": {
         "className": {
@@ -904,7 +904,7 @@
       "name": "ClipboardText",
       "type": "component",
       "description": "Read-only text field with a one-click copy-to-clipboard button.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Action",
       "props": {
         "size": {
@@ -1051,7 +1051,7 @@
       "name": "Code",
       "type": "component",
       "description": "Code component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "lang": {
@@ -1128,7 +1128,7 @@
       "name": "Collapsible",
       "type": "component",
       "description": "Collapsible — a composable disclosure component for showing/hiding content.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "className": {
@@ -1178,7 +1178,7 @@
       "name": "Combobox",
       "type": "component",
       "description": "Combobox — autocomplete input with filterable dropdown list.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "size": {
@@ -1430,7 +1430,7 @@
       "name": "CommandPalette",
       "type": "component",
       "description": "CommandPalette — accessible command palette / spotlight search overlay.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Navigation",
       "props": {
         "open": {
@@ -1465,7 +1465,7 @@
       "name": "DatePicker",
       "type": "component",
       "description": "DatePicker — a date selection calendar.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "className": {
@@ -1497,7 +1497,7 @@
       "name": "DateRangePicker",
       "type": "component",
       "description": "DateRangePicker — dual-calendar date range selector.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "size": {
@@ -1618,7 +1618,7 @@
       "name": "Dialog",
       "type": "component",
       "description": "Dialog component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Overlay",
       "props": {
         "className": {
@@ -1771,7 +1771,7 @@
       "name": "DropdownMenu",
       "type": "component",
       "description": "DropdownMenu — accessible dropdown menu anchored to a trigger.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Overlay",
       "props": {
         "variant": {
@@ -2050,7 +2050,7 @@
       "name": "Empty",
       "type": "component",
       "description": "Placeholder shown when a list, table, or page has no content to display.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "size": {
@@ -2120,7 +2120,7 @@
       "name": "Field",
       "type": "component",
       "description": "Form field wrapper that provides a label, optional description, and error display around any form control. Built on Base UI Field primitives.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "controlFirst": {
@@ -2175,7 +2175,7 @@
       "name": "GlobeMap",
       "type": "component",
       "description": "GlobeMap — an SVG orthographic globe with hatched land and geographic markers. Rendering is SVG-only and does not use WebGL.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Data Visualization",
       "props": {
         "landColor": {
@@ -2259,7 +2259,7 @@
       "name": "Grid",
       "type": "component",
       "description": "Responsive CSS grid layout container with preset column configurations.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Layout",
       "props": {
         "children": {
@@ -2361,7 +2361,7 @@
       "name": "InlineCopyText",
       "type": "component",
       "description": "Compact, borderless copy control for IDs and other short values displayed inline or inside dense table cells.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Action",
       "props": {
         "labels": {
@@ -2483,7 +2483,7 @@
       "name": "Input",
       "type": "component",
       "description": "Input component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "label": {
@@ -2626,7 +2626,7 @@
       "name": "InputGroup",
       "type": "component",
       "description": "InputGroup component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "label": {
@@ -2782,7 +2782,7 @@
       "name": "Label",
       "type": "component",
       "description": "Label component for form fields.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "children": {
@@ -2836,7 +2836,7 @@
       "name": "LayerCard",
       "type": "component",
       "description": "LayerCard component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "render": {
@@ -2913,7 +2913,7 @@
       "name": "LayerDialog",
       "type": "component",
       "description": "LayerDialog component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Overlay",
       "props": {
         "dismissDisabled": {
@@ -2989,7 +2989,7 @@
       "name": "Link",
       "type": "component",
       "description": "Link component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "variant": {
@@ -3100,7 +3100,7 @@
       "name": "Loader",
       "type": "component",
       "description": "Animated circular spinner for indicating loading states.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Feedback",
       "props": {
         "className": {
@@ -3132,7 +3132,7 @@
       "name": "MenuBar",
       "type": "component",
       "description": "MenuBar — horizontal icon-button toolbar with keyboard arrow-key navigation.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Navigation",
       "props": {
         "className": {
@@ -3183,7 +3183,7 @@
       "name": "Meter",
       "type": "component",
       "description": "Progress bar showing a measured value within a known range (e.g. quota usage).",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "customValue": {
@@ -3235,7 +3235,7 @@
       "name": "Pagination",
       "type": "component",
       "description": "Pagination component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Navigation",
       "props": {
         "setPage": {
@@ -3339,7 +3339,7 @@
       "name": "Popover",
       "type": "component",
       "description": "Popover component for displaying accessible popup content anchored to a trigger.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Overlay",
       "props": {
         "side": {
@@ -3438,7 +3438,7 @@
       "name": "Radio",
       "type": "component",
       "description": "Radio — radio button group for single-select choices.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "variant": {
@@ -3561,7 +3561,7 @@
       "name": "SankeyChart",
       "type": "component",
       "description": "SankeyChart component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Data Visualization",
       "props": {
         "className": {
@@ -3580,7 +3580,7 @@
       "name": "Select",
       "type": "component",
       "description": "Select component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "align": {
@@ -3848,7 +3848,7 @@
       "name": "SensitiveInput",
       "type": "component",
       "description": "Password/secret input that masks its value by default and reveals on click. Includes a built-in copy-to-clipboard button on hover.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "alt": {
@@ -3978,7 +3978,7 @@
       "name": "Sidebar",
       "type": "component",
       "description": "Sidebar — responsive navigation panel with expand/collapse support.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "defaultOpen": {
@@ -4245,7 +4245,7 @@
       "name": "Slider",
       "type": "component",
       "description": "Slider component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "size": {
@@ -4322,7 +4322,7 @@
       "name": "Surface",
       "type": "component",
       "description": "Surface component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Layout",
       "props": {
         "as": {
@@ -4362,7 +4362,7 @@
       "name": "Switch",
       "type": "component",
       "description": "Switch component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Input",
       "props": {
         "variant": {
@@ -4502,7 +4502,7 @@
       "name": "Table",
       "type": "component",
       "description": "Table — semantic HTML table with styled rows, cells, and selection support.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "layout": {
@@ -4623,7 +4623,7 @@
       "name": "TableOfContents",
       "type": "component",
       "description": "TableOfContents — presentational compound component for section navigation.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "children": {
@@ -4682,7 +4682,7 @@
       "name": "Tabs",
       "type": "component",
       "description": "Tab navigation component with segmented or underline style. Built on Base UI Tabs with animated active indicator.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Navigation",
       "props": {
         "tabs": {
@@ -4792,7 +4792,7 @@
       "name": "TagInput",
       "type": "component",
       "description": "TagInput component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "alt": {
@@ -4927,7 +4927,7 @@
       "name": "Text",
       "type": "component",
       "description": "Text component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Display",
       "props": {
         "variant": {
@@ -5081,7 +5081,7 @@
       "name": "TimeseriesChart",
       "type": "component",
       "description": "TimeseriesChart — a time-series line or bar chart.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Data Visualization",
       "props": {
         "className": {
@@ -5103,7 +5103,7 @@
       "name": "Toasty",
       "type": "component",
       "description": "Toasty — toast notification provider and viewport.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Feedback",
       "props": {
         "variant": {
@@ -5197,7 +5197,7 @@
       "name": "Toolbar",
       "type": "component",
       "description": "Toolbar component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "disabled": {
@@ -5299,7 +5299,7 @@
       "name": "Tooltip",
       "type": "component",
       "description": "Accessible popup that shows additional information on hover/focus. Wrap your app or section with `<TooltipProvider>` to enable delay grouping.",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Overlay",
       "props": {
         "side": {
@@ -5370,11 +5370,11 @@
         }
       }
     },
-    "ZenthcloudLogo": {
-      "name": "ZenthcloudLogo",
+    "CompanyLogo": {
+      "name": "CompanyLogo",
       "type": "component",
-      "description": "Zenthcloud logo component.",
-      "importPath": "@zenthcloud/kumo",
+      "description": "Company logo component.",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "children": {
@@ -6448,7 +6448,7 @@
         "variant": {
           "type": "enum",
           "optional": true,
-          "description": "Logo variant\n- `glyph`: Cloud icon only\n- `full`: Cloud icon with \"ZENTHCLOUD\" wordmark below",
+          "description": "Logo variant\n- `glyph`: Cloud icon only\n- `full`: Cloud icon with \"COMPANY\" wordmark below",
           "values": [
             "glyph",
             "full"
@@ -6471,7 +6471,7 @@
       "name": "InputArea",
       "type": "component",
       "description": "Multi-line textarea input with Input variants and InputArea-specific dimensions",
-      "importPath": "@zenthcloud/kumo (synthetic - uses Input component)",
+      "importPath": "@company/kumo (synthetic - uses Input component)",
       "category": "Input",
       "props": {
         "size": {
@@ -6574,7 +6574,7 @@
       "name": "DeleteResource",
       "type": "block",
       "description": "DeleteResource component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Other",
       "props": {
         "size": {
@@ -6657,7 +6657,7 @@
       "name": "PageHeader",
       "type": "block",
       "description": "PageHeader component",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Layout",
       "props": {
         "spacing": {
@@ -6726,7 +6726,7 @@
       "name": "ResourceListPage",
       "type": "block",
       "description": "ResourceListPage - A layout component for resource list pages",
-      "importPath": "@zenthcloud/kumo",
+      "importPath": "@company/kumo",
       "category": "Layout",
       "props": {
         "title": {
@@ -6783,7 +6783,7 @@
         "TableOfContents",
         "TagInput",
         "Toolbar",
-        "ZenthcloudLogo",
+        "CompanyLogo",
         "DeleteResource"
       ],
       "Display": [
@@ -6903,7 +6903,7 @@
       "Toasty",
       "Toolbar",
       "Tooltip",
-      "ZenthcloudLogo"
+      "CompanyLogo"
     ],
     "byType": {
       "component": [
@@ -6959,7 +6959,7 @@
         "Toasty",
         "Toolbar",
         "Tooltip",
-        "ZenthcloudLogo"
+        "CompanyLogo"
       ],
       "block": [
         "DeleteResource",

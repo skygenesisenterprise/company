@@ -1,11 +1,11 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateSshKey,
 	type apiFindOneSshKey,
 	type apiRemoveSshKey,
 	type apiUpdateSshKey,
 	sshKeys,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";

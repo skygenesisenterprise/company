@@ -3,26 +3,26 @@ import { docker } from "../constants";
 import { pullImage } from "../utils/docker/utils";
 export const initializePostgres = async () => {
 	const imageName = "postgres:16";
-	const containerName = "zenthcloud-postgres";
+	const containerName = "company-postgres";
 	const settings: CreateServiceOptions = {
 		Name: containerName,
 		TaskTemplate: {
 			ContainerSpec: {
 				Image: imageName,
 				Env: [
-					"POSTGRES_USER=zenthcloud",
-					"POSTGRES_DB=zenthcloud",
+					"POSTGRES_USER=company",
+					"POSTGRES_DB=company",
 					"POSTGRES_PASSWORD=amukds4wi9001583845717ad2",
 				],
 				Mounts: [
 					{
 						Type: "volume",
-						Source: "zenthcloud-postgres",
+						Source: "company-postgres",
 						Target: "/var/lib/postgresql/data",
 					},
 				],
 			},
-			Networks: [{ Target: "zenthcloud-network" }],
+			Networks: [{ Target: "company-network" }],
 			Placement: {
 				Constraints: ["node.role==manager"],
 			},

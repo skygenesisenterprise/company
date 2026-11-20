@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { AlertDialog } from '@zenthcloud/kumo/primitives/alert-dialog';
+ * import { AlertDialog } from '@company/kumo/primitives/alert-dialog';
  * ```
  */
 

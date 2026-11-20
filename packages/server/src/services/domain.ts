@@ -2,12 +2,12 @@ import dns from "node:dns";
 import { isIP } from "node:net";
 import os from "node:os";
 import { promisify } from "node:util";
-import { db } from "@zenthcloud/server/db";
-import { getWebServerSettings } from "@zenthcloud/server/services/web-server-settings";
-import { generateRandomDomain } from "@zenthcloud/server/templates";
-import { execAsyncRemote } from "@zenthcloud/server/utils/process/execAsync";
-import { manageDomain } from "@zenthcloud/server/utils/traefik/domain";
-import { getPublicIpWithFallback } from "@zenthcloud/server/wss/utils";
+import { db } from "@company/server/db";
+import { getWebServerSettings } from "@company/server/services/web-server-settings";
+import { generateRandomDomain } from "@company/server/templates";
+import { execAsyncRemote } from "@company/server/utils/process/execAsync";
+import { manageDomain } from "@company/server/utils/traefik/domain";
+import { getPublicIpWithFallback } from "@company/server/wss/utils";
 import { TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import type { z } from "zod";
@@ -209,7 +209,7 @@ export const validateDomain = async (
 	reason?: string;
 	resolvedIp?: string;
 	error?: string;
-	isZenthcloud?: boolean;
+	isCompany?: boolean;
 	cdnProvider?: string;
 }> => {
 	const cleanDomain = domain.replace(/^https?:\/\//, "").split("/")[0] || "";

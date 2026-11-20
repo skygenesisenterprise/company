@@ -82,7 +82,7 @@ When Kumo releases breaking changes to token names, use this command
 to get the rename map for updating your codebase.
 
 USAGE:
-  npx @zenthcloud/kumo migrate [options]
+  npx @company/kumo migrate [options]
 
 OPTIONS:
   --json         Output machine-readable JSON (default)
@@ -92,16 +92,16 @@ OPTIONS:
 
 EXAMPLES:
   # Check if there are pending migrations
-  npx @zenthcloud/kumo migrate
+  npx @company/kumo migrate
 
   # Get class-level mapping for sed/find-replace
-  npx @zenthcloud/kumo migrate --classes
+  npx @company/kumo migrate --classes
 
   # Get JSON for custom codemod
-  npx @zenthcloud/kumo migrate --json > rename-map.json
+  npx @company/kumo migrate --json > rename-map.json
 
 USING WITH sed:
-  npx @zenthcloud/kumo migrate --classes | grep "^bg-\\|^text-" | \\
+  npx @company/kumo migrate --classes | grep "^bg-\\|^text-" | \\
     while IFS= read -r line; do
       old=$(echo "$line" | awk '{print $1}')
       new=$(echo "$line" | awk '{print $3}')

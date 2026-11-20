@@ -10,7 +10,7 @@
 		"jsx": "react-jsx",
 		"paths": {
 			"@/*": ["./*"],
-			"@zenthcloud/server/*": ["../../packages/server/src/*"]
+			"@company/server/*": ["../../packages/server/src/*"]
 		}
 	},
 	"exclude": ["node_modules", "dist"]

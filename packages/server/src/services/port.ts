@@ -1,6 +1,6 @@
-import { db } from "@zenthcloud/server/db";
-import { type apiCreatePort, ports } from "@zenthcloud/server/db/schema";
-import { findPortConflict } from "@zenthcloud/server/utils/network/ports";
+import { db } from "@company/server/db";
+import { type apiCreatePort, ports } from "@company/server/db/schema";
+import { findPortConflict } from "@company/server/utils/network/ports";
 import { TRPCError } from "@trpc/server";
 import { eq, sql } from "drizzle-orm";
 import type { z } from "zod";

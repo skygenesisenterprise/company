@@ -8,7 +8,7 @@ import {
 import type {
 	DnsRecordType,
 	route53DnsConfigSchema,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import type { z } from "zod";
 import type { DnsClient } from "./types";
 

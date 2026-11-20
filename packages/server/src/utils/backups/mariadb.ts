@@ -1,12 +1,12 @@
-import type { BackupSchedule } from "@zenthcloud/server/services/backup";
+import type { BackupSchedule } from "@company/server/services/backup";
 import {
 	createDeploymentBackup,
 	updateDeploymentStatus,
-} from "@zenthcloud/server/services/deployment";
-import { findDestinationById } from "@zenthcloud/server/services/destination";
-import { findEnvironmentById } from "@zenthcloud/server/services/environment";
-import type { Mariadb } from "@zenthcloud/server/services/mariadb";
-import { findProjectById } from "@zenthcloud/server/services/project";
+} from "@company/server/services/deployment";
+import { findDestinationById } from "@company/server/services/destination";
+import { findEnvironmentById } from "@company/server/services/environment";
+import type { Mariadb } from "@company/server/services/mariadb";
+import { findProjectById } from "@company/server/services/project";
 import { sendDatabaseBackupNotifications } from "../notifications/database-backup";
 import { execAsync, execAsyncRemote } from "../process/execAsync";
 import { redactBackupError } from "./redact";

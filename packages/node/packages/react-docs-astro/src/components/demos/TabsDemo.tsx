@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tabs } from "@zenthcloud/kumo";
+import { Tabs } from "@company/kumo";
 
 const productionLikeTabs = [
   { value: "overview", label: "Overview" },
@@ -211,10 +211,10 @@ export function TabsRenderPropDemo() {
         },
         {
           value: "tab3",
-          label: "Zenthcloud",
+          label: "Company",
           nativeButton: false,
           render: (props) => (
-            <a {...props} href="https://github.com/skygenesisenterprise/zenthcloud" target="_blank" />
+            <a {...props} href="https://github.com/skygenesisenterprise/company" target="_blank" />
           ),
         },
       ]}

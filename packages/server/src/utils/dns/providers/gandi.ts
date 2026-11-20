@@ -1,4 +1,4 @@
-import type { gandiDnsConfigSchema } from "@zenthcloud/server/db/schema";
+import type { gandiDnsConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import { createDnsHttp, stripTrailingDot, toSubdomain } from "../http";
 import type { DnsClient, DnsRecordInput } from "../types";

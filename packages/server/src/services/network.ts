@@ -1,5 +1,5 @@
-import { db } from "@zenthcloud/server/db";
-import { type apiCreateNetwork, network } from "@zenthcloud/server/db/schema";
+import { db } from "@company/server/db";
+import { type apiCreateNetwork, network } from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import type Dockerode from "dockerode";
 import { and, eq, inArray, isNull } from "drizzle-orm";
@@ -14,14 +14,14 @@ const RESERVED_NETWORKS = [
 	"none",
 	"ingress",
 	"docker_gwbridge",
-	"zenthcloud-network",
+	"company-network",
 ];
 
 /**
  * Dedicated per-service network used when `isolatedNetwork` is on. The prefix
  * keeps it out of the way of user networks and the reserved ones.
  */
-export const ISOLATED_NETWORK_PREFIX = "zenthcloud-iso";
+export const ISOLATED_NETWORK_PREFIX = "company-iso";
 
 export const isolatedNetworkName = (appName: string) =>
 	`${ISOLATED_NETWORK_PREFIX}-${appName}`;
@@ -29,7 +29,7 @@ export const isolatedNetworkName = (appName: string) =>
 /**
  * Makes sure a service's dedicated overlay network exists, creating it if
  * needed. Idempotent, so it is safe to call on every deploy. The service stays
- * attached to zenthcloud-network as well, which is how Traefik keeps serving its
+ * attached to company-network as well, which is how Traefik keeps serving its
  * domains while it is otherwise isolated.
  */
 export const ensureIsolatedNetwork = async (
@@ -427,7 +427,7 @@ export const resolveServiceNetworks = async (
 		return application.networkSwarm;
 	}
 
-	const { networkIds, detachZenthcloudNetwork } = application;
+	const { networkIds, detachCompanyNetwork } = application;
 	const rows =
 		networkIds && networkIds.length > 0
 			? await db.query.network.findMany({
@@ -439,13 +439,13 @@ export const resolveServiceNetworks = async (
 				})
 			: [];
 
-	const networks = detachZenthcloudNetwork ? [] : ["zenthcloud-network"];
+	const networks = detachCompanyNetwork ? [] : ["company-network"];
 	for (const row of rows) {
 		networks.push(row.name);
 	}
 
 	// A service with an isolated network keeps its own dedicated overlay so it
-	// is separated from the rest, while zenthcloud-network keeps Traefik routing
+	// is separated from the rest, while company-network keeps Traefik routing
 	// its domains. Databases have no such flag, so this is a no-op for them.
 	if (application.isolatedNetwork && application.appName) {
 		const name = await ensureIsolatedNetwork(

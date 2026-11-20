@@ -1,9 +1,9 @@
-import { CLEANUP_CRON_JOB } from "@zenthcloud/server/constants";
-import { member } from "@zenthcloud/server/db/schema";
-import type { BackupSchedule } from "@zenthcloud/server/services/backup";
-import { findDestinationById } from "@zenthcloud/server/services/destination";
-import { getAllServers } from "@zenthcloud/server/services/server";
-import { getWebServerSettings } from "@zenthcloud/server/services/web-server-settings";
+import { CLEANUP_CRON_JOB } from "@company/server/constants";
+import { member } from "@company/server/db/schema";
+import type { BackupSchedule } from "@company/server/services/backup";
+import { findDestinationById } from "@company/server/services/destination";
+import { getAllServers } from "@company/server/services/server";
+import { getWebServerSettings } from "@company/server/services/web-server-settings";
 import { eq } from "drizzle-orm";
 import { scheduleJob } from "node-schedule";
 import { db } from "../../db/index";
@@ -142,7 +142,7 @@ export const keepLatestNBackups = async (
 		const appName = getServiceAppName(backup);
 		const backupFilesPath = `:s3:${destination.bucket}/${appName}/${normalizeS3Path(backup.prefix)}`;
 
-		// --include "*.bson.gz" or "*.sql.gz" or "*.zip" ensures nothing else other than the zenthcloud backup files are touched by rclone
+		// --include "*.bson.gz" or "*.sql.gz" or "*.zip" ensures nothing else other than the company backup files are touched by rclone
 		const rcloneList = `rclone lsf ${rcloneFlags.join(" ")} --include "*${backup.databaseType === "web-server" ? ".zip" : ".{sql.gz,bson.gz}"}" ${backupFilesPath}`;
 		// when we pipe the above command with this one, we only get the list of files we want to delete
 		const sortAndPickUnwantedBackups = `sort -r | tail -n +$((${backup.keepLatestCount}+1)) | xargs -I{}`;

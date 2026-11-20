@@ -4,7 +4,7 @@ import * as React from "react";
 
 type Theme = "light" | "dark";
 
-const STORAGE_KEY = "zenthcloud-theme";
+const STORAGE_KEY = "company-theme";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 type ThemeContextValue = {
@@ -29,7 +29,7 @@ function applyTheme(theme: Theme) {
 }
 
 /**
- * The initial theme is resolved on the server from the `zenthcloud-theme`
+ * The initial theme is resolved on the server from the `company-theme`
  * cookie, so the correct class is present in the first HTML response. No
  * inline pre-paint script is needed.
  */

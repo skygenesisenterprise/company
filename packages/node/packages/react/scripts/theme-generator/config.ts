@@ -79,7 +79,7 @@ export const THEME_CONFIG: ThemeConfig = {
     "zenth-brand": {
       newName: "",
       description:
-        "ZenthCloud brand text color (blue #1769E0, lightened in dark mode)",
+        "Company brand text color (blue #1769E0, lightened in dark mode)",
       theme: {
         zenth: {
           light: "var(--color-zenth-blue-500, #1769e0)",
@@ -295,7 +295,7 @@ export const THEME_CONFIG: ThemeConfig = {
     },
     "zenth-brand": {
       newName: "",
-      description: "ZenthCloud brand surface (blue #1769E0)",
+      description: "Company brand surface (blue #1769E0)",
       theme: {
         zenth: {
           light: "var(--color-zenth-blue-500, #1769e0)",

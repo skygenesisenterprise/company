@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import { db } from "@zenthcloud/server/db";
+import { paths } from "@company/server/constants";
+import { db } from "@company/server/db";
 import {
 	type NewTrafficHttpAggregate,
 	type TrafficSource,
@@ -17,17 +17,17 @@ import {
 	trafficSources,
 	type WebProperty,
 	webProperties,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import {
 	aggregateHttpEvents,
 	emptyLatencyHistogram,
 	type HttpAggregateRow,
 	LATENCY_BUCKET_COUNT,
-} from "@zenthcloud/server/utils/traffic/aggregate";
+} from "@company/server/utils/traffic/aggregate";
 import {
 	type AudienceIngestPayload,
 	normalizeAudienceEvents,
-} from "@zenthcloud/server/utils/traffic/audience";
+} from "@company/server/utils/traffic/audience";
 import {
 	bucketStartFor,
 	DEFAULT_BUCKET_SECONDS,
@@ -37,7 +37,7 @@ import {
 	parseTraefikAccessLog,
 	resolvePropertyId,
 	type TrafficHttpEvent,
-} from "@zenthcloud/server/utils/traffic/parse";
+} from "@company/server/utils/traffic/parse";
 import {
 	and,
 	asc,
@@ -474,16 +474,16 @@ export const upsertTrafficSource = async (
 };
 
 /**
- * The four web properties of an SGE instance, declared with the sources Zenthcloud
+ * The four web properties of an SGE instance, declared with the sources Company
  * knows how to feed. Declaring a property only says "we watch this domain":
  * every source starts in `not-configured`, and the dashboard keeps showing the
  * absence of data until a collector actually receives something.
  */
 export const RECOMMENDED_SGE_PROPERTIES = [
-	{ platform: "website", domain: "zenthcloud.com", name: "Zenthcloud Website" },
-	{ platform: "docs", domain: "docs.zenthcloud.com", name: "Zenthcloud Docs" },
-	{ platform: "app", domain: "dash.zenthcloud.com", name: "Zenthcloud Cloud" },
-	{ platform: "api", domain: "api.zenthcloud.com", name: "Zenthcloud API" },
+	{ platform: "website", domain: "company.com", name: "Company Website" },
+	{ platform: "docs", domain: "docs.company.com", name: "Company Docs" },
+	{ platform: "app", domain: "dash.company.com", name: "Company Cloud" },
+	{ platform: "api", domain: "api.company.com", name: "Company API" },
 ] as const;
 
 export const declareRecommendedProperties = async (

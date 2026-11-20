@@ -84,7 +84,7 @@ function getSchemas(): SchemasModule {
  * - Generates AI prompts describing available components
  *
  * @example
- * import { createKumoCatalog, initCatalog } from '@zenthcloud/kumo/catalog';
+ * import { createKumoCatalog, initCatalog } from '@company/kumo/catalog';
  *
  * const catalog = createKumoCatalog({
  *   actions: {

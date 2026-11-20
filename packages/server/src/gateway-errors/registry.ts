@@ -33,7 +33,7 @@ export const GATEWAY_ERRORS: Record<
 		category: "routing",
 		title: "Page not found",
 		description:
-			"This address does not match an application configured on this Zenthcloud instance.",
+			"This address does not match an application configured on this Company instance.",
 		visitorGuidance:
 			"Check the address for typos. If someone shared this link with you, ask them to confirm it is still valid.",
 		operatorGuidance:
@@ -65,7 +65,7 @@ export const GATEWAY_ERRORS: Record<
 		visitorGuidance:
 			"The service is temporarily unreachable. Try again in a few moments.",
 		operatorGuidance:
-			"Verify the container is running, that it listens on the configured port and that it accepts connections from the zenthcloud-network. Restarting the deployment can clear a stuck process.",
+			"Verify the container is running, that it listens on the configured port and that it accepts connections from the company-network. Restarting the deployment can clear a stuck process.",
 		retryable: true,
 		docsPath: "/docs/core/domains",
 	},
@@ -95,7 +95,7 @@ export const GATEWAY_ERRORS: Record<
 		operatorGuidance:
 			"Check that the connector or tunnel client is connected, that its credentials are valid and that the target server is reachable. Reconnect the tunnel after fixing the underlying issue.",
 		retryable: true,
-		docsPath: "/docs/core/zenthcloud-tunnels",
+		docsPath: "/docs/core/company-tunnels",
 	},
 	"NP-1052": {
 		code: "NP-1052",

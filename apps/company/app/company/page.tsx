@@ -8,7 +8,7 @@ import Link from "next/link";
 export const metadata: Metadata = pageMetadata({
 	title: "Company",
 	description:
-		"About ZenthCloud and Sky Genesis Enterprise: company information, careers, partners, contact and newsroom.",
+		"About Company and Sky Genesis Enterprise: company information, careers, partners, contact and newsroom.",
 	path: "/company",
 });
 
@@ -17,7 +17,7 @@ export default function CompanyPage() {
 		<>
 			<PageHeader
 				eyebrow="Company"
-				title="ZenthCloud, built by Sky Genesis Enterprise"
+				title="Company, built by Sky Genesis Enterprise"
 				description="A cloud infrastructure brand with European roots and global ambitions. This section covers the company, the partnership model and how to reach the right team."
 				breadcrumbs={[{ name: "Company", path: "/company" }]}
 			/>

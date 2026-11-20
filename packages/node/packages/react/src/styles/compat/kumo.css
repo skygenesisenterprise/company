@@ -1,8 +1,8 @@
 /**
- * ZenthCloud — legacy compatibility layer
+ * Company — legacy compatibility layer
  *
  * This file intentionally keeps the historical `kumo-*` names so that
- * applications upgrading from `@zenthcloud/kumo` keep working:
+ * applications upgrading from `@company/kumo` keep working:
  *
  * - `--color-kumo-*` / `--text-color-kumo-*` variables alias the new
  *   `--color-zenth-*` / `--text-color-zenth-*` tokens.

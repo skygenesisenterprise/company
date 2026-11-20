@@ -8,7 +8,7 @@ const kumoRoot = resolve(__dirname, "../../../kumo");
 const kumoSrc = resolve(kumoRoot, "src");
 
 /**
- * Map every `@zenthcloud/kumo` sub-path export to its source equivalent.
+ * Map every `@company/kumo` sub-path export to its source equivalent.
  *
  * In dev mode Vite will resolve these to the raw .ts/.tsx source files,
  * which means file-watcher-based HMR works instantly — no rebuild of
@@ -20,47 +20,47 @@ const kumoSrc = resolve(kumoRoot, "src");
  */
 const aliases: Record<string, string> = {
   // Main barrel — resolves to source index.ts
-  "@zenthcloud/kumo": resolve(kumoSrc, "index.ts"),
+  "@company/kumo": resolve(kumoSrc, "index.ts"),
 
   // CSS styles — resolve to source CSS
-  "@zenthcloud/kumo/styles/tailwind": resolve(kumoSrc, "styles/kumo.css"),
-  "@zenthcloud/kumo/styles/standalone": resolve(
+  "@company/kumo/styles/tailwind": resolve(kumoSrc, "styles/kumo.css"),
+  "@company/kumo/styles/standalone": resolve(
     kumoSrc,
     "styles/kumo-standalone.css",
   ),
-  "@zenthcloud/kumo/styles": resolve(kumoSrc, "styles/kumo.css"),
+  "@company/kumo/styles": resolve(kumoSrc, "styles/kumo.css"),
 
   // JSON registry — these live outside src/ and are NOT built, so same
   // path works in dev and prod.  We alias anyway so Vite can resolve
   // the workspace:* link correctly and watch the file.
-  "@zenthcloud/kumo/ai/component-registry.json": resolve(
+  "@company/kumo/ai/component-registry.json": resolve(
     kumoRoot,
     "ai/component-registry.json",
   ),
 
   // Theme generator — resolve to source TS so the docs color page
   // always reflects the latest config without a kumo build step.
-  "@zenthcloud/kumo/scripts/theme-generator/config": resolve(
+  "@company/kumo/scripts/theme-generator/config": resolve(
     kumoRoot,
     "scripts/theme-generator/config.ts",
   ),
-  "@zenthcloud/kumo/scripts/theme-generator/types": resolve(
+  "@company/kumo/scripts/theme-generator/types": resolve(
     kumoRoot,
     "scripts/theme-generator/types.ts",
   ),
 
   // Code highlighting has separate client and server entry points.
-  "@zenthcloud/kumo/code": resolve(kumoSrc, "code/index.ts"),
-  "@zenthcloud/kumo/code/server": resolve(kumoSrc, "code/server.tsx"),
+  "@company/kumo/code": resolve(kumoSrc, "code/index.ts"),
+  "@company/kumo/code/server": resolve(kumoSrc, "code/server.tsx"),
 };
 
 /**
- * Vite plugin that rewires `@zenthcloud/kumo` imports to the raw source
+ * Vite plugin that rewires `@company/kumo` imports to the raw source
  * files of the sibling package during `astro dev`.
  *
  * **Why not just use `resolve.alias`?**
  * `resolve.alias` is a simple prefix match — it can't distinguish
- * `@zenthcloud/kumo` from `@zenthcloud/kumo-figma` without a trailing
+ * `@company/kumo` from `@company/kumo-figma` without a trailing
  * slash, and it can't handle the overlapping sub-path exports cleanly.
  * A plugin gives us exact-match control.
  */
@@ -75,47 +75,47 @@ export function kumoHmrPlugin() {
         return aliases[source];
       }
 
-      // Sub-path component imports: @zenthcloud/kumo/components/button
+      // Sub-path component imports: @company/kumo/components/button
       // → packages/kumo/src/components/button/index.ts
-      if (source.startsWith("@zenthcloud/kumo/components/")) {
+      if (source.startsWith("@company/kumo/components/")) {
         const componentName = source.replace(
-          "@zenthcloud/kumo/components/",
+          "@company/kumo/components/",
           "",
         );
         return resolve(kumoSrc, `components/${componentName}/index.ts`);
       }
 
-      // Primitives: @zenthcloud/kumo/primitives/dialog
+      // Primitives: @company/kumo/primitives/dialog
       // → packages/kumo/src/primitives/dialog.ts
-      if (source.startsWith("@zenthcloud/kumo/primitives/")) {
+      if (source.startsWith("@company/kumo/primitives/")) {
         const primitiveName = source.replace(
-          "@zenthcloud/kumo/primitives/",
+          "@company/kumo/primitives/",
           "",
         );
         return resolve(kumoSrc, `primitives/${primitiveName}.ts`);
       }
-      if (source === "@zenthcloud/kumo/primitives") {
+      if (source === "@company/kumo/primitives") {
         return resolve(kumoSrc, "primitives/index.ts");
       }
 
       // Utils barrel
-      if (source === "@zenthcloud/kumo/utils") {
+      if (source === "@company/kumo/utils") {
         return resolve(kumoSrc, "utils/index.ts");
       }
 
       // Catalog barrel
-      if (source === "@zenthcloud/kumo/catalog") {
+      if (source === "@company/kumo/catalog") {
         return resolve(kumoSrc, "catalog/index.ts");
       }
 
       // Registry barrel
-      if (source === "@zenthcloud/kumo/registry") {
+      if (source === "@company/kumo/registry") {
         return resolve(kumoSrc, "registry/index.ts");
       }
 
-      // Catch-all for any other @zenthcloud/kumo/styles/* CSS imports
-      if (source.startsWith("@zenthcloud/kumo/styles/")) {
-        const styleName = source.replace("@zenthcloud/kumo/styles/", "");
+      // Catch-all for any other @company/kumo/styles/* CSS imports
+      if (source.startsWith("@company/kumo/styles/")) {
+        const styleName = source.replace("@company/kumo/styles/", "");
         return resolve(kumoSrc, `styles/${styleName}.css`);
       }
 

@@ -1,6 +1,6 @@
-import type { apiRestoreBackup } from "@zenthcloud/server/db/schema";
-import type { Destination } from "@zenthcloud/server/services/destination";
-import type { Mariadb } from "@zenthcloud/server/services/mariadb";
+import type { apiRestoreBackup } from "@company/server/db/schema";
+import type { Destination } from "@company/server/services/destination";
+import type { Mariadb } from "@company/server/services/mariadb";
 import { quote } from "shell-quote";
 import type { z } from "zod";
 import { getS3Credentials } from "../backups/utils";

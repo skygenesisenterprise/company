@@ -1,7 +1,7 @@
-import { db } from "@zenthcloud/server/db";
-import { notifications } from "@zenthcloud/server/db/schema";
-import DatabaseBackupEmail from "@zenthcloud/server/emails/emails/database-backup";
-import { redactSecrets } from "@zenthcloud/server/utils/security/redact";
+import { db } from "@company/server/db";
+import { notifications } from "@company/server/db/schema";
+import DatabaseBackupEmail from "@company/server/emails/emails/database-backup";
+import { redactSecrets } from "@company/server/utils/security/redact";
 import { render } from "@react-email/components";
 import { format } from "date-fns";
 import { and, eq } from "drizzle-orm";
@@ -51,7 +51,7 @@ export const sendDatabaseBackupNotifications = async ({
 		),
 		with: {
 			email: true,
-			zenthcloud: true,
+			company: true,
 			telegram: true,
 			slack: true,
 			resend: true,
@@ -69,7 +69,7 @@ export const sendDatabaseBackupNotifications = async ({
 		const {
 			email,
 			resend,
-			zenthcloud,
+			company,
 			telegram,
 			slack,
 			gotify,
@@ -96,7 +96,7 @@ export const sendDatabaseBackupNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Database backup for zenthcloud",
+						"Database backup for company",
 						template,
 					);
 				}
@@ -104,17 +104,17 @@ export const sendDatabaseBackupNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Database backup for zenthcloud",
+						"Database backup for company",
 						template,
 					);
 				}
 			}
 
-			if (zenthcloud) {
+			if (company) {
 				const decorate = (decoration: string, text: string) =>
-					`${zenthcloud.decoration ? decoration : ""} ${text}`.trim();
+					`${company.decoration ? decoration : ""} ${text}`.trim();
 
-				await sendDiscordNotification(zenthcloud, {
+				await sendDiscordNotification(company, {
 					title:
 						type === "success"
 							? decorate(">", "`✅` Database Backup Successful")
@@ -169,7 +169,7 @@ export const sendDatabaseBackupNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Zenthcloud Database Backup Notification",
+						text: "Company Database Backup Notification",
 					},
 				});
 			}
@@ -292,7 +292,7 @@ export const sendDatabaseBackupNotifications = async ({
 				await sendMattermostNotification(mattermost, {
 					text: `**${statusEmoji} Database Backup ${typeStatus}**\n\n**Project:** ${projectName}\n**Application:** ${applicationName}\n**Type:** ${databaseType}\n**Database Name:** ${databaseName}\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}${errorMsg}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Zenthcloud",
+					username: mattermost.username || "Company",
 				});
 			}
 

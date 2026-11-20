@@ -64,15 +64,15 @@ export const validateBuildpacks = () => `
 `;
 
 export const validateMainDirectory = () => `
-  if [ -d "/etc/zenthcloud" ]; then
+  if [ -d "/etc/company" ]; then
 	echo true
   else
 	echo false
   fi
 `;
 
-export const validateZenthcloudNetwork = () => `
-  if docker network ls | grep -q 'zenthcloud-network'; then
+export const validateCompanyNetwork = () => `
+  if docker network ls | grep -q 'company-network'; then
 	echo true
   else
 	echo false
@@ -132,7 +132,7 @@ export const serverValidate = async (serverId: string) => {
           buildpacksVersion=$(echo $buildpacksVersionEnabled | awk '{print $1}')
           buildpacksEnabled=$(echo $buildpacksVersionEnabled | awk '{print $2}')
 
-          isZenthcloudNetworkInstalled=$(${validateZenthcloudNetwork()})
+          isCompanyNetworkInstalled=$(${validateCompanyNetwork()})
           isSwarmInstalled=$(${validateSwarm()})
           isMainDirectoryInstalled=$(${validateMainDirectory()})
 
@@ -140,7 +140,7 @@ export const serverValidate = async (serverId: string) => {
           privilegeMode=$(echo $sudoAccessResult | awk '{print $1}')
           isDockerGroupMember=$(${validateDockerGroup()})
 
-  echo "{\\"docker\\": {\\"version\\": \\"$dockerVersion\\", \\"enabled\\": $dockerEnabled}, \\"rclone\\": {\\"version\\": \\"$rcloneVersion\\", \\"enabled\\": $rcloneEnabled}, \\"nixpacks\\": {\\"version\\": \\"$nixpacksVersion\\", \\"enabled\\": $nixpacksEnabled}, \\"buildpacks\\": {\\"version\\": \\"$buildpacksVersion\\", \\"enabled\\": $buildpacksEnabled}, \\"railpack\\": {\\"version\\": \\"$railpackVersion\\", \\"enabled\\": $railpackEnabled}, \\"isZenthcloudNetworkInstalled\\": $isZenthcloudNetworkInstalled, \\"isSwarmInstalled\\": $isSwarmInstalled, \\"isMainDirectoryInstalled\\": $isMainDirectoryInstalled, \\"privilegeMode\\": \\"$privilegeMode\\", \\"dockerGroupMember\\": $isDockerGroupMember}"
+  echo "{\\"docker\\": {\\"version\\": \\"$dockerVersion\\", \\"enabled\\": $dockerEnabled}, \\"rclone\\": {\\"version\\": \\"$rcloneVersion\\", \\"enabled\\": $rcloneEnabled}, \\"nixpacks\\": {\\"version\\": \\"$nixpacksVersion\\", \\"enabled\\": $nixpacksEnabled}, \\"buildpacks\\": {\\"version\\": \\"$buildpacksVersion\\", \\"enabled\\": $buildpacksEnabled}, \\"railpack\\": {\\"version\\": \\"$railpackVersion\\", \\"enabled\\": $railpackEnabled}, \\"isCompanyNetworkInstalled\\": $isCompanyNetworkInstalled, \\"isSwarmInstalled\\": $isSwarmInstalled, \\"isMainDirectoryInstalled\\": $isMainDirectoryInstalled, \\"privilegeMode\\": \\"$privilegeMode\\", \\"dockerGroupMember\\": $isDockerGroupMember}"
         `;
 				client.exec(bashCommand, (err, stream) => {
 					if (err) {

@@ -1,17 +1,17 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreatePostgres,
 	backups,
 	buildAppName,
 	postgres,
-} from "@zenthcloud/server/db/schema";
-import { generatePassword } from "@zenthcloud/server/templates";
-import { buildPostgres } from "@zenthcloud/server/utils/databases/postgres";
+} from "@company/server/db/schema";
+import { generatePassword } from "@company/server/templates";
+import { buildPostgres } from "@company/server/utils/databases/postgres";
 import {
 	pullImage,
 	waitForSwarmServiceConvergence,
-} from "@zenthcloud/server/utils/docker/utils";
-import { execAsyncRemote } from "@zenthcloud/server/utils/process/execAsync";
+} from "@company/server/utils/docker/utils";
+import { execAsyncRemote } from "@company/server/utils/process/execAsync";
 import { TRPCError } from "@trpc/server";
 import { eq, getTableColumns } from "drizzle-orm";
 import { quote } from "shell-quote";

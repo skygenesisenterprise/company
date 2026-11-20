@@ -1,4 +1,4 @@
-# Zenthcloud — developer & operator interface.
+# Company — developer & operator interface.
 #
 # A thin layer over the tools that already exist in the repository (pnpm,
 # docker, docker compose). No build or deployment logic is duplicated here:
@@ -19,21 +19,21 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 # --- Selectable configuration ---------------------------------------------
-# ZENTHCLOUD_VERSION is the image tag that is *consumed* (what Compose runs):
+# COMPANY_VERSION is the image tag that is *consumed* (what Compose runs):
 # `latest` by default, `v1.3.0` to pin a published release.
-# ZENTHCLOUD_REGISTRY is the registry images are pulled from/pushed to.
-# ZENTHCLOUD_PORT and ZENTHCLOUD_API_PORT are left unset on purpose so
+# COMPANY_REGISTRY is the registry images are pulled from/pushed to.
+# COMPANY_PORT and COMPANY_API_PORT are left unset on purpose so
 # docker-compose.yml keeps resolving them from .env (or from their defaults); pass
-# ZENTHCLOUD_PORT=8080 to override.
+# COMPANY_PORT=8080 to override.
 #
 # The product (self | cloud | console | a bot) is deliberately NOT one of them: it
 # can only be chosen with a make goal, never by editing this file or .env — see
 # "Inline product flag" below. The flavor variables it implies are derived below
 # and must not be set by hand.
-ZENTHCLOUD_VERSION ?= latest
-ZENTHCLOUD_REGISTRY ?= ghcr.io/skygenesisenterprise
+COMPANY_VERSION ?= latest
+COMPANY_REGISTRY ?= ghcr.io/skygenesisenterprise
 # Image of the standalone status page (separate product, not part of the stack).
-STATUS_IMAGE ?= $(ZENTHCLOUD_REGISTRY)/zenthcloud-status
+STATUS_IMAGE ?= $(COMPANY_REGISTRY)/company-status
 
 PNPM ?= pnpm
 COMPOSE ?= docker compose
@@ -41,7 +41,7 @@ DOCKER ?= docker
 
 # Version the *local* build is tagged with: `v<major>.<minor>.<patch>`, the same
 # shape docker-publish.yml publishes. Override to reproduce a specific release.
-APP_VERSION := $(shell node -p "require('./apps/zenthcloud/package.json').version" 2>/dev/null || echo 0.0.0)
+APP_VERSION := $(shell node -p "require('./apps/company/package.json').version" 2>/dev/null || echo 0.0.0)
 IMAGE_VERSION ?= v$(APP_VERSION)
 GIT_SHA := $(shell git rev-parse --short HEAD 2>/dev/null || echo dev)
 
@@ -71,8 +71,8 @@ BOT_IMAGE_guild-center := guild-center
 # anything. Works with docker-build, docker-up, docker-dev and the image targets:
 #
 #   make docker-up self        # self-hosted platform (default)
-#   make docker-up cloud       # Zenthcloud Cloud
-#   make docker-up console     # Zenthcloud Console
+#   make docker-up cloud       # Company Cloud
+#   make docker-up console     # Company Console
 #   make docker-up main        # the main Discord bot
 #   make docker-dev player     # the player bot, in development mode
 #
@@ -105,10 +105,10 @@ endif
 # compose/docker command below.
 BOT_DIR := $(BOT_DIR_$(SELECTED_PRODUCT))
 
-# ZENTHCLOUD_FLAVOR / IS_CLOUD are derived: refuse a direct assignment
+# COMPANY_FLAVOR / IS_CLOUD are derived: refuse a direct assignment
 # instead of silently running an environment that was not selected.
-ifneq ($(filter $(origin ZENTHCLOUD_FLAVOR),command line environment),)
-$(warning ZENTHCLOUD_FLAVOR is derived from the product — use 'make <goal> <product>' instead; ignoring 'ZENTHCLOUD_FLAVOR=$(ZENTHCLOUD_FLAVOR)')
+ifneq ($(filter $(origin COMPANY_FLAVOR),command line environment),)
+$(warning COMPANY_FLAVOR is derived from the product — use 'make <goal> <product>' instead; ignoring 'COMPANY_FLAVOR=$(COMPANY_FLAVOR)')
 endif
 ifneq ($(filter $(origin IS_CLOUD),command line environment),)
 $(warning IS_CLOUD is derived from the product — use 'make <goal> <product>' instead; ignoring 'IS_CLOUD=$(IS_CLOUD)')
@@ -118,56 +118,56 @@ endif
 #
 # Console is the cloud-side fleet manager: a hosted deployment (IS_CLOUD) whose
 # product is stated explicitly, which is exactly what the entitlements resolver in
-# packages/server expects (`ZENTHCLOUD_PRODUCT` wins over every hint).
+# packages/server expects (`COMPANY_PRODUCT` wins over every hint).
 ifeq ($(SELECTED_PRODUCT),console)
-override ZENTHCLOUD_FLAVOR := console
-override ZENTHCLOUD_PRODUCT := console
+override COMPANY_FLAVOR := console
+override COMPANY_PRODUCT := console
 override IS_CLOUD := true
-override ZENTHCLOUD_IMAGE := $(ZENTHCLOUD_REGISTRY)/zenthcloud-console
+override COMPANY_IMAGE := $(COMPANY_REGISTRY)/company-console
 else ifeq ($(SELECTED_PRODUCT),cloud)
-override ZENTHCLOUD_FLAVOR := cloud
-override ZENTHCLOUD_PRODUCT := cloud
+override COMPANY_FLAVOR := cloud
+override COMPANY_PRODUCT := cloud
 override IS_CLOUD := true
-override ZENTHCLOUD_IMAGE := $(ZENTHCLOUD_REGISTRY)/zenthcloud-cloud
+override COMPANY_IMAGE := $(COMPANY_REGISTRY)/company-cloud
 else ifeq ($(SELECTED_PRODUCT),self)
-override ZENTHCLOUD_FLAVOR := selfhosted
-override ZENTHCLOUD_PRODUCT := self
+override COMPANY_FLAVOR := selfhosted
+override COMPANY_PRODUCT := self
 override IS_CLOUD := false
-override ZENTHCLOUD_IMAGE := $(ZENTHCLOUD_REGISTRY)/zenthcloud
+override COMPANY_IMAGE := $(COMPANY_REGISTRY)/company
 else
 # A bot carries no platform flavor; these stay at their self-hosted defaults so
 # the exported environment is always complete.
-override ZENTHCLOUD_FLAVOR := selfhosted
-override ZENTHCLOUD_PRODUCT := self
+override COMPANY_FLAVOR := selfhosted
+override COMPANY_PRODUCT := self
 override IS_CLOUD := false
 endif
 
 # The single image of the selected product — one per edition, one per bot, never
 # one per service.
 ifneq ($(BOT_DIR),)
-IMAGE_NAME := $(ZENTHCLOUD_REGISTRY)/$(BOT_IMAGE_$(SELECTED_PRODUCT))
+IMAGE_NAME := $(COMPANY_REGISTRY)/$(BOT_IMAGE_$(SELECTED_PRODUCT))
 else
-IMAGE_NAME := $(ZENTHCLOUD_IMAGE)
+IMAGE_NAME := $(COMPANY_IMAGE)
 endif
 
 PRODUCT_WORD := $(SELECTED_PRODUCT)
 
 # Exported to every compose invocation so image tags and runtime variables stay in
 # sync with the selected product.
-COMPOSE_ENV = ZENTHCLOUD_FLAVOR=$(ZENTHCLOUD_FLAVOR) ZENTHCLOUD_PRODUCT=$(ZENTHCLOUD_PRODUCT) IS_CLOUD=$(IS_CLOUD) ZENTHCLOUD_IMAGE=$(ZENTHCLOUD_IMAGE) ZENTHCLOUD_VERSION=$(ZENTHCLOUD_VERSION) STATUS_IMAGE=$(STATUS_IMAGE) ZENTHCLOUD_MODE=production NODE_ENV=production
+COMPOSE_ENV = COMPANY_FLAVOR=$(COMPANY_FLAVOR) COMPANY_PRODUCT=$(COMPANY_PRODUCT) IS_CLOUD=$(IS_CLOUD) COMPANY_IMAGE=$(COMPANY_IMAGE) COMPANY_VERSION=$(COMPANY_VERSION) STATUS_IMAGE=$(STATUS_IMAGE) COMPANY_MODE=production NODE_ENV=production
 
 # Development environment: same four services and the same single image, built
 # from the `dev` target (sources + dependencies), with in-container dev servers.
 # A Compose file cannot switch a service's build target from a profile, so the
 # target is passed here rather than duplicated as `api-dev` / `client-dev`
 # services. The dev image gets its own tag so it never overwrites a production one.
-COMPOSE_ENV_DEV = ZENTHCLOUD_FLAVOR=$(ZENTHCLOUD_FLAVOR) ZENTHCLOUD_PRODUCT=$(ZENTHCLOUD_PRODUCT) IS_CLOUD=$(IS_CLOUD) ZENTHCLOUD_IMAGE=$(ZENTHCLOUD_IMAGE)-dev ZENTHCLOUD_VERSION=$(ZENTHCLOUD_VERSION) STATUS_IMAGE=$(STATUS_IMAGE) ZENTHCLOUD_BUILD_TARGET=dev ZENTHCLOUD_MODE=development ZENTHCLOUD_RUN_MIGRATIONS=1 NODE_ENV=development
+COMPOSE_ENV_DEV = COMPANY_FLAVOR=$(COMPANY_FLAVOR) COMPANY_PRODUCT=$(COMPANY_PRODUCT) IS_CLOUD=$(IS_CLOUD) COMPANY_IMAGE=$(COMPANY_IMAGE)-dev COMPANY_VERSION=$(COMPANY_VERSION) STATUS_IMAGE=$(STATUS_IMAGE) COMPANY_BUILD_TARGET=dev COMPANY_MODE=development COMPANY_RUN_MIGRATIONS=1 NODE_ENV=development
 
 # Bots keep their own Compose file, their own Redis and their own volumes. The
 # image reference is the published GHCR one; `build:` in those files still works
 # for a local build (`make docker-dev main`).
-COMPOSE_ENV_BOT = ASTRON_BOT_IMAGE=$(IMAGE_NAME) ASTRON_BOT_VERSION=$(IMAGE_VERSION) ZENTHCLOUD_VERSION=$(ZENTHCLOUD_VERSION) NODE_ENV=production
-COMPOSE_ENV_BOT_DEV = ASTRON_BOT_IMAGE=$(IMAGE_NAME)-dev ASTRON_BOT_VERSION=$(IMAGE_VERSION) ZENTHCLOUD_VERSION=$(ZENTHCLOUD_VERSION) NODE_ENV=development
+COMPOSE_ENV_BOT = ASTRON_BOT_IMAGE=$(IMAGE_NAME) ASTRON_BOT_VERSION=$(IMAGE_VERSION) COMPANY_VERSION=$(COMPANY_VERSION) NODE_ENV=production
+COMPOSE_ENV_BOT_DEV = ASTRON_BOT_IMAGE=$(IMAGE_NAME)-dev ASTRON_BOT_VERSION=$(IMAGE_VERSION) COMPANY_VERSION=$(COMPANY_VERSION) NODE_ENV=development
 
 # Both profiles are named on `down`/`ps`/`logs` so the mode that is not active is
 # still inspected and never left behind.
@@ -200,7 +200,7 @@ endif
 # a release. The version tag is immutable when published, which is why `latest`
 # and the sha tag exist next to it.
 IMAGE_TAGS = -t $(IMAGE_NAME):$(IMAGE_VERSION) -t $(IMAGE_NAME):latest -t $(IMAGE_NAME):sha-$(GIT_SHA)
-IMAGE_PLATFORM_FLAG = $(if $(ZENTHCLOUD_PLATFORMS),--platform $(ZENTHCLOUD_PLATFORMS),)
+IMAGE_PLATFORM_FLAG = $(if $(COMPANY_PLATFORMS),--platform $(COMPANY_PLATFORMS),)
 
 .PHONY: help install deps dev build test test-bots check-bots typecheck lint \
         docker-build docker-up docker-down docker-restart docker-logs docker-ps docker-config docker-dev docker-env \
@@ -219,7 +219,7 @@ $(PRODUCTS) $(addprefix --,$(PRODUCTS)):
 # Help
 # ---------------------------------------------------------------------------
 help: ## Show this help
-	@echo "Zenthcloud — available commands:"
+	@echo "Company — available commands:"
 	@echo ""
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}'
@@ -228,11 +228,11 @@ help: ## Show this help
 	@echo "           bots:     $(BOTS)"
 	@echo "Selected:  $(PRODUCT_WORD)$$(test -f $(PRODUCT_STATE) && echo ' (saved by the last build)')"
 	@echo "Image:     $(IMAGE_NAME):$(IMAGE_VERSION) (also :latest, :sha-$(GIT_SHA))"
-	@echo "Consumed:  $(IMAGE_NAME):$(ZENTHCLOUD_VERSION)"
+	@echo "Consumed:  $(IMAGE_NAME):$(COMPANY_VERSION)"
 	@echo ""
 	@echo "Examples:  make docker-up self              # build + start the self-hosted platform"
-	@echo "           make docker-up cloud             # Zenthcloud Cloud"
-	@echo "           make docker-up console           # Zenthcloud Console"
+	@echo "           make docker-up cloud             # Company Cloud"
+	@echo "           make docker-up console           # Company Console"
 	@echo "           make docker-up main              # the main Discord bot"
 	@echo "           make docker-dev player           # the player bot, hot-reloading sources"
 	@echo "           make docker-up                   # restart what was built last, no rebuild"
@@ -273,8 +273,8 @@ lint: ## Lint/format check (pnpm lint)
 #   dev profile:  the same four services, built from the `dev` target: api runs
 #                 `tsx server/server.ts`, client runs `next dev`, both with watch.
 #
-# `client` and `api` share one image and differ only by ZENTHCLOUD_ROLE.
-# They publish ZENTHCLOUD_PORT (3000) and ZENTHCLOUD_API_PORT (4000)
+# `client` and `api` share one image and differ only by COMPANY_ROLE.
+# They publish COMPANY_PORT (3000) and COMPANY_API_PORT (4000)
 # in both profiles, so the two modes are mutually exclusive — `make docker-down`
 # stops either. PostgreSQL and Redis are never published.
 #
@@ -301,7 +301,7 @@ docker-build: ## Build the image of the selected product (add: self | cloud | co
 	@printf '%s\n' '$(PRODUCT_WORD)' > $(PRODUCT_STATE)
 
 docker-up: ## Start the selected product in the prod profile (add: self | cloud | console | a bot)
-	@echo "==> starting product=$(PRODUCT_WORD) image=$(IMAGE_NAME):$(ZENTHCLOUD_VERSION)"
+	@echo "==> starting product=$(PRODUCT_WORD) image=$(IMAGE_NAME):$(COMPANY_VERSION)"
 	$(COMPOSE_UP)
 
 ifneq ($(GOAL_PRODUCT),)
@@ -339,7 +339,7 @@ migrate: ## Apply the database migrations once (one-off run of the `api` service
 # ---------------------------------------------------------------------------
 # Images — the same lifecycle as .github/workflows/docker-publish.yml, locally
 #
-#   editions: zenthcloud, zenthcloud-cloud, zenthcloud-console
+#   editions: company, company-cloud, company-console
 #   bots:     astron, astron-protect, astron-logger, astron-automation,
 #             astron-player, guild-center
 #
@@ -358,9 +358,9 @@ ifeq ($(BOT_DIR),)
 	$(DOCKER) buildx build \
 		--file Dockerfile \
 		--target platform \
-		--build-arg ZENTHCLOUD_VERSION=$(IMAGE_VERSION) \
-		--build-arg ZENTHCLOUD_FLAVOR=$(ZENTHCLOUD_FLAVOR) \
-		--build-arg ZENTHCLOUD_PRODUCT=$(ZENTHCLOUD_PRODUCT) \
+		--build-arg COMPANY_VERSION=$(IMAGE_VERSION) \
+		--build-arg COMPANY_FLAVOR=$(COMPANY_FLAVOR) \
+		--build-arg COMPANY_PRODUCT=$(COMPANY_PRODUCT) \
 		$(IMAGE_PLATFORM_FLAG) $(IMAGE_TAGS) --load .
 else
 	@test -f $(BOT_DIR)/Dockerfile || { echo "==> $(BOT_DIR)/Dockerfile does not exist yet; nothing to build for '$(PRODUCT_WORD)'"; exit 1; }
@@ -373,7 +373,7 @@ else
 endif
 
 image-pull: ## Pull the published image of the selected product
-	$(DOCKER) pull $(IMAGE_NAME):$(ZENTHCLOUD_VERSION)
+	$(DOCKER) pull $(IMAGE_NAME):$(COMPANY_VERSION)
 
 image-push: ## Push the local image tags of the selected product (docker login first)
 	@for tag in $(IMAGE_NAME):$(IMAGE_VERSION) $(IMAGE_NAME):latest $(IMAGE_NAME):sha-$(GIT_SHA); do \
@@ -392,17 +392,17 @@ image-inspect: ## Show the local image, its tags and OCI labels
 backup: ## Dump the database into ./backups (SQL file, timestamped)
 	@mkdir -p backups
 	@$(COMPOSE) --profile prod exec -T postgres sh -c 'pg_dump -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"' \
-		> backups/zenthcloud-$(shell date +%Y%m%d_%H%M%S).sql
+		> backups/company-$(shell date +%Y%m%d_%H%M%S).sql
 	@echo "==> backup written to backups/"
 
-restore: ## Restore a dump: make restore FILE=backups/zenthcloud-<date>.sql
-	@test -n "$(FILE)" || { echo "usage: make restore FILE=backups/zenthcloud-<date>.sql"; exit 1; }
+restore: ## Restore a dump: make restore FILE=backups/company-<date>.sql
+	@test -n "$(FILE)" || { echo "usage: make restore FILE=backups/company-<date>.sql"; exit 1; }
 	@test -f "$(FILE)" || { echo "==> $(FILE) not found"; exit 1; }
 	@$(COMPOSE) --profile prod exec -T postgres sh -c 'psql -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"' < $(FILE)
 	@echo "==> restored $(FILE)"
 
 doctor: ## Check installation health
-	@echo "Zenthcloud Doctor"
+	@echo "Company Doctor"
 	@echo "==============="
 	@echo ""
 	@echo "System:"
@@ -415,13 +415,13 @@ doctor: ## Check installation health
 	@grep -qE '^BETTER_AUTH_SECRET=.{32,}' .env 2>/dev/null && echo "✓ BETTER_AUTH_SECRET looks strong" || echo "✗ BETTER_AUTH_SECRET missing or too short"
 	@echo ""
 	@echo "Product:"
-	@echo "  $(PRODUCT_WORD) — $(IMAGE_NAME):$(ZENTHCLOUD_VERSION)"
+	@echo "  $(PRODUCT_WORD) — $(IMAGE_NAME):$(COMPANY_VERSION)"
 	@echo ""
 	@echo "Runtime:"
 	@$(COMPOSE_PS) 2>&1 | tail -5
 	@echo ""
 	@echo "Storage:"
-	@docker volume ls | grep zenthcloud && echo "✓ Zenthcloud volumes present" || echo "✗ No volumes found"
+	@docker volume ls | grep company && echo "✓ Company volumes present" || echo "✗ No volumes found"
 
 update: ## Pull the latest revision and rebuild the selected product
 	@git pull

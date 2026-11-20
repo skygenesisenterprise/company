@@ -10,7 +10,7 @@ import {
   Select,
   Table,
   Tooltip,
-} from "@zenthcloud/kumo";
+} from "@company/kumo";
 import {
   Article,
   ChatCircle,

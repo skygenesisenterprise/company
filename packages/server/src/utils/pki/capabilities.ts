@@ -1,8 +1,8 @@
 import {
 	type EntitlementPayload,
-	isZenthcloudCapability,
-	type ZenthcloudCapability,
-	type ZenthcloudProduct,
+	isCompanyCapability,
+	type CompanyCapability,
+	type CompanyProduct,
 	productCapabilities,
 	protectedProducts,
 } from "./types";
@@ -17,12 +17,12 @@ import {
  *
  *   installation.hasCapability("cloud.fleet")
  *
- * Legacy `ZENTHCLOUD_FLAVOR` / `IS_CLOUD` values are only ever *hints*: a protected
+ * Legacy `COMPANY_FLAVOR` / `IS_CLOUD` values are only ever *hints*: a protected
  * product's capabilities come from a signed entitlement, never from the
  * environment.
  */
 
-export const capabilityLabels: Record<ZenthcloudCapability, string> = {
+export const capabilityLabels: Record<CompanyCapability, string> = {
 	"self.hosted": "Self-hosted",
 	"self.local-registry": "Local registry",
 	"self.offline": "Offline operation",
@@ -34,28 +34,28 @@ export const capabilityLabels: Record<ZenthcloudCapability, string> = {
 	"console.remote-management": "Remote management",
 };
 
-export const capabilityDescriptions: Record<ZenthcloudCapability, string> = {
-	"self.hosted": "Run the full Zenthcloud control plane on your own host.",
+export const capabilityDescriptions: Record<CompanyCapability, string> = {
+	"self.hosted": "Run the full Company control plane on your own host.",
 	"self.local-registry":
 		"Host and serve container images from a registry on the instance.",
 	"self.offline":
-		"Operate without any permanent connectivity to Zenthcloud services.",
-	"cloud.control-plane": "Run the managed Zenthcloud Cloud control plane.",
+		"Operate without any permanent connectivity to Company services.",
+	"cloud.control-plane": "Run the managed Company Cloud control plane.",
 	"cloud.managed-services":
-		"Offer Zenthcloud-operated managed services to tenants.",
-	"cloud.fleet": "Manage a fleet of Zenthcloud instances from the cloud.",
-	"console.instance-management": "Manage individual Zenthcloud instances.",
+		"Offer Company-operated managed services to tenants.",
+	"cloud.fleet": "Manage a fleet of Company instances from the cloud.",
+	"console.instance-management": "Manage individual Company instances.",
 	"console.fleet": "Manage groups of instances from the Console.",
 	"console.remote-management":
 		"Perform privileged remote operations on managed instances.",
 };
 
 export interface CapabilityEvaluation {
-	product: ZenthcloudProduct;
+	product: CompanyProduct;
 	/** Effective capabilities the instance may use. */
-	capabilities: ZenthcloudCapability[];
+	capabilities: CompanyCapability[];
 	/** Capabilities of the product that were not granted. */
-	missingCapabilities: ZenthcloudCapability[];
+	missingCapabilities: CompanyCapability[];
 	/** Whether the product requires a signed entitlement to be usable. */
 	requiresEntitlement: boolean;
 	/** True when a protected product is missing its entitlement. */
@@ -70,7 +70,7 @@ export interface CapabilityEvaluation {
  * declared for the product are refused even when an entitlement claims them.
  */
 export const evaluateCapabilities = (options: {
-	product: ZenthcloudProduct;
+	product: CompanyProduct;
 	entitlement?: EntitlementPayload | null;
 	/** Self-hosted keeps its built-in capabilities even without an entitlement. */
 	allowProductDefaults?: boolean;
@@ -81,8 +81,8 @@ export const evaluateCapabilities = (options: {
 	const declared = productCapabilities[options.product];
 	const grantedByEntitlement = options.entitlement?.capabilities ?? [];
 	const granted = allowDefaults
-		? new Set<ZenthcloudCapability>([...declared, ...grantedByEntitlement])
-		: new Set<ZenthcloudCapability>(grantedByEntitlement);
+		? new Set<CompanyCapability>([...declared, ...grantedByEntitlement])
+		: new Set<CompanyCapability>(grantedByEntitlement);
 
 	// Never hand out a capability that is not part of the product's declared set.
 	const capabilities = declared.filter((capability) => granted.has(capability));
@@ -106,10 +106,10 @@ export const evaluateCapabilities = (options: {
  * an unknown id is always false so a typo cannot grant access by accident.
  */
 export const hasCapability = (
-	capabilities: readonly ZenthcloudCapability[],
+	capabilities: readonly CompanyCapability[],
 	capability: string,
 ): boolean =>
-	isZenthcloudCapability(capability) && capabilities.includes(capability);
+	isCompanyCapability(capability) && capabilities.includes(capability);
 
 /**
  * Maps legacy flavour signals to a product. This is a *hint* only and must never
@@ -117,11 +117,11 @@ export const hasCapability = (
  * is authoritative.
  */
 export const resolveProductHint = (options: {
-	/** Explicit product override (ZENTHCLOUD_PRODUCT); wins over every hint. */
+	/** Explicit product override (COMPANY_PRODUCT); wins over every hint. */
 	product?: string | null;
 	flavor?: string | null;
 	isCloud?: boolean;
-}): ZenthcloudProduct => {
+}): CompanyProduct => {
 	const explicit = (options.product ?? "").toLowerCase();
 	if (explicit === "cloud") return "cloud";
 	if (explicit === "console") return "console";

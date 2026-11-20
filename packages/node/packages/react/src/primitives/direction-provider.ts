@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { DirectionProvider } from '@zenthcloud/kumo/primitives/direction-provider';
+ * import { DirectionProvider } from '@company/kumo/primitives/direction-provider';
  * ```
  */
 

@@ -1,18 +1,18 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateDnsProvider,
 	type DnsProviderConfig,
 	dnsProvider,
 	dnsProviderTypes,
-} from "@zenthcloud/server/db/schema";
-import type { DnsRecordInput } from "@zenthcloud/server/utils/dns";
+} from "@company/server/db/schema";
+import type { DnsRecordInput } from "@company/server/utils/dns";
 import {
 	getDnsCapabilities,
 	getDnsClient,
 	getDnsProviderCategory,
 	parseZoneFile,
 	serializeZoneFile,
-} from "@zenthcloud/server/utils/dns";
+} from "@company/server/utils/dns";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";
@@ -22,7 +22,7 @@ export type DnsProvider = typeof dnsProvider.$inferSelect;
 export const DNS_SECRET_MASK = "********";
 
 const SENSITIVE_FIELDS: Record<DnsProviderConfig["providerType"], string[]> = {
-	zenthcloud: ["apiToken"],
+	company: ["apiToken"],
 	route53: ["secretAccessKey"],
 	porkbun: ["secretApiKey"],
 	infomaniak: ["apiToken"],
@@ -44,7 +44,7 @@ const SENSITIVE_FIELDS: Record<DnsProviderConfig["providerType"], string[]> = {
 	coredns: ["password"],
 	unbound: [],
 	custom: ["apiToken"],
-	"zenthcloud-internal": [],
+	"company-internal": [],
 };
 
 export const maskDnsProviderConfig = (
@@ -215,7 +215,7 @@ const withAdapterScope = (
 	config: DnsProviderConfig,
 	provider?: Pick<DnsProvider, "dnsProviderId" | "organizationId">,
 ) =>
-	config.providerType === "zenthcloud-internal"
+	config.providerType === "company-internal"
 		? {
 				...config,
 				dnsProviderId: provider?.dnsProviderId ?? "",

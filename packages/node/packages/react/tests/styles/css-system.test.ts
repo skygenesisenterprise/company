@@ -83,7 +83,7 @@ describe.skipIf(!isBuilt)("CSS design system (post-build)", () => {
       expect(css).not.toContain("@apply");
     });
 
-    it("contains the ZenthCloud semantic tokens", () => {
+    it("contains the Company semantic tokens", () => {
       const css = read("styles.css");
       for (const token of [
         "--color-zenth-base",

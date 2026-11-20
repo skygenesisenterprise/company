@@ -1,5 +1,5 @@
 /**
- * ZenthCloud — accessibility guarantees
+ * Company — accessibility guarantees
  *
  * These rules stay effective even when the host application ships its own
  * styles, because they are scoped to library-owned data attributes.
@@ -35,7 +35,7 @@
     cursor: pointer;
   }
 
-  /* Keyboard focus is always visible and uses the ZenthCloud focus token. */
+  /* Keyboard focus is always visible and uses the Company focus token. */
   :where([data-zenth-component], [data-zenth-part]):focus-visible,
   :where(.zenth-root, [data-zenth-root]) :focus-visible {
     outline: 2px solid var(--color-zenth-focus);

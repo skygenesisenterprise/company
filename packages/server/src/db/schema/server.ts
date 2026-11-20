@@ -56,7 +56,7 @@ export const server = pgTable("server", {
 	metricsConfig: jsonb("metricsConfig")
 		.$type<{
 			server: {
-				type: "Zenthcloud" | "Remote";
+				type: "Company" | "Remote";
 				refreshRate: number;
 				port: number;
 				token: string;

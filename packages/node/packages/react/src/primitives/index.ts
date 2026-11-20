@@ -9,7 +9,7 @@
  * @example
  * ```tsx
  * // Import multiple primitives
- * import { Popover, Slider, Tooltip } from '@zenthcloud/kumo/primitives';
+ * import { Popover, Slider, Tooltip } from '@company/kumo/primitives';
  * ```
  */
 

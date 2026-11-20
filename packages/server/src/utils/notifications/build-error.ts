@@ -1,7 +1,7 @@
-import { db } from "@zenthcloud/server/db";
-import { notifications } from "@zenthcloud/server/db/schema";
-import BuildFailedEmail from "@zenthcloud/server/emails/emails/build-failed";
-import { redactSecrets } from "@zenthcloud/server/utils/security/redact";
+import { db } from "@company/server/db";
+import { notifications } from "@company/server/db/schema";
+import BuildFailedEmail from "@company/server/emails/emails/build-failed";
+import { redactSecrets } from "@company/server/utils/security/redact";
 import { render } from "@react-email/components";
 import { format } from "date-fns";
 import { and, eq } from "drizzle-orm";
@@ -50,7 +50,7 @@ export const sendBuildErrorNotifications = async ({
 		),
 		with: {
 			email: true,
-			zenthcloud: true,
+			company: true,
 			telegram: true,
 			slack: true,
 			resend: true,
@@ -68,7 +68,7 @@ export const sendBuildErrorNotifications = async ({
 		const {
 			email,
 			resend,
-			zenthcloud,
+			company,
 			telegram,
 			slack,
 			gotify,
@@ -95,7 +95,7 @@ export const sendBuildErrorNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Build failed for zenthcloud",
+						"Build failed for company",
 						template,
 					);
 				}
@@ -103,19 +103,19 @@ export const sendBuildErrorNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Build failed for zenthcloud",
+						"Build failed for company",
 						template,
 					);
 				}
 			}
 
-			if (zenthcloud) {
+			if (company) {
 				const decorate = (decoration: string, text: string) =>
-					`${zenthcloud.decoration ? decoration : ""} ${text}`.trim();
+					`${company.decoration ? decoration : ""} ${text}`.trim();
 
 				const limitCharacter = 800;
 				const truncatedErrorMessage = errorMessage.substring(0, limitCharacter);
-				await sendDiscordNotification(zenthcloud, {
+				await sendDiscordNotification(company, {
 					title: decorate(">", "`⚠️` Build Failed"),
 					color: 0xed4245,
 					fields: [
@@ -160,7 +160,7 @@ export const sendBuildErrorNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Zenthcloud Build Notification",
+						text: "Company Build Notification",
 					},
 				});
 			}
@@ -273,7 +273,7 @@ ${errorMessage}
 
 [View Build Details](${buildLink})`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Zenthcloud Bot",
+					username: mattermost.username || "Company Bot",
 				});
 			}
 

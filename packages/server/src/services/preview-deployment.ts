@@ -1,10 +1,10 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreatePreviewDeployment,
 	deployments,
 	organization,
 	previewDeployments,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import type { z } from "zod";
@@ -164,7 +164,7 @@ export const createPreviewDeployment = async (
 		owner: application?.owner || "",
 		repo: application?.repository || "",
 		issue_number: Number.parseInt(schema.pullRequestNumber),
-		body: `### Zenthcloud Preview Deployment\n\n${runningComment}`,
+		body: `### Company Preview Deployment\n\n${runningComment}`,
 	});
 
 	const previewDeployment = await db

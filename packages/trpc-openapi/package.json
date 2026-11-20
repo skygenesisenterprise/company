@@ -1,5 +1,5 @@
 {
-  "name": "@zenthcloud/trpc-openapi",
+  "name": "@company/trpc-openapi",
   "version": "1.0.0",
   "description": "tRPC OpenAPI",
   "author": "Sky Genesis Enterprise",
@@ -10,13 +10,13 @@
     "openapi",
     "swagger"
   ],
-  "homepage": "https://github.com/skygenesisenterprise/zenthcloud/tree/master/packages/trpc-openapi",
+  "homepage": "https://github.com/skygenesisenterprise/company/tree/master/packages/trpc-openapi",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skygenesisenterprise/zenthcloud.git",
+    "url": "https://github.com/skygenesisenterprise/company.git",
     "directory": "packages/trpc-openapi"
   },
-  "bugs": "https://github.com/skygenesisenterprise/zenthcloud/issues",
+  "bugs": "https://github.com/skygenesisenterprise/company/issues",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
   "typings": "dist/cjs/index.d.ts",

@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { NumberField } from '@zenthcloud/kumo/primitives/number-field';
+ * import { NumberField } from '@company/kumo/primitives/number-field';
  * ```
  */
 

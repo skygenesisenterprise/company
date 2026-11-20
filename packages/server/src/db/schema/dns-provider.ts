@@ -14,13 +14,13 @@ import { z } from "zod";
 import { organization } from "./account";
 
 /**
- * Every provider Zenthcloud can talk to. Zenthcloud never assumes DNS means one SaaS
+ * Every provider Company can talk to. Company never assumes DNS means one SaaS
  * vendor: managed providers, infrastructure the user operates themselves, and
- * Zenthcloud's own internal DNS all sit behind the same adapter contract.
+ * Company's own internal DNS all sit behind the same adapter contract.
  */
 export const dnsProviderTypes = [
 	// Managed DNS services
-	"zenthcloud",
+	"company",
 	"route53",
 	"porkbun",
 	"infomaniak",
@@ -45,7 +45,7 @@ export const dnsProviderTypes = [
 	// Generic / custom adapter
 	"custom",
 	// First-party
-	"zenthcloud-internal",
+	"company-internal",
 ] as const;
 
 export type DnsProviderType = (typeof dnsProviderTypes)[number];
@@ -65,8 +65,8 @@ const httpUrlSchema = (label: string) =>
 // Managed providers
 // ---------------------------------------------------------------------------
 
-export const zenthcloudDnsConfigSchema = z.object({
-	providerType: z.literal("zenthcloud"),
+export const companyDnsConfigSchema = z.object({
+	providerType: z.literal("company"),
 	apiToken: z.string().trim().min(1),
 });
 
@@ -191,7 +191,7 @@ export const bindTsigAlgorithms = [
 
 export const bindDnsConfigSchema = z.object({
 	providerType: z.literal("bind"),
-	// Zenthcloud server used to reach the nameserver over SSH and run nsupdate.
+	// Company server used to reach the nameserver over SSH and run nsupdate.
 	serverId: z.string().trim().min(1),
 	serverAddress: z.string().trim().min(1),
 	port: z.number().int().positive().max(65535).default(53),
@@ -238,7 +238,7 @@ export const unboundDnsConfigSchema = z.object({
 // ---------------------------------------------------------------------------
 
 /**
- * Adapter for organizations with their own DNS platform. Zenthcloud speaks a small
+ * Adapter for organizations with their own DNS platform. Company speaks a small
  * documented HTTP contract instead of natively knowing the product.
  */
 export const customDnsConfigSchema = z.object({
@@ -253,13 +253,13 @@ export const customDnsConfigSchema = z.object({
 // First-party provider
 // ---------------------------------------------------------------------------
 
-export const zenthcloudInternalDnsConfigSchema = z.object({
-	providerType: z.literal("zenthcloud-internal"),
+export const companyInternalDnsConfigSchema = z.object({
+	providerType: z.literal("company-internal"),
 	defaultTtl: z.number().int().positive().default(300),
 });
 
 export const dnsProviderConfigSchema = z.discriminatedUnion("providerType", [
-	zenthcloudDnsConfigSchema,
+	companyDnsConfigSchema,
 	route53DnsConfigSchema,
 	porkbunDnsConfigSchema,
 	infomaniakDnsConfigSchema,
@@ -281,7 +281,7 @@ export const dnsProviderConfigSchema = z.discriminatedUnion("providerType", [
 	corednsDnsConfigSchema,
 	unboundDnsConfigSchema,
 	customDnsConfigSchema,
-	zenthcloudInternalDnsConfigSchema,
+	companyInternalDnsConfigSchema,
 ]);
 
 export type DnsProviderConfig = z.infer<typeof dnsProviderConfigSchema>;
@@ -324,7 +324,7 @@ export const dnsRecordTypeEnum = pgEnum("dnsRecordType", [
 ]);
 
 /**
- * Zones and records owned by the first-party Zenthcloud Internal DNS provider.
+ * Zones and records owned by the first-party Company Internal DNS provider.
  * They are the source of truth for the internal adapter, which is why they are
  * persisted instead of being resolved inside the web application.
  */
@@ -372,13 +372,13 @@ export const dnsRecord = pgTable(
 		name: text("name").notNull(),
 		content: text("content").notNull(),
 		ttl: integer("ttl").notNull().default(300),
-		// Free-form note and labels, mirroring Zenthcloud's record metadata. Only
+		// Free-form note and labels, mirroring Company's record metadata. Only
 		// providers whose API exposes them (and the internal provider) persist
 		// values here; they stay empty for the rest.
 		comment: text("comment"),
 		tags: jsonb("tags").$type<string[]>().notNull().default([]),
-		// managed = created by Zenthcloud, imported = adopted from the provider,
-		// external = observed but not owned by Zenthcloud.
+		// managed = created by Company, imported = adopted from the provider,
+		// external = observed but not owned by Company.
 		ownership: text("ownership").notNull().default("managed"),
 		createdAt: text("createdAt")
 			.notNull()

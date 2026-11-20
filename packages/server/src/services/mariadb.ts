@@ -1,17 +1,17 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateMariaDB,
 	backups,
 	buildAppName,
 	mariadb,
-} from "@zenthcloud/server/db/schema";
-import { generatePassword } from "@zenthcloud/server/templates";
-import { buildMariadb } from "@zenthcloud/server/utils/databases/mariadb";
+} from "@company/server/db/schema";
+import { generatePassword } from "@company/server/templates";
+import { buildMariadb } from "@company/server/utils/databases/mariadb";
 import {
 	pullImage,
 	waitForSwarmServiceConvergence,
-} from "@zenthcloud/server/utils/docker/utils";
-import { execAsyncRemote } from "@zenthcloud/server/utils/process/execAsync";
+} from "@company/server/utils/docker/utils";
+import { execAsyncRemote } from "@company/server/utils/process/execAsync";
 import { TRPCError } from "@trpc/server";
 import { eq, getTableColumns } from "drizzle-orm";
 import { quote } from "shell-quote";

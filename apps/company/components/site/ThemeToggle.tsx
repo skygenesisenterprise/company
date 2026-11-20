@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@zenthcloud/react";
+import { Button } from "@company/react";
 import { Moon, Sun } from "@phosphor-icons/react";
 import { useTheme } from "./ThemeProvider";
 

@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { ScrollArea } from '@zenthcloud/kumo/primitives/scroll-area';
+ * import { ScrollArea } from '@company/kumo/primitives/scroll-area';
  * ```
  */
 

@@ -1,4 +1,4 @@
-import { Link } from "@zenthcloud/react";
+import { Link } from "@company/react";
 import { footerSections, links, organisation } from "@/lib/content/site";
 import { Container } from "../Container";
 import { Logo } from "../shared/Logo";
@@ -26,12 +26,12 @@ export function SiteFooter() {
 						<Link
 							href="/"
 							variant="plain"
-							aria-label="ZenthCloud home"
+							aria-label="Company home"
 							className="inline-flex items-center gap-2 no-underline!"
 						>
 							<Logo className="size-8 text-primary" />
 							<span className="font-display text-sm font-semibold uppercase tracking-[0.24em] text-foreground">
-								ZenthCloud
+								Company
 							</span>
 						</Link>
 					</div>

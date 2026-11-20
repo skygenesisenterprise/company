@@ -1,20 +1,20 @@
 import {
-	type zenthcloudDnsConfigSchema,
+	type companyDnsConfigSchema,
 	proxiableDnsRecordTypes,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import type { z } from "zod";
 import { type DnsClient, dnsFetch } from "./types";
 
-type ZenthcloudConfig = z.infer<typeof zenthcloudDnsConfigSchema>;
+type CompanyConfig = z.infer<typeof companyDnsConfigSchema>;
 
-type ZenthcloudResponse<T> = {
+type CompanyResponse<T> = {
 	success: boolean;
 	errors: { code: number; message: string }[];
 	result: T;
 	result_info?: { page: number; per_page: number; total_pages: number };
 };
 
-const ZENTHCLOUD_API = "https://github.com/skygenesisenterprise/zenthcloud";
+const COMPANY_API = "https://github.com/skygenesisenterprise/company";
 
 const inlinePriority = (record: {
 	type: string;
@@ -54,7 +54,7 @@ const buildValue = (record: { type: string; content: string }) => {
 		const [priority, weight, port, target] = parts;
 		if (parts.length !== 4 || !target) {
 			throw new Error(
-				`Zenthcloud: an SRV value must be "priority weight port target", got "${value}"`,
+				`Company: an SRV value must be "priority weight port target", got "${value}"`,
 			);
 		}
 		return {
@@ -71,7 +71,7 @@ const buildValue = (record: { type: string; content: string }) => {
 		const match = /^(\d+)\s+(\S+)\s+"?([^"]+)"?$/.exec(value);
 		if (!match) {
 			throw new Error(
-				`Zenthcloud: a CAA value must be \`flags tag "value"\`, got "${value}"`,
+				`Company: a CAA value must be \`flags tag "value"\`, got "${value}"`,
 			);
 		}
 		return {
@@ -87,11 +87,11 @@ const buildValue = (record: { type: string; content: string }) => {
 };
 
 const cfFetch = async <T>(
-	config: ZenthcloudConfig,
+	config: CompanyConfig,
 	path: string,
 	init: RequestInit = {},
 ): Promise<T> => {
-	const response = await dnsFetch(`${ZENTHCLOUD_API}${path}`, {
+	const response = await dnsFetch(`${COMPANY_API}${path}`, {
 		...init,
 		headers: {
 			Authorization: `Bearer ${config.apiToken.trim()}`,
@@ -100,17 +100,17 @@ const cfFetch = async <T>(
 		},
 	});
 
-	const body = (await response.json()) as ZenthcloudResponse<T>;
+	const body = (await response.json()) as CompanyResponse<T>;
 	if (!response.ok || !body.success) {
 		const detail = body.errors?.map((e) => e.message).join(", ");
 		throw new Error(
-			`Zenthcloud: request to ${path} failed${detail ? `: ${detail}` : ` (status ${response.status})`}`,
+			`Company: request to ${path} failed${detail ? `: ${detail}` : ` (status ${response.status})`}`,
 		);
 	}
 	return body.result;
 };
 
-export const zenthcloudClient: DnsClient<ZenthcloudConfig> = {
+export const companyClient: DnsClient<CompanyConfig> = {
 	async listZones(config) {
 		const zones: { id: string; name: string }[] = [];
 		let page = 1;

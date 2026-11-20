@@ -1,13 +1,13 @@
 /**
- * @module @zenthcloud/react
+ * @module @company/react
  *
- * ZenthCloud's React component library built on Base UI and Tailwind CSS v4.
+ * Company's React component library built on Base UI and Tailwind CSS v4.
  *
  * **Key rules:**
  * - Use **semantic tokens only** (`bg-zenth-base`, `text-zenth-default`, etc.) — never raw Tailwind colors.
  * - **No `dark:` variant** — light/dark mode is handled automatically via CSS `light-dark()`.
  * - Merge custom classes with the `cn()` utility exported from this package.
- * - Import the precompiled stylesheet once: `import "@zenthcloud/react/styles.css"`.
+ * - Import the precompiled stylesheet once: `import "@company/react/styles.css"`.
  *   Tailwind is not required in the consuming application.
  *
  * **Component categories:**
@@ -21,12 +21,12 @@
  * - **Other:** Label, Link
  *
  * **Blocks** (composite page-level components) are NOT exported here.
- * Install them via the CLI: `npx @zenthcloud/react add <block-name>`.
+ * Install them via the CLI: `npx @company/react add <block-name>`.
  *
- * **AI resources:** See `@zenthcloud/react/ai/component-registry.json` for full
+ * **AI resources:** See `@company/react/ai/component-registry.json` for full
  * component metadata including prop descriptions, variant values, and examples.
  *
- * @see {@link https://github.com/skygenesisenterprise/zenthcloud} — Documentation
+ * @see {@link https://github.com/skygenesisenterprise/company} — Documentation
  */
 
 // Components
@@ -232,21 +232,21 @@ export {
   type KumoGridGap,
 } from "./components/grid";
 export {
-  ZenthcloudLogo,
-  KUMO_ZENTHCLOUD_LOGO_VARIANTS,
-  KUMO_ZENTHCLOUD_LOGO_DEFAULT_VARIANTS,
-  type ZenthcloudLogoProps,
-  type ZenthcloudLogoVariant,
-  type ZenthcloudLogoColor,
-  // PoweredByZenthcloud component
-  PoweredByZenthcloud,
-  type PoweredByZenthcloudProps,
+  CompanyLogo,
+  KUMO_COMPANY_LOGO_VARIANTS,
+  KUMO_COMPANY_LOGO_DEFAULT_VARIANTS,
+  type CompanyLogoProps,
+  type CompanyLogoVariant,
+  type CompanyLogoColor,
+  // PoweredByCompany component
+  PoweredByCompany,
+  type PoweredByCompanyProps,
   // SVG generation helper
-  generateZenthcloudLogoSvg,
-  type GenerateZenthcloudLogoSvgOptions,
-  type ZenthcloudLogoSvgVariant,
-  type ZenthcloudLogoSvgColor,
-} from "./components/zenthcloud-logo";
+  generateCompanyLogoSvg,
+  type GenerateCompanyLogoSvgOptions,
+  type CompanyLogoSvgVariant,
+  type CompanyLogoSvgColor,
+} from "./components/company-logo";
 // DatePicker
 export {
   DatePicker,

@@ -6,7 +6,7 @@
  * This runs at BUILD TIME before bundling the plugin.
  *
  * Usage:
- *   pnpm --filter @zenthcloud/kumo-figma build:data
+ *   pnpm --filter @company/kumo-figma build:data
  *
  * Output:
  *   packages/kumo-figma/src/generated/phosphor-icons.json
@@ -94,7 +94,7 @@ function findPhosphorCore(): string {
   }
 
   throw new Error(
-    "@phosphor-icons/core not found. Run: pnpm add -D @phosphor-icons/core --filter @zenthcloud/kumo-figma",
+    "@phosphor-icons/core not found. Run: pnpm add -D @phosphor-icons/core --filter @company/kumo-figma",
   );
 }
 

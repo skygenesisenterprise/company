@@ -1,6 +1,6 @@
-# Zenthcloud — root Docker Compose stack.
+# Company — root Docker Compose stack.
 #
-# This is the single entry point for running Zenthcloud from the repository root.
+# This is the single entry point for running Company from the repository root.
 # It builds the root `Dockerfile` and exposes the dashboard in the browser.
 #
 # Exactly four services:
@@ -18,7 +18,7 @@
 # Profiles and environments
 # ---------------------------------------------------------------------------
 #   prod   docker compose --profile prod up -d --build    (default, COMPOSE_PROFILES)
-#   dev    ZENTHCLOUD_MODE=development ZENTHCLOUD_BUILD_TARGET=dev \
+#   dev    COMPANY_MODE=development COMPANY_BUILD_TARGET=dev \
 #          NODE_ENV=development docker compose --profile dev up --build --watch
 #
 # `make docker-up [self|cloud|console]` and `make docker-dev [self|cloud|console]` set that whole
@@ -27,15 +27,15 @@
 #
 # Each service belongs to both profiles and reads its mode from the environment:
 #
-#   ZENTHCLOUD_MODE          production | development (entrypoint behaviour)
-#   ZENTHCLOUD_BUILD_TARGET  api | client (prod) or dev (hot reload)
+#   COMPANY_MODE          production | development (entrypoint behaviour)
+#   COMPANY_BUILD_TARGET  api | client (prod) or dev (hot reload)
 #   NODE_ENV                        production | development
 #
-# `ZENTHCLOUD_BUILD_TARGET` therefore has a different default per service:
+# `COMPANY_BUILD_TARGET` therefore has a different default per service:
 # unset means "build this service's production target", `dev` means "build the
 # development stage", which ships the sources and dependencies the dev servers need.
 #
-# In development the client bind-mounts `apps/zenthcloud` and `packages` over the
+# In development the client bind-mounts `apps/company` and `packages` over the
 # sources baked into the dev image, exactly like web/docker-compose.yml does for
 # the website: `next dev` sees an edit the moment it is saved, with no `compose
 # watch` process required and no copy delay. The image keeps its own node_modules
@@ -57,9 +57,9 @@
 # NEXT_PUBLIC_API_URL (baked into the browser bundle at build time).
 #
 # Only these two ports are published. PostgreSQL and Redis are reachable exclusively on
-# the `zenthcloud-internal` network.
+# the `company-internal` network.
 
-name: zenthcloud
+name: company
 
 # Shared backend configuration: the `api` service owns the credentials and the
 # migrations, in both modes.
@@ -68,7 +68,7 @@ x-api-environment: &api-environment
   TZ: ${TZ:-UTC}
   # --- PostgreSQL ----------------------------------------------------------
   # `postgres` is the internal service name — never localhost from inside a container.
-  DATABASE_URL: postgres://${POSTGRES_USER:-zenthcloud}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required — see .env.example}@postgres:5432/${POSTGRES_DB:-zenthcloud}
+  DATABASE_URL: postgres://${POSTGRES_USER:-company}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required — see .env.example}@postgres:5432/${POSTGRES_DB:-company}
   POSTGRES_HOST: postgres
   POSTGRES_PORT: "5432"
   # --- Redis ---------------------------------------------------------------
@@ -80,17 +80,17 @@ x-api-environment: &api-environment
   BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?BETTER_AUTH_SECRET is required — see .env.example}
   # Auth callbacks and cookies must use the origin the browser actually visits.
   # localhost:3000 stays trusted for direct access.
-  BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://dash.zenthcloud.localhost}
-  BETTER_AUTH_TRUSTED_ORIGINS: ${BETTER_AUTH_TRUSTED_ORIGINS:-http://dash.zenthcloud.localhost,http://localhost:3000,http://127.0.0.1:3000}
+  BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://dash.company.localhost}
+  BETTER_AUTH_TRUSTED_ORIGINS: ${BETTER_AUTH_TRUSTED_ORIGINS:-http://dash.company.localhost,http://localhost:3000,http://127.0.0.1:3000}
   # --- Environment (self | cloud | console) --------------------------------
-  # `self` is the self-hosted platform, `cloud` is Zenthcloud Cloud and
-  # `console` is Zenthcloud Console (the cloud-side fleet manager). All three
+  # `self` is the self-hosted platform, `cloud` is Company Cloud and
+  # `console` is Company Console (the cloud-side fleet manager). All three
   # run the exact same images and services: the environment only changes runtime
-  # behaviour (IS_CLOUD and ZENTHCLOUD_PRODUCT), never the container
+  # behaviour (IS_CLOUD and COMPANY_PRODUCT), never the container
   # topology. Selected by the Makefile:
   #   make docker-up self | make docker-up cloud | make docker-up console
-  ZENTHCLOUD_FLAVOR: ${ZENTHCLOUD_FLAVOR:-selfhosted}
-  ZENTHCLOUD_PRODUCT: ${ZENTHCLOUD_PRODUCT:-self}
+  COMPANY_FLAVOR: ${COMPANY_FLAVOR:-selfhosted}
+  COMPANY_PRODUCT: ${COMPANY_PRODUCT:-self}
   IS_CLOUD: ${IS_CLOUD:-false}
   # Browser-facing origin of the API, used for the WebSocket connection.
   NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:4000}
@@ -107,21 +107,21 @@ services:
   # GROUP 1 — DATABASE
   #
   # PostgreSQL 16, official image. No host port is published: only the services
-  # attached to `zenthcloud-internal` can reach it.
+  # attached to `company-internal` can reach it.
   # -------------------------------------------------------------------------
   postgres:
     profiles: ["prod", "dev"]
     image: postgres:16-alpine
-    container_name: zenthcloud-postgres
+    container_name: company-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-zenthcloud}
+      POSTGRES_USER: ${POSTGRES_USER:-company}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required — see .env.example}
-      POSTGRES_DB: ${POSTGRES_DB:-zenthcloud}
+      POSTGRES_DB: ${POSTGRES_DB:-company}
       # Deterministic encoding, independent from the host locale.
       POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS:---encoding=UTF8}
     volumes:
-      - zenthcloud-postgres-data:/var/lib/postgresql/data
+      - company-postgres-data:/var/lib/postgresql/data
     healthcheck:
       test:
         [
@@ -133,7 +133,7 @@ services:
       retries: 10
       start_period: 15s
     networks:
-      - zenthcloud
+      - company
 
   # -------------------------------------------------------------------------
   # GROUP 2 — CACHE / QUEUE
@@ -145,7 +145,7 @@ services:
   redis:
     profiles: ["prod", "dev"]
     image: redis:7-alpine
-    container_name: zenthcloud-redis
+    container_name: company-redis
     restart: unless-stopped
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD is required — see .env.example}
@@ -154,7 +154,7 @@ services:
       - -c
       - exec redis-server --appendonly yes --appendfsync everysec --requirepass "$${REDIS_PASSWORD}"
     volumes:
-      - zenthcloud-redis-data:/data
+      - company-redis-data:/data
     healthcheck:
       test:
         [
@@ -166,7 +166,7 @@ services:
       retries: 10
       start_period: 10s
     networks:
-      - zenthcloud
+      - company
 
   # -------------------------------------------------------------------------
   # GROUP 3 — FRONTEND
@@ -174,7 +174,7 @@ services:
   # Next.js dashboard. `next start` in production, `next dev` in development. Both
   # are the same platform image: `platform` is the production target, `dev` ships
   # the sources and dependencies the dev server watches. The target comes from
-  # ZENTHCLOUD_BUILD_TARGET, the mode from ZENTHCLOUD_MODE.
+  # COMPANY_BUILD_TARGET, the mode from COMPANY_MODE.
   #
   # Deliberately without DATABASE_URL or REDIS_URL — even a mistakenly reached API
   # route cannot run backend work in this container.
@@ -184,15 +184,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: ${ZENTHCLOUD_BUILD_TARGET:-platform}
+      target: ${COMPANY_BUILD_TARGET:-platform}
       args:
         # Baked into the browser bundle: origin used for the WebSocket connection.
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:4000}
-        ZENTHCLOUD_VERSION: ${ZENTHCLOUD_VERSION:-latest}
+        COMPANY_VERSION: ${COMPANY_VERSION:-latest}
     # The same image as `api`: the edition (self | cloud | console) picks the tag,
     # the role decides what the container runs.
-    image: ${ZENTHCLOUD_IMAGE:-ghcr.io/skygenesisenterprise/zenthcloud}:${ZENTHCLOUD_VERSION:-latest}
-    container_name: zenthcloud-client
+    image: ${COMPANY_IMAGE:-ghcr.io/skygenesisenterprise/company}:${COMPANY_VERSION:-latest}
+    container_name: company-client
     restart: unless-stopped
     environment:
       # The dashboard renders pages server-side: getServerSideProps queries the
@@ -201,8 +201,8 @@ services:
       <<: *api-environment
       NODE_ENV: ${NODE_ENV:-production}
       # Selects the frontend role in the shared entrypoint.
-      ZENTHCLOUD_ROLE: client
-      ZENTHCLOUD_MODE: ${ZENTHCLOUD_MODE:-production}
+      COMPANY_ROLE: client
+      COMPANY_MODE: ${COMPANY_MODE:-production}
       PORT: 3000
       HOST: 0.0.0.0
       TZ: ${TZ:-UTC}
@@ -217,11 +217,11 @@ services:
       WATCHPACK_POLLING: "true"
     ports:
       # Host port is configurable; the container always listens on 3000.
-      - "${ZENTHCLOUD_PORT:-3000}:3000"
+      - "${COMPANY_PORT:-3000}:3000"
       # Also served on port 80 so the dashboard is reachable at
-      # http://dash.zenthcloud.localhost: browsers resolve every *.localhost
+      # http://dash.company.localhost: browsers resolve every *.localhost
       # name to loopback (RFC 6761), so no /etc/hosts entry is needed.
-      - "${ZENTHCLOUD_DASH_PORT:-80}:3000"
+      - "${COMPANY_DASH_PORT:-80}:3000"
     depends_on:
       api:
         # The client is an independent Next.js process: in development it must
@@ -248,18 +248,18 @@ services:
       # These paths only exist in the `dev` build target; the production target
       # runs from `/app` and never reads `/usr/src/app`, so the mounts are inert
       # there.
-      - ./apps/zenthcloud:/usr/src/app/apps/zenthcloud
+      - ./apps/company:/usr/src/app/apps/company
       - ./packages:/usr/src/app/packages
       # Dependencies and dev build state stay owned by the image: the host
       # node_modules holds native modules built for another platform. Anonymous
       # volumes are initialised from the image, so pnpm's symlinks keep
       # resolving in it.
-      - /usr/src/app/apps/zenthcloud/node_modules
+      - /usr/src/app/apps/company/node_modules
       # Next 16 separates the outputs: `next dev` writes to `.next/dev` while
       # `next build` keeps `.next`. Mount exactly the development subtree, so the
       # dev server owns its compilation cache and never picks up a stale host
       # `.next` (or another platform's production build) through the bind mount.
-      - /usr/src/app/apps/zenthcloud/.next/dev
+      - /usr/src/app/apps/company/.next/dev
     develop:
       # Code changes are live through the bind mount above; only a lockfile change
       # needs a rebuild of the dev image.
@@ -267,20 +267,20 @@ services:
         - action: rebuild
           path: pnpm-lock.yaml
     networks:
-      - zenthcloud
+      - company
 
   # -------------------------------------------------------------------------
   # GROUP 4 — BACKEND
   #
   # Node server: tRPC and OpenAPI routes, better-auth, WebSockets, BullMQ workers
   # and cron jobs. It owns both dependency connections and closes them on SIGTERM.
-  # Same image as `client` (`ZENTHCLOUD_IMAGE`), role `api`: `node
+  # Same image as `client` (`COMPANY_IMAGE`), role `api`: `node
   # dist/server.mjs` in production, `tsx watch server/server.ts` in development
   # (reloads in place on source changes, `packages/server` included), chosen by
-  # ZENTHCLOUD_BUILD_TARGET.
+  # COMPANY_BUILD_TARGET.
   #
   # It is the only service with PostgreSQL and Redis credentials, and the only one
-  # that applies migrations: once at startup (ZENTHCLOUD_RUN_MIGRATIONS=1,
+  # that applies migrations: once at startup (COMPANY_RUN_MIGRATIONS=1,
   # the default) so a deployment never starts against a stale schema. Scaling the
   # API horizontally means setting that to 0 and running `make migrate` once.
   # -------------------------------------------------------------------------
@@ -289,21 +289,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: ${ZENTHCLOUD_BUILD_TARGET:-platform}
+      target: ${COMPANY_BUILD_TARGET:-platform}
       args:
-        ZENTHCLOUD_VERSION: ${ZENTHCLOUD_VERSION:-latest}
-        ZENTHCLOUD_FLAVOR: ${ZENTHCLOUD_FLAVOR:-selfhosted}
-        ZENTHCLOUD_PRODUCT: ${ZENTHCLOUD_PRODUCT:-self}
-    image: ${ZENTHCLOUD_IMAGE:-ghcr.io/skygenesisenterprise/zenthcloud}:${ZENTHCLOUD_VERSION:-latest}
-    container_name: zenthcloud-api
+        COMPANY_VERSION: ${COMPANY_VERSION:-latest}
+        COMPANY_FLAVOR: ${COMPANY_FLAVOR:-selfhosted}
+        COMPANY_PRODUCT: ${COMPANY_PRODUCT:-self}
+    image: ${COMPANY_IMAGE:-ghcr.io/skygenesisenterprise/company}:${COMPANY_VERSION:-latest}
+    container_name: company-api
     restart: unless-stopped
     environment:
       <<: *api-environment
       # Selects the backend role in the shared entrypoint.
-      ZENTHCLOUD_ROLE: api
-      ZENTHCLOUD_MODE: ${ZENTHCLOUD_MODE:-production}
+      COMPANY_ROLE: api
+      COMPANY_MODE: ${COMPANY_MODE:-production}
       # Single API instance: it owns the migrations of this deployment.
-      ZENTHCLOUD_RUN_MIGRATIONS: ${ZENTHCLOUD_RUN_MIGRATIONS:-1}
+      COMPANY_RUN_MIGRATIONS: ${COMPANY_RUN_MIGRATIONS:-1}
       PORT: 4000
       HOST: 0.0.0.0
       NEXT_TELEMETRY_DISABLED: "1"
@@ -311,7 +311,7 @@ services:
       WATCHPACK_POLLING: ${DEV_POLLING:-false}
     ports:
       # Published so the browser can open the WebSocket connection (and for API clients).
-      - "${ZENTHCLOUD_API_PORT:-4000}:4000"
+      - "${COMPANY_API_PORT:-4000}:4000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -335,8 +335,8 @@ services:
       # node_modules and its build output.
       watch:
         - action: sync
-          path: ./apps/zenthcloud
-          target: /usr/src/app/apps/zenthcloud
+          path: ./apps/company
+          target: /usr/src/app/apps/company
           ignore:
             - .next/
             - node_modules/
@@ -355,20 +355,20 @@ services:
         - action: rebuild
           path: pnpm-lock.yaml
     networks:
-      - zenthcloud
+      - company
 
 volumes:
   # Application data. Deleting these volumes destroys the database and the queued
   # jobs; `docker compose down` alone preserves them.
-  zenthcloud-postgres-data:
-    name: zenthcloud-postgres-data
-  zenthcloud-redis-data:
-    name: zenthcloud-redis-data
+  company-postgres-data:
+    name: company-postgres-data
+  company-redis-data:
+    name: company-redis-data
 
 networks:
   # Single internal bridge network. PostgreSQL and Redis are reachable only through
   # it; it is not `internal: true` because the API needs outbound access (git
   # providers, OAuth, AI providers, notifications).
-  zenthcloud:
-    name: zenthcloud-internal
+  company:
+    name: company-internal
     driver: bridge

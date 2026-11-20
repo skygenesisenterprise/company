@@ -1,4 +1,4 @@
-import { ClipboardText } from "@zenthcloud/kumo";
+import { ClipboardText } from "@company/kumo";
 
 export function ClipboardTextBasicDemo() {
   return <ClipboardText text="0c239dd2" />;

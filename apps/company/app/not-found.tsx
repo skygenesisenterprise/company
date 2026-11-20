@@ -27,12 +27,12 @@ export default function NotFound() {
 				<p className="mt-8 text-sm text-muted-foreground">
 					Looking for documentation?{" "}
 					<a
-						href="https://docs.zenthcloud.com"
+						href="https://docs.company.com"
 						target="_blank"
 						rel="noreferrer"
 						className="text-foreground underline underline-offset-4"
 					>
-						docs.zenthcloud.com
+						docs.company.com
 					</a>
 				</p>
 			</div>

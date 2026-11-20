@@ -109,9 +109,9 @@ const packEntries = {
   ),
   "components/empty": resolve(__dirname, "src/components/empty/index.ts"),
   "components/grid": resolve(__dirname, "src/components/grid/index.ts"),
-  "components/zenthcloud-logo": resolve(
+  "components/company-logo": resolve(
     __dirname,
-    "src/components/zenthcloud-logo/index.ts",
+    "src/components/company-logo/index.ts",
   ),
   "components/date-picker": resolve(
     __dirname,

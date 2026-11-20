@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DeleteResource, Button } from "@zenthcloud/kumo";
+import { DeleteResource, Button } from "@company/kumo";
 
 export function DeleteResourceBasicDemo() {
   const [open, setOpen] = useState(false);

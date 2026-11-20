@@ -5,10 +5,10 @@ DOCKER_VERSION="28.5.2"
 
 # Official Notploy CLI. It is published independently from the server image, so
 # installs and `update` runs refresh it from npm after the server converges.
-NOTPLOY_CLI_PACKAGE="${NOTPLOY_CLI_PACKAGE:-@zenthcloud/cli}"
+NOTPLOY_CLI_PACKAGE="${NOTPLOY_CLI_PACKAGE:-@company/cli}"
 NOTPLOY_CLI_VERSION="${NOTPLOY_CLI_VERSION:-latest}"
-NOTPLOY_CLI_HOME="${NOTPLOY_CLI_HOME:-/usr/local/lib/zenthcloud-cli}"
-NOTPLOY_CLI_BIN="${NOTPLOY_CLI_BIN:-/usr/local/bin/zenthcloud}"
+NOTPLOY_CLI_HOME="${NOTPLOY_CLI_HOME:-/usr/local/lib/company-cli}"
+NOTPLOY_CLI_BIN="${NOTPLOY_CLI_BIN:-/usr/local/bin/company}"
 NOTPLOY_CLI_NODE_VERSION="${NOTPLOY_CLI_NODE_VERSION:-24.4.0}"
 NOTPLOY_CLI_PNPM_VERSION="${NOTPLOY_CLI_PNPM_VERSION:-12.15.0}"
 
@@ -107,10 +107,10 @@ Environment:
   NOTPLOY_CONFIG_GROUP       Group granted access to the config dir (optional).
   NOTPLOY_DOKPLOY_AUTH_SECRET  Dokploy's BETTER_AUTH_SECRET, to supply it explicitly
                              when it cannot be read from the running container.
-  NOTPLOY_CLI_PACKAGE        CLI package to install (default @zenthcloud/cli).
+  NOTPLOY_CLI_PACKAGE        CLI package to install (default @company/cli).
   NOTPLOY_CLI_VERSION        CLI version or dist-tag (default latest).
-  NOTPLOY_CLI_HOME           Managed runtime directory (default /usr/local/lib/zenthcloud-cli).
-  NOTPLOY_CLI_BIN            CLI launcher path (default /usr/local/bin/zenthcloud).
+  NOTPLOY_CLI_HOME           Managed runtime directory (default /usr/local/lib/company-cli).
+  NOTPLOY_CLI_BIN            CLI launcher path (default /usr/local/bin/company).
   NOTPLOY_CLI_NODE_VERSION   Node.js version for the managed runtime (default 24.4.0).
   NOTPLOY_CLI_PNPM_VERSION   pnpm version for the managed runtime (default 12.15.0).
 
@@ -144,7 +144,7 @@ if [ "$NOTPLOY_PRODUCT" != "self" ]; then
     export IS_CLOUD=true
 fi
 
-NOTPLOY_CONFIG_DIR="${NOTPLOY_CONFIG_PATH:-/etc/zenthcloud}"
+NOTPLOY_CONFIG_DIR="${NOTPLOY_CONFIG_PATH:-/etc/company}"
 INSTANCE_IDENTITY_DIR="$NOTPLOY_CONFIG_DIR/identity"
 INSTANCE_VALIDITY_DAYS="${NOTPLOY_INSTANCE_VALIDITY_DAYS:-825}"
 CA_VALIDITY_DAYS="${NOTPLOY_CA_VALIDITY_DAYS:-3650}"
@@ -215,7 +215,7 @@ sudo_run() {
 }
 
 # True when the `node` already on PATH can run the Notploy CLI (>= 20.19).
-node_supports_zenthcloud_cli() {
+node_supports_company_cli() {
     command -v node >/dev/null 2>&1 || return 1
     node -e 'const [major, minor] = process.versions.node.split(".").map(Number); process.exit(major > 20 || (major === 20 && minor >= 19) ? 0 : 1)' >/dev/null 2>&1
 }
@@ -262,7 +262,7 @@ ensure_managed_cli_runtime() {
 
 # Installs or refreshes the official CLI and exposes it through a small launcher
 # so it keeps working even when PNPM_HOME is not present in a user's PATH.
-install_zenthcloud_cli() {
+install_company_cli() {
     local cli_spec="$NOTPLOY_CLI_PACKAGE@$NOTPLOY_CLI_VERSION"
     local pnpm_home="$NOTPLOY_CLI_HOME"
     local pnpm_bin="" node_bin="" node_dir="" cli_shim="" launcher=""
@@ -281,7 +281,7 @@ install_zenthcloud_cli() {
             ;;
     esac
 
-    if node_supports_zenthcloud_cli && command -v pnpm >/dev/null 2>&1; then
+    if node_supports_company_cli && command -v pnpm >/dev/null 2>&1; then
         node_bin="$(command -v node)"
         pnpm_bin="$(command -v pnpm)"
     else
@@ -303,10 +303,10 @@ install_zenthcloud_cli() {
         return 1
     fi
 
-    cli_shim="$pnpm_home/bin/zenthcloud"
+    cli_shim="$pnpm_home/bin/company"
     if [ ! -e "$cli_shim" ]; then
         cli_shim="$($SUDO_CMD env PNPM_HOME="$pnpm_home" PATH="$node_dir:$PATH" \
-            "$pnpm_bin" bin -g 2>/dev/null)/zenthcloud"
+            "$pnpm_bin" bin -g 2>/dev/null)/company"
     fi
     if [ ! -e "$cli_shim" ]; then
         echo "Warning: the Notploy CLI was installed but its executable was not found." >&2
@@ -367,7 +367,7 @@ base64url_decode() {
     printf '%s' "$data" | base64 -d
 }
 
-# Verifies the compact token `zenthcloud-entitlement-v1.<payload>.<signature>`
+# Verifies the compact token `company-entitlement-v1.<payload>.<signature>`
 # against Notploy's public key with openssl. Enables offline verification.
 verify_entitlement_token() {
     local token="$1"
@@ -384,7 +384,7 @@ verify_entitlement_token() {
     local payload="${rest%%.*}"
     local signature="${rest#*.}"
 
-    if [ "$prefix" != "zenthcloud-entitlement-v1" ]; then
+    if [ "$prefix" != "company-entitlement-v1" ]; then
         echo "Error: unknown entitlement token version '$prefix'" >&2
         return 1
     fi
@@ -471,7 +471,7 @@ bootstrap_instance_identity() {
         chmod 644 "$dir/ca.crt"
 
         openssl req -new -key "$dir/instance.key" \
-            -subj "/O=Notploy/CN=zenthcloud-instance-$instance_id" \
+            -subj "/O=Notploy/CN=company-instance-$instance_id" \
             -out "$dir/instance.csr" >/dev/null 2>&1
 
         local extfile
@@ -627,14 +627,14 @@ json_escape() {
 dokploy_containers() {
     command -v docker >/dev/null 2>&1 || return 0
     $SUDO_CMD docker ps -a --format '{{.ID}}|{{.Names}}|{{.Image}}|{{.Labels}}' 2>/dev/null \
-        | grep -i 'dokploy' | grep -vi 'zenthcloud'
+        | grep -i 'dokploy' | grep -vi 'company'
 }
 
 # `name|image` for Dokploy Swarm services, if a Swarm is active.
 dokploy_services() {
     command -v docker >/dev/null 2>&1 || return 0
     $SUDO_CMD docker service ls --format '{{.Name}}|{{.Image}}' 2>/dev/null \
-        | grep -i 'dokploy' | grep -vi 'zenthcloud'
+        | grep -i 'dokploy' | grep -vi 'company'
 }
 
 detect_dokploy_version() {
@@ -711,11 +711,11 @@ detect_dokploy() {
     fi
 
     networks="$($SUDO_CMD docker network ls --format '{{.Name}}' 2>/dev/null \
-        | grep -i 'dokploy' | grep -vi 'zenthcloud' | head -n1)"
+        | grep -i 'dokploy' | grep -vi 'company' | head -n1)"
     [ -n "$networks" ] && dokploy_evidence_add "Docker network '$networks'"
 
     volumes="$($SUDO_CMD docker volume ls --format '{{.Name}}' 2>/dev/null \
-        | grep -i 'dokploy' | grep -vi 'zenthcloud' | head -n1)"
+        | grep -i 'dokploy' | grep -vi 'company' | head -n1)"
     [ -n "$volumes" ] && dokploy_evidence_add "Docker volume '$volumes'"
 
     for path in /etc/dokploy /etc/dokploy/traefik/dynamic \
@@ -742,7 +742,7 @@ detect_dokploy() {
 dokploy_networks() {
     command -v docker >/dev/null 2>&1 || return 0
     $SUDO_CMD docker network ls --format '{{.Name}}' 2>/dev/null \
-        | grep -i 'dokploy' | grep -vi 'zenthcloud'
+        | grep -i 'dokploy' | grep -vi 'company'
 }
 
 # Returns 0 only when a container is *known* to belong to Dokploy. Provenance is
@@ -752,7 +752,7 @@ dokploy_networks() {
 container_is_dokploy_attributed() {
     local networks="$1" labels="$2"
     if printf '%s' "$networks" | tr ',' '\n' \
-        | grep -i 'dokploy' | grep -qvi 'zenthcloud'; then
+        | grep -i 'dokploy' | grep -qvi 'company'; then
         return 0
     fi
     if printf '%s' "$labels" | tr ',' '\n' | grep -qi 'com\.dokploy'; then
@@ -762,9 +762,9 @@ container_is_dokploy_attributed() {
 }
 
 # Whether a container name belongs to Notploy's own infra and must be ignored.
-is_zenthcloud_infra_name() {
+is_company_infra_name() {
     case "$1" in
-        zenthcloud*|zenthcloud-*) return 0 ;;
+        company*|company-*) return 0 ;;
         *) return 1 ;;
     esac
 }
@@ -775,7 +775,7 @@ dokploy_collect_domains() {
     local name networks labels
     $SUDO_CMD docker ps -a --format '{{.Names}}|{{.Networks}}|{{.Labels}}' 2>/dev/null \
         | while IFS='|' read -r name networks labels; do
-            is_zenthcloud_infra_name "$name" && continue
+            is_company_infra_name "$name" && continue
             container_is_dokploy_attributed "$networks" "$labels" || continue
             printf '%s' "$labels" | tr ',' '\n'
         done \
@@ -810,7 +810,7 @@ dokploy_inventory() {
     # Running containers: classified by provenance.
     while IFS='|' read -r name networks labels image; do
         [ -n "$name" ] || continue
-        is_zenthcloud_infra_name "$name" && continue
+        is_company_infra_name "$name" && continue
         case "$name" in
             *traefik*) continue ;;
         esac
@@ -826,7 +826,7 @@ EOF
     # Stopped attributed containers cannot be reconstructed faithfully.
     while IFS='|' read -r name networks labels image; do
         [ -n "$name" ] || continue
-        is_zenthcloud_infra_name "$name" && continue
+        is_company_infra_name "$name" && continue
         case "$name" in
             *traefik*) continue ;;
         esac
@@ -846,10 +846,10 @@ EOF
     DOKPLOY_DOMAIN_COUNT="$(dokploy_collect_domains | grep -c .)"
     DOKPLOY_REGISTRY_COUNT="$($SUDO_CMD docker ps -a --format '{{.Names}}|{{.Image}}' 2>/dev/null \
         | grep -iE 'registry|harbor|nexus|artifactory' \
-        | grep -vi 'zenthcloud' | grep -c .)"
+        | grep -vi 'company' | grep -c .)"
     DOKPLOY_GIT_PROVIDER_COUNT=0
     DOKPLOY_VOLUME_COUNT="$($SUDO_CMD docker volume ls --format '{{.Name}}' 2>/dev/null \
-        | grep -i 'dokploy' | grep -vi 'zenthcloud' | grep -c .)"
+        | grep -i 'dokploy' | grep -vi 'company' | grep -c .)"
     DOKPLOY_NETWORK_COUNT="$(dokploy_networks | grep -c .)"
 }
 
@@ -859,7 +859,7 @@ dokploy_attributed_projects() {
     local name networks labels project
     $SUDO_CMD docker ps -a --format '{{.Names}}|{{.Networks}}|{{.Labels}}' 2>/dev/null \
         | while IFS='|' read -r name networks labels; do
-            is_zenthcloud_infra_name "$name" && continue
+            is_company_infra_name "$name" && continue
             container_is_dokploy_attributed "$networks" "$labels" || continue
             project="$(printf '%s' "$labels" | tr ',' '\n' \
                 | grep -oE 'com\.docker\.compose\.project=[^,]+' \
@@ -928,9 +928,9 @@ JSON
     "manual": $((DOKPLOY_GIT_PROVIDER_COUNT + DOKPLOY_REGISTRY_COUNT + DOKPLOY_DOMAIN_COUNT + DOKPLOY_STOPPED_COUNT))
   },
   "engine": {
-    "name": "zenthcloud-migration-engine",
+    "name": "company-migration-engine",
     "version": "1",
-    "direction": "dokploy-to-zenthcloud"
+    "direction": "dokploy-to-company"
   },
   "compatibility": {
     "automatic": $DOKPLOY_APPLICATION_COUNT,
@@ -1121,7 +1121,7 @@ detect_version() {
         echo "Detecting latest stable version from GitHub..." >&2
         
         version=$(curl -fsSL --connect-timeout 10 -o /dev/null -w '%{url_effective}\n' \
-            https://github.com/skygenesisenterprise/zenthcloud/releases/latest 2>/dev/null | \
+            https://github.com/skygenesisenterprise/company/releases/latest 2>/dev/null | \
             sed 's#.*/tag/##')
 
         case "$version" in
@@ -1145,16 +1145,16 @@ detect_version() {
 resolve_docker_image() {
     case "$1" in
         v[0-9]*.[0-9]*.[0-9]*-app)
-            printf 'ghcr.io/skygenesisenterprise/zenthcloud:%s' "$1"
+            printf 'ghcr.io/skygenesisenterprise/company:%s' "$1"
             ;;
         v[0-9]*.[0-9]*.[0-9]*)
-            printf 'ghcr.io/skygenesisenterprise/zenthcloud:%s-app' "$1"
+            printf 'ghcr.io/skygenesisenterprise/company:%s-app' "$1"
             ;;
         latest)
-            printf 'ghcr.io/skygenesisenterprise/zenthcloud:latest'
+            printf 'ghcr.io/skygenesisenterprise/company:latest'
             ;;
         *)
-            printf 'ghcr.io/skygenesisenterprise/zenthcloud:%s' "$1"
+            printf 'ghcr.io/skygenesisenterprise/company:%s' "$1"
             ;;
     esac
 }
@@ -1221,7 +1221,7 @@ Error: this is the Linux installer and does not run natively on Windows.
 On Windows Server 2022/2025/2026, use the standalone PowerShell installer
 (install.ps1) in an elevated PowerShell:
 
-  irm https://zenthcloud.com/install.ps1 | iex
+  irm https://company.com/install.ps1 | iex
 
 or, from a checkout of this repository:
 
@@ -1267,14 +1267,14 @@ detect_swarm_state() {
 
 # Sets NOTPLOY_INSTALLED=1 when a Notploy service or container is found.
 NOTPLOY_INSTALLED=0
-detect_zenthcloud_installation() {
+detect_company_installation() {
     NOTPLOY_INSTALLED=0
     command -v docker >/dev/null 2>&1 || return 0
-    if $SUDO_CMD docker service ls --format '{{.Name}}' 2>/dev/null | grep -qx 'zenthcloud'; then
+    if $SUDO_CMD docker service ls --format '{{.Name}}' 2>/dev/null | grep -qx 'company'; then
         NOTPLOY_INSTALLED=1
         return 0
     fi
-    if $SUDO_CMD docker ps -a --format '{{.Names}}' 2>/dev/null | grep -qE '^zenthcloud$'; then
+    if $SUDO_CMD docker ps -a --format '{{.Names}}' 2>/dev/null | grep -qE '^company$'; then
         NOTPLOY_INSTALLED=1
         return 0
     fi
@@ -1304,11 +1304,11 @@ port_is_listening() {
 }
 
 # True when an existing Notploy container is publishing `port` on the host.
-port_published_by_zenthcloud() {
+port_published_by_company() {
     local port="$1"
     command -v docker >/dev/null 2>&1 || return 1
     $SUDO_CMD docker ps --format '{{.Names}} {{.Ports}}' 2>/dev/null \
-        | grep -E '^zenthcloud' \
+        | grep -E '^company' \
         | grep -qE "(:${port}->|:${port}/)"
 }
 
@@ -1323,7 +1323,7 @@ dokploy_container_port_publishers() {
     $SUDO_CMD docker ps --format '{{.Names}}|{{.Image}}|{{.Ports}}' 2>/dev/null \
         | while IFS='|' read -r name image ports; do
             [ -n "$name" ] || continue
-            is_zenthcloud_infra_name "$name" && continue
+            is_company_infra_name "$name" && continue
             printf '%s' "$ports" | grep -qE "(^|[^0-9])${port}->" || continue
             printf '%s|%s' "$name" "$image" | grep -qi 'dokploy' && printf '%s\n' "$name"
         done
@@ -1337,7 +1337,7 @@ dokploy_service_port_publishers() {
     $SUDO_CMD docker service ls --format '{{.Name}}|{{.Ports}}' 2>/dev/null \
         | while IFS='|' read -r name ports; do
             [ -n "$name" ] || continue
-            is_zenthcloud_infra_name "$name" && continue
+            is_company_infra_name "$name" && continue
             printf '%s' "$ports" | grep -qE "(^|[^0-9])${port}->" || continue
             printf '%s' "$name" | grep -qi 'dokploy' && printf '%s\n' "$name"
         done
@@ -1385,7 +1385,7 @@ wait_for_required_ports_free() {
     while [ "$waited" -lt "$timeout" ]; do
         busy=0
         for port in 80 443 3000; do
-            if port_is_listening "$port" && ! port_published_by_zenthcloud "$port"; then
+            if port_is_listening "$port" && ! port_published_by_company "$port"; then
                 busy=1
             fi
         done
@@ -1412,7 +1412,7 @@ assert_required_ports() {
     local port
     for port in 80 443 3000; do
         if port_is_listening "$port"; then
-            if port_published_by_zenthcloud "$port"; then
+            if port_published_by_company "$port"; then
                 echo "Port $port is served by the existing Notploy installation (reusing it)."
                 continue
             fi
@@ -1542,22 +1542,22 @@ instance_identity_is_coherent() {
 # Idempotent network creation: reuse a compatible overlay, refuse to delete or
 # replace any other network that happens to share the name.
 ensure_network() {
-    if $SUDO_CMD docker network inspect zenthcloud-network >/dev/null 2>&1; then
+    if $SUDO_CMD docker network inspect company-network >/dev/null 2>&1; then
         local driver
-        driver="$($SUDO_CMD docker network inspect zenthcloud-network --format '{{.Driver}}' 2>/dev/null)"
+        driver="$($SUDO_CMD docker network inspect company-network --format '{{.Driver}}' 2>/dev/null)"
         if [ "$driver" = "overlay" ]; then
-            echo "Reusing the existing 'zenthcloud-network' overlay network."
+            echo "Reusing the existing 'company-network' overlay network."
             return 0
         fi
-        echo "Error: a network named 'zenthcloud-network' already exists with driver '$driver'." >&2
+        echo "Error: a network named 'company-network' already exists with driver '$driver'." >&2
         echo "Refusing to delete it. Handle that network deliberately, then re-run." >&2
         exit 1
     fi
-    $SUDO_CMD docker network create --driver overlay --attachable zenthcloud-network >/dev/null 2>&1 || {
-        echo "Error: failed to create the 'zenthcloud-network' overlay network." >&2
+    $SUDO_CMD docker network create --driver overlay --attachable company-network >/dev/null 2>&1 || {
+        echo "Error: failed to create the 'company-network' overlay network." >&2
         exit 1
     }
-    echo "Created overlay network 'zenthcloud-network'."
+    echo "Created overlay network 'company-network'."
 }
 
 # Idempotent secret creation. RNG value is generated before the call so a
@@ -1629,8 +1629,8 @@ assert_docker_ready() {
 ensure_traefik_container() {
     local image="traefik:v3.6.25"
 
-    if $SUDO_CMD docker inspect zenthcloud-traefik >/dev/null 2>&1; then
-        echo "Container 'zenthcloud-traefik' already exists; leaving it untouched."
+    if $SUDO_CMD docker inspect company-traefik >/dev/null 2>&1; then
+        echo "Container 'company-traefik' already exists; leaving it untouched."
         return 0
     fi
 
@@ -1645,18 +1645,18 @@ ensure_traefik_container() {
     fi
 
     if ! $SUDO_CMD docker run -d \
-        --name zenthcloud-traefik \
+        --name company-traefik \
         --restart always \
-        --network zenthcloud-network \
+        --network company-network \
         -v "$NOTPLOY_CONFIG_DIR/traefik/traefik.yml:/etc/traefik/traefik.yml" \
-        -v "$NOTPLOY_CONFIG_DIR/traefik/dynamic:/etc/zenthcloud/traefik/dynamic" \
+        -v "$NOTPLOY_CONFIG_DIR/traefik/dynamic:/etc/company/traefik/dynamic" \
         -v /var/run/docker.sock:/var/run/docker.sock:ro \
         -p 80:80/tcp \
         -p 443:443/tcp \
         -p 443:443/udp \
         "$image" >/dev/null 2>&1; then
         echo "Error: failed to start the Traefik container with $image." >&2
-        echo "Inspect with: docker logs zenthcloud-traefik" >&2
+        echo "Inspect with: docker logs company-traefik" >&2
         exit 1
     fi
     echo "Started Traefik container ($image)."
@@ -1666,44 +1666,44 @@ ensure_traefik_container() {
 # Shared service creation
 # ---------------------------------------------------------------------------
 
-create_zenthcloud_postgres_service() {
+create_company_postgres_service() {
     local endpoint_mode="$1"
-    if service_exists zenthcloud-postgres; then
-        echo "Service 'zenthcloud-postgres' already exists; leaving it untouched."
+    if service_exists company-postgres; then
+        echo "Service 'company-postgres' already exists; leaving it untouched."
         return 0
     fi
     $SUDO_CMD docker service create \
-        --name zenthcloud-postgres \
+        --name company-postgres \
         --constraint 'node.role==manager' \
-        --network zenthcloud-network \
-        --env POSTGRES_USER=zenthcloud \
-        --env POSTGRES_DB=zenthcloud \
-        --secret source=zenthcloud_postgres_password,target=/run/secrets/postgres_password \
+        --network company-network \
+        --env POSTGRES_USER=company \
+        --env POSTGRES_DB=company \
+        --secret source=company_postgres_password,target=/run/secrets/postgres_password \
         --env POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password \
-        --mount type=volume,source=zenthcloud-postgres,target=/var/lib/postgresql/data \
+        --mount type=volume,source=company-postgres,target=/var/lib/postgresql/data \
         $endpoint_mode \
         postgres:16 >/dev/null || {
-        echo "Error: failed to create the 'zenthcloud-postgres' service." >&2
+        echo "Error: failed to create the 'company-postgres' service." >&2
         exit 1
     }
-    echo "Created service 'zenthcloud-postgres'."
+    echo "Created service 'company-postgres'."
 }
 
-create_zenthcloud_app_service() {
+create_company_app_service() {
     local endpoint_mode="$1" product_env="$2" image="$3" release_tag_env="$4"
-    if service_exists zenthcloud; then
-        echo "Service 'zenthcloud' already exists; leaving it untouched."
+    if service_exists company; then
+        echo "Service 'company' already exists; leaving it untouched."
         return 0
     fi
     $SUDO_CMD docker service create \
-        --name zenthcloud \
+        --name company \
         --replicas 1 \
-        --network zenthcloud-network \
+        --network company-network \
         --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
-        --mount type=bind,source="$NOTPLOY_CONFIG_DIR",target=/etc/zenthcloud \
-        --mount type=volume,source=zenthcloud,target=/root/.docker \
-        --secret source=zenthcloud_postgres_password,target=/run/secrets/postgres_password \
-        --secret source=zenthcloud_auth_secret,target=/run/secrets/zenthcloud_auth_secret \
+        --mount type=bind,source="$NOTPLOY_CONFIG_DIR",target=/etc/company \
+        --mount type=volume,source=company,target=/root/.docker \
+        --secret source=company_postgres_password,target=/run/secrets/postgres_password \
+        --secret source=company_auth_secret,target=/run/secrets/company_auth_secret \
         --publish published=3000,target=3000,mode=host \
         --update-parallelism 1 \
         --update-order stop-first \
@@ -1712,12 +1712,12 @@ create_zenthcloud_app_service() {
         $release_tag_env \
         $product_env \
         -e POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password \
-        -e BETTER_AUTH_SECRET_FILE=/run/secrets/zenthcloud_auth_secret \
+        -e BETTER_AUTH_SECRET_FILE=/run/secrets/company_auth_secret \
         "$image" >/dev/null || {
-        echo "Error: failed to create the 'zenthcloud' service." >&2
+        echo "Error: failed to create the 'company' service." >&2
         exit 1
     }
-    echo "Created service 'zenthcloud'."
+    echo "Created service 'company'."
 }
 
 # ---------------------------------------------------------------------------
@@ -1786,7 +1786,7 @@ write_migration_plan() {
     [ -n "$dir" ] || return 0
     cat > "$dir/migration-plan.json" 2>/dev/null <<PLAN
 {
-  "engine": {"name": "zenthcloud-migration-engine", "version": "$MIGRATION_ENGINE_VERSION", "direction": "dokploy-to-zenthcloud"},
+  "engine": {"name": "company-migration-engine", "version": "$MIGRATION_ENGINE_VERSION", "direction": "dokploy-to-company"},
   "lifecycle": ["detected", "inventoried", "compatibility-reported", "planned", "plan-validated", "destination-prepared", "imported", "health-validated", "cutover-confirmed", "completed"],
   "configuration": ["create-project", "create-environment", "create-application", "recreate-network", "add-domain"],
   "data": ["restore-database-from-dump (validated, separate)", "copy-volume (validated, separate)"],
@@ -2062,7 +2062,7 @@ copy_dokploy_config() {
     $SUDO_CMD chown -R "$CURRENT_USER" "$NOTPLOY_CONFIG_DIR" 2>/dev/null || true
 }
 
-# The Notploy application always reads its data from /etc/zenthcloud inside the
+# The Notploy application always reads its data from /etc/company inside the
 # container (the config directory is bind-mounted there). Dokploy's own Traefik
 # static config references /etc/dokploy, so the adopted copy is rewritten or the
 # imported routes and ACME certificates would point at a path that does not
@@ -2083,9 +2083,9 @@ normalize_dokploy_config() {
             case "$file" in
                 "$dir"/backups/*) continue ;;
             esac
-            if sed "s#/etc/dokploy#/etc/zenthcloud#g" "$file" > "$file.tmp" 2>/dev/null \
+            if sed "s#/etc/dokploy#/etc/company#g" "$file" > "$file.tmp" 2>/dev/null \
                 && mv "$file.tmp" "$file"; then
-                echo "Pointing the adopted config at /etc/zenthcloud: $file"
+                echo "Pointing the adopted config at /etc/company: $file"
             else
                 rm -f "$file.tmp"
                 echo "Warning: could not normalize $file." >&2
@@ -2162,10 +2162,10 @@ restore_dokploy_database_legacy() {
     # psql diagnostic can be surfaced.
     # shellcheck disable=SC2086
     local restore_log="$BACKUP_DIR/restore.log"
-    if ! $SUDO_CMD docker run --rm -i --network zenthcloud-network \
+    if ! $SUDO_CMD docker run --rm -i --network company-network \
         --env "PGPASSWORD=$POSTGRES_PASSWORD" \
         "$psql_image" \
-        psql -v ON_ERROR_STOP=1 -h zenthcloud-postgres -U zenthcloud -d zenthcloud \
+        psql -v ON_ERROR_STOP=1 -h company-postgres -U company -d company \
         < "$import_dump" > "$restore_log" 2>&1; then
         echo "Error: failed to restore the Dokploy database." >&2
         tail -n 20 "$restore_log" >&2 2>/dev/null || true
@@ -2179,15 +2179,15 @@ connect_dokploy_network() {
     [ -n "$DOKPLOY_NETWORK_NAME" ] || return 0
     echo "Joining $DOKPLOY_NETWORK_NAME so existing applications keep their routing..."
     local svc
-    for svc in zenthcloud zenthcloud-postgres; do
+    for svc in company company-postgres; do
         if service_exists "$svc"; then
             $SUDO_CMD docker service update --network-add "$DOKPLOY_NETWORK_NAME" "$svc" >/dev/null 2>&1 \
                 || echo "Warning: could not attach '$svc' to $DOKPLOY_NETWORK_NAME." >&2
         fi
     done
-    if $SUDO_CMD docker inspect zenthcloud-traefik >/dev/null 2>&1; then
-        $SUDO_CMD docker network connect "$DOKPLOY_NETWORK_NAME" zenthcloud-traefik >/dev/null 2>&1 \
-            || echo "Warning: could not attach 'zenthcloud-traefik' to $DOKPLOY_NETWORK_NAME." >&2
+    if $SUDO_CMD docker inspect company-traefik >/dev/null 2>&1; then
+        $SUDO_CMD docker network connect "$DOKPLOY_NETWORK_NAME" company-traefik >/dev/null 2>&1 \
+            || echo "Warning: could not attach 'company-traefik' to $DOKPLOY_NETWORK_NAME." >&2
     fi
 }
 
@@ -2195,11 +2195,11 @@ migrate_dokploy() {
     require_elevation
     assert_docker_ready
 
-    detect_zenthcloud_installation
+    detect_company_installation
     if [ "$NOTPLOY_INSTALLED" = "1" ]; then
         echo "Error: an existing Notploy installation was detected on this host." >&2
         echo "A migration would overwrite its data; update it instead:" >&2
-        echo "  curl -fsSL https://zenthcloud.com/install.sh | sh -s -- update" >&2
+        echo "  curl -fsSL https://company.com/install.sh | sh -s -- update" >&2
         exit 1
     fi
 
@@ -2253,7 +2253,7 @@ EOF
     echo ""
 
     ensure_config_dir
-    audit_migration_event "migration-started" "direction=dokploy-to-zenthcloud version=${DOKPLOY_VERSION:-unknown}"
+    audit_migration_event "migration-started" "direction=dokploy-to-company version=${DOKPLOY_VERSION:-unknown}"
     backup_dokploy
 
     # Read-only inventory + compatibility + reviewable plan BEFORE any mutation
@@ -2296,21 +2296,21 @@ EOF
     fi
 
     POSTGRES_PASSWORD="$(generate_random_password)"
-    ensure_secret zenthcloud_postgres_password "$POSTGRES_PASSWORD"
+    ensure_secret company_postgres_password "$POSTGRES_PASSWORD"
     if [ -n "$DOKPLOY_AUTH_SECRET" ]; then
         echo "Reusing the Dokploy auth secret so imported encrypted values stay readable."
         AUTH_SECRET="$DOKPLOY_AUTH_SECRET"
     else
         AUTH_SECRET="$(openssl rand -hex 32)"
     fi
-    ensure_secret zenthcloud_auth_secret "$AUTH_SECRET"
+    ensure_secret company_auth_secret "$AUTH_SECRET"
     echo "Secure database credentials and auth secret stored as Docker Secrets."
 
-    create_zenthcloud_postgres_service "$endpoint_mode"
-    echo "Waiting for the 'zenthcloud-postgres' service to converge (up to 120s)..."
-    if ! wait_for_service_convergence zenthcloud-postgres 120; then
-        echo "Error: the 'zenthcloud-postgres' service did not converge." >&2
-        $SUDO_CMD docker service ps zenthcloud-postgres --no-trunc >&2 2>/dev/null || true
+    create_company_postgres_service "$endpoint_mode"
+    echo "Waiting for the 'company-postgres' service to converge (up to 120s)..."
+    if ! wait_for_service_convergence company-postgres 120; then
+        echo "Error: the 'company-postgres' service did not converge." >&2
+        $SUDO_CMD docker service ps company-postgres --no-trunc >&2 2>/dev/null || true
         exit 1
     fi
     # Engine rule: no direct internal database copy. Notploy starts on a fresh
@@ -2327,25 +2327,25 @@ EOF
 
     product_env=""
     if [ "$NOTPLOY_PRODUCT" != "self" ]; then
-        product_env="-e NOTPLOY_FLAVOR=$NOTPLOY_PRODUCT -e IS_CLOUD=true -e NOTPLOY_ENTITLEMENT_PUBLIC_KEY_FILE=/etc/zenthcloud/identity/entitlement-ca.pub"
+        product_env="-e NOTPLOY_FLAVOR=$NOTPLOY_PRODUCT -e IS_CLOUD=true -e NOTPLOY_ENTITLEMENT_PUBLIC_KEY_FILE=/etc/company/identity/entitlement-ca.pub"
     fi
     release_tag_env="-e RELEASE_TAG=$VERSION_TAG"
 
-    create_zenthcloud_app_service "$endpoint_mode" "$product_env" "$DOCKER_IMAGE" "$release_tag_env"
+    create_company_app_service "$endpoint_mode" "$product_env" "$DOCKER_IMAGE" "$release_tag_env"
 
-    echo "Waiting for the 'zenthcloud' service to converge (up to 180s)..."
-    if wait_for_service_convergence zenthcloud 180; then
-        echo "Service 'zenthcloud' converged."
+    echo "Waiting for the 'company' service to converge (up to 180s)..."
+    if wait_for_service_convergence company 180; then
+        echo "Service 'company' converged."
     else
-        echo "Error: the 'zenthcloud' service did not converge within the timeout." >&2
-        $SUDO_CMD docker service ps zenthcloud --no-trunc >&2 2>/dev/null || true
-        echo "Diagnose with: docker service ps zenthcloud" >&2
+        echo "Error: the 'company' service did not converge within the timeout." >&2
+        $SUDO_CMD docker service ps company --no-trunc >&2 2>/dev/null || true
+        echo "Diagnose with: docker service ps company" >&2
         exit 1
     fi
 
     ensure_traefik_container
     connect_dokploy_network
-    install_zenthcloud_cli || true
+    install_company_cli || true
 
     GREEN="\033[0;32m"
     YELLOW="\033[1;33m"
@@ -2365,7 +2365,7 @@ EOF
     echo "What was done (configuration only):"
     echo "  - Fresh Notploy installed; Traefik routing files preserved for reference."
     echo "  - Existing applications remain reachable through the '$DOKPLOY_NETWORK_NAME'"
-    echo "    overlay network until you redeploy them onto 'zenthcloud-network'."
+    echo "    overlay network until you redeploy them onto 'company-network'."
     echo ""
     echo "What remains SEPARATE (do not cut over yet):"
     echo "  1. Recreate projects/apps/compose/databases via native Notploy concepts."
@@ -2382,7 +2382,7 @@ EOF
     echo ""
 }
 
-install_zenthcloud() {
+install_company() {
     if [ "$(uname)" = "Darwin" ]; then
         echo "This script must be run on Linux" >&2
         exit 1
@@ -2486,11 +2486,11 @@ install_zenthcloud() {
         exit 1
     }
 
-    detect_zenthcloud_installation
+    detect_company_installation
     if [ "$NOTPLOY_INSTALLED" = "1" ]; then
         echo "Error: an existing Notploy installation was detected on this host." >&2
         echo "A fresh install would disrupt it. To update it instead, run:" >&2
-        echo "  curl -fsSL https://zenthcloud.com/install.sh | sh -s -- update" >&2
+        echo "  curl -fsSL https://company.com/install.sh | sh -s -- update" >&2
         exit 1
     fi
 
@@ -2528,16 +2528,16 @@ install_zenthcloud() {
     bootstrap_identity
 
     POSTGRES_PASSWORD="$(generate_random_password)"
-    ensure_secret zenthcloud_postgres_password "$POSTGRES_PASSWORD"
+    ensure_secret company_postgres_password "$POSTGRES_PASSWORD"
     AUTH_SECRET="$(openssl rand -hex 32)"
-    ensure_secret zenthcloud_auth_secret "$AUTH_SECRET"
+    ensure_secret company_auth_secret "$AUTH_SECRET"
     echo "Secure database credentials and auth secret stored as Docker Secrets."
 
-    create_zenthcloud_postgres_service "$endpoint_mode"
+    create_company_postgres_service "$endpoint_mode"
 
     product_env=""
     if [ "$NOTPLOY_PRODUCT" != "self" ]; then
-        product_env="-e NOTPLOY_FLAVOR=$NOTPLOY_PRODUCT -e IS_CLOUD=true -e NOTPLOY_ENTITLEMENT_PUBLIC_KEY_FILE=/etc/zenthcloud/identity/entitlement-ca.pub"
+        product_env="-e NOTPLOY_FLAVOR=$NOTPLOY_PRODUCT -e IS_CLOUD=true -e NOTPLOY_ENTITLEMENT_PUBLIC_KEY_FILE=/etc/company/identity/entitlement-ca.pub"
     fi
 
     release_tag_env=""
@@ -2556,20 +2556,20 @@ install_zenthcloud() {
             ;;
     esac
 
-    create_zenthcloud_app_service "$endpoint_mode" "$product_env" "$DOCKER_IMAGE" "$release_tag_env"
+    create_company_app_service "$endpoint_mode" "$product_env" "$DOCKER_IMAGE" "$release_tag_env"
 
-    echo "Waiting for the 'zenthcloud' service to converge (up to 180s)..."
-    if wait_for_service_convergence zenthcloud 180; then
-        echo "Service 'zenthcloud' converged."
+    echo "Waiting for the 'company' service to converge (up to 180s)..."
+    if wait_for_service_convergence company 180; then
+        echo "Service 'company' converged."
     else
-        echo "Error: the 'zenthcloud' service did not converge within the timeout." >&2
-        $SUDO_CMD docker service ps zenthcloud --no-trunc >&2 2>/dev/null || true
-        echo "Diagnose with: docker service ps zenthcloud" >&2
+        echo "Error: the 'company' service did not converge within the timeout." >&2
+        $SUDO_CMD docker service ps company --no-trunc >&2 2>/dev/null || true
+        echo "Diagnose with: docker service ps company" >&2
         exit 1
     fi
 
     ensure_traefik_container
-    install_zenthcloud_cli || true
+    install_company_cli || true
 
     GREEN="\033[0;32m"
     YELLOW="\033[1;33m"
@@ -2592,18 +2592,18 @@ install_zenthcloud() {
 # real Notploy installation, pulls the image, updates the service, and waits for
 # a bounded convergence before reporting success. On failure it prints a recovery
 # procedure; note that rolling back the image does NOT undo database migrations.
-update_zenthcloud() {
+update_company() {
     require_elevation
 
     assert_docker_ready
-    detect_zenthcloud_installation
+    detect_company_installation
     if [ "$NOTPLOY_INSTALLED" != "1" ]; then
         echo "Error: no existing Notploy installation was found on this host." >&2
         echo "Run the installer without the 'update' action to install it first." >&2
         exit 1
     fi
-    if ! service_exists zenthcloud; then
-        echo "Error: the 'zenthcloud' service is missing, so it cannot be updated." >&2
+    if ! service_exists company; then
+        echo "Error: the 'company' service is missing, so it cannot be updated." >&2
         echo "This is not a standard Swarm install; repair or reinstall it manually." >&2
         exit 1
     fi
@@ -2623,20 +2623,20 @@ update_zenthcloud() {
         exit 1
     fi
 
-    if ! $SUDO_CMD docker service update --image "$DOCKER_IMAGE" zenthcloud >/dev/null 2>&1; then
+    if ! $SUDO_CMD docker service update --image "$DOCKER_IMAGE" company >/dev/null 2>&1; then
         echo "Error: 'docker service update' failed." >&2
-        echo "Recover with: docker service rollback zenthcloud" >&2
+        echo "Recover with: docker service rollback company" >&2
         exit 1
     fi
 
-    echo "Waiting for the 'zenthcloud' service to converge (up to 180s)..."
-    if wait_for_service_convergence zenthcloud 180; then
+    echo "Waiting for the 'company' service to converge (up to 180s)..."
+    if wait_for_service_convergence company 180; then
         echo "Notploy has been updated to version: ${VERSION_TAG}."
-        install_zenthcloud_cli || true
+        install_company_cli || true
     else
         echo "Error: the update did not converge to a running state within the timeout." >&2
-        $SUDO_CMD docker service ps zenthcloud --no-trunc >&2 2>/dev/null || true
-        echo "Recovery: 'docker service rollback zenthcloud'" >&2
+        $SUDO_CMD docker service ps company --no-trunc >&2 2>/dev/null || true
+        echo "Recovery: 'docker service rollback company'" >&2
         echo "Note: an image rollback does not undo database schema migrations;" >&2
         echo "check the release notes if the new version changed the schema." >&2
         exit 1
@@ -2652,8 +2652,8 @@ if [ "${NOTPLOY_SOURCE_ONLY:-0}" != "1" ]; then
     fi
     detect_elevation
     if [ "$ACTION" = "update" ]; then
-        update_zenthcloud
+        update_company
     else
-        install_zenthcloud
+        install_company
     fi
 fi

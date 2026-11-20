@@ -1,5 +1,5 @@
-import { db } from "@zenthcloud/server/db";
-import { webServerSettings } from "@zenthcloud/server/db/schema";
+import { db } from "@company/server/db";
+import { webServerSettings } from "@company/server/db/schema";
 import { eq } from "drizzle-orm";
 
 /**

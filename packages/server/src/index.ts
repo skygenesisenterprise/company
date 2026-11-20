@@ -148,7 +148,7 @@ export * from "./utils/notifications/database-backup";
 export * from "./utils/notifications/docker-cleanup";
 export * from "./utils/notifications/server-threshold";
 export * from "./utils/notifications/utils";
-export * from "./utils/notifications/zenthcloud-restart";
+export * from "./utils/notifications/company-restart";
 export * from "./utils/onion";
 export * from "./utils/pki";
 export * from "./utils/process/execAsync";

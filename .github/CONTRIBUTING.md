@@ -1,13 +1,13 @@
-# Contributing to zenthcloud
+# Contributing to company
 
-Thank you for your interest in contributing to **zenthcloud**!
+Thank you for your interest in contributing to **company**!
 We welcome community contributions and feedback, while the project is also maintained and developed by [Sky Genesis Enterprise](https://skygenesisenterprise.com).
 
 ---
 
 ## 📦 About the Project
 
-**zenthcloud** is an open-source, self-hostable deployment platform licensed under the **MIT License**, with both:
+**company** is an open-source, self-hostable deployment platform licensed under the **MIT License**, with both:
 
 - A **free and self-hostable version** for the open-source community
 - A **commercial edition** with additional features and premium support maintained by Sky Genesis Enterprise
@@ -30,13 +30,13 @@ Please make sure you read and respect it before contributing.
 Use the GitHub UI to create a fork, then clone it locally:
 
 ```bash
-git clone https://github.com/skygenesisenterprise/zenthcloud.git
-cd zenthcloud
+git clone https://github.com/skygenesisenterprise/company.git
+cd company
 ```
 
 ### 2. Set Up Locally
 
-zenthcloud is a pnpm monorepo and requires **Node.js 24.4+** and **pnpm 10.22+**. Install every workspace package from the repository root:
+company is a pnpm monorepo and requires **Node.js 24.4+** and **pnpm 10.22+**. Install every workspace package from the repository root:
 
 ```bash
 pnpm install
@@ -73,7 +73,7 @@ Follow the coding standards and linting rules — the workspace is formatted and
 Ensure your code doesn't break existing functionality:
 
 ```bash
-pnpm test        # vitest suite in apps/zenthcloud
+pnpm test        # vitest suite in apps/company
 pnpm typecheck   # tsc across the workspace
 pnpm lint        # biome check
 ```
@@ -97,7 +97,7 @@ Use one of the [issue templates](./ISSUE_TEMPLATE), which route to the right peo
 | Template | Use it when |
 | --- | --- |
 | [Bug report](./ISSUE_TEMPLATE/bug_report.yml) | Something is broken, regressed, or errors out |
-| [Feature request](./ISSUE_TEMPLATE/feature_request.yml) | zenthcloud cannot do something you need it to do |
+| [Feature request](./ISSUE_TEMPLATE/feature_request.yml) | company cannot do something you need it to do |
 | [Improvement](./ISSUE_TEMPLATE/improvement.yml) | It can, but it should be faster, clearer, or more reliable |
 | [Documentation](./ISSUE_TEMPLATE/documentation.yml) | Docs, guides, examples, or reference pages are wrong or missing |
 
@@ -123,7 +123,7 @@ Please note that **final decisions regarding project direction, architecture, an
 
 ## 📩 Questions or Suggestions?
 
-Open a [GitHub Issue](./ISSUE_TEMPLATE) for bugs and proposals, or join the [zenthcloud Discord](https://zenthcloud.com/community) for questions.
+Open a [GitHub Issue](./ISSUE_TEMPLATE) for bugs and proposals, or join the [company Discord](https://company.com/community) for questions.
 You can also reach out to us at [contact@skygenesisenterprise.com](mailto:contact@skygenesisenterprise.com)
 
-Thank you for helping improve zenthcloud 💌
+Thank you for helping improve company 💌

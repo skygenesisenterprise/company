@@ -1,9 +1,9 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateEnvironment,
 	type apiDuplicateEnvironment,
 	environments,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { asc, eq } from "drizzle-orm";
 import type { z } from "zod";

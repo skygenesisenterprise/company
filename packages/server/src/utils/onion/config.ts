@@ -1,11 +1,11 @@
 import { join } from "node:path";
-import { paths } from "@zenthcloud/server/constants";
+import { paths } from "@company/server/constants";
 import {
 	ONION_PORT_MAX,
 	ONION_PORT_MIN,
 	ONION_SERVICE_NAME_MESSAGE,
 	ONION_SERVICE_NAME_REGEX,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 
 /**
  * Layout of a managed Onion Service on disk and inside its Tor container.
@@ -31,7 +31,7 @@ import {
 export const TOR_CONTAINER_DATA_PATH = "/var/lib/tor";
 export const TOR_CONTAINER_CONFIG_PATH = "/etc/tor/torrc";
 export const TOR_HIDDEN_SERVICE_DIR_NAME = "hidden_service";
-export const ONION_CONTAINER_PREFIX = "zenthcloud-onion-";
+export const ONION_CONTAINER_PREFIX = "company-onion-";
 
 /**
  * Conservative Docker image reference check. The image name ends up in a
@@ -161,7 +161,7 @@ export const renderTorrc = ({
 	const virtual = assertOnionPort(virtualPort, "Virtual port");
 
 	return [
-		"# Managed by Zenthcloud — do not edit by hand.",
+		"# Managed by Company — do not edit by hand.",
 		"# The address, the keys and this configuration are owned by the",
 		"# Onion Service resource and are rewritten on every lifecycle action.",
 		"DataDirectory /var/lib/tor",

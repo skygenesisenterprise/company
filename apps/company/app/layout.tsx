@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Lexend } from "next/font/google";
 import type { ReactNode } from "react";
-import "@zenthcloud/react/styles.css";
+import "@company/react/styles.css";
 import "@/styles/tailwind.css";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -24,29 +24,29 @@ const lexend = Lexend({
 export const metadata: Metadata = {
 	metadataBase: new URL(SITE_URL),
 	title: {
-		default: "ZenthCloud — Cloud infrastructure. Without boundaries.",
-		template: "%s | ZenthCloud",
+		default: "Company — Cloud infrastructure. Without boundaries.",
+		template: "%s | Company",
 	},
 	description:
-		"Hybrid cloud infrastructure from ZenthCloud: compute, storage, networking, managed services and hosting on owned and partner infrastructure. Availability and pricing published per product and region.",
-	applicationName: "ZenthCloud",
+		"Hybrid cloud infrastructure from Company: compute, storage, networking, managed services and hosting on owned and partner infrastructure. Availability and pricing published per product and region.",
+	applicationName: "Company",
 	icons: {
 		icon: "/icon.svg",
 		apple: "/apple-touch-icon.png",
 	},
 	openGraph: {
-		title: "ZenthCloud — Cloud infrastructure. Without boundaries.",
+		title: "Company — Cloud infrastructure. Without boundaries.",
 		description:
 			"Compute, storage, networking and managed services on owned and partner infrastructure. European roots. Global ambitions.",
 		url: SITE_URL,
-		siteName: "ZenthCloud",
+		siteName: "Company",
 		locale: "en_GB",
 		type: "website",
 		images: "/og.png",
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "ZenthCloud — Cloud infrastructure. Without boundaries.",
+		title: "Company — Cloud infrastructure. Without boundaries.",
 		description:
 			"Hybrid cloud infrastructure with availability published per product and region.",
 		images: ["/og.png"],

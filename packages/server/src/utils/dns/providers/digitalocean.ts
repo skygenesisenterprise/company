@@ -1,4 +1,4 @@
-import type { digitaloceanDnsConfigSchema } from "@zenthcloud/server/db/schema";
+import type { digitaloceanDnsConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import {
 	createDnsHttp,

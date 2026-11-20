@@ -1,4 +1,4 @@
-import type { genericVaultConfigSchema } from "@zenthcloud/server/db/schema";
+import type { genericVaultConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import { type VaultClient, vaultFetch } from "./types";
 

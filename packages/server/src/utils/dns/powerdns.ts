@@ -1,4 +1,4 @@
-import type { powerdnsDnsConfigSchema } from "@zenthcloud/server/db/schema";
+import type { powerdnsDnsConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import { type DnsClient, dnsFetch } from "./types";
 

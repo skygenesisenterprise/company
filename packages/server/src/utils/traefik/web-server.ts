@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import type { webServerSettings } from "@zenthcloud/server/db/schema/web-server-settings";
+import { paths } from "@company/server/constants";
+import type { webServerSettings } from "@company/server/db/schema/web-server-settings";
 import { parse, stringify } from "yaml";
 import {
 	loadOrCreateConfig,
@@ -16,7 +16,7 @@ export const updateServerTraefik = (
 	newHost: string | null,
 ) => {
 	const { https, certificateType, customCertResolver } = settings || {};
-	const appName = "zenthcloud";
+	const appName = "company";
 	const config: FileConfig = loadOrCreateConfig(appName);
 
 	config.http = config.http || { routers: {}, services: {} };
@@ -43,7 +43,7 @@ export const updateServerTraefik = (
 			loadBalancer: {
 				servers: [
 					{
-						url: `http://zenthcloud:${process.env.PORT || 3000}`,
+						url: `http://company:${process.env.PORT || 3000}`,
 					},
 				],
 				passHostHeader: true,

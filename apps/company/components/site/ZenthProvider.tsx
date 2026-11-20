@@ -1,6 +1,6 @@
 "use client";
 
-import { LinkProvider } from "@zenthcloud/react";
+import { LinkProvider } from "@company/react";
 import NextLink from "next/link";
 import * as React from "react";
 
@@ -11,7 +11,7 @@ type AppLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
 
 /**
  * Bridges the library's framework-agnostic LinkButton/Link to the Next.js
- * router. Every `@zenthcloud/react` link rendered under this provider keeps
+ * router. Every `@company/react` link rendered under this provider keeps
  * client-side navigation.
  */
 const AppLink = React.forwardRef<HTMLAnchorElement, AppLinkProps>(

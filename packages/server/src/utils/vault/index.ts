@@ -1,9 +1,9 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type VaultProviderConfig,
 	vaultProvider,
 	vaultSecret,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { eq, inArray } from "drizzle-orm";
 import { awsClient } from "./aws";
 import { awsParameterStoreClient } from "./aws-parameter-store";

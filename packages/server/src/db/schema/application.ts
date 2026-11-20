@@ -1,4 +1,4 @@
-import { VALID_BRANCH_REGEX } from "@zenthcloud/server/utils/git-branch-validation";
+import { VALID_BRANCH_REGEX } from "@company/server/utils/git-branch-validation";
 import { relations } from "drizzle-orm";
 import {
 	bigint,
@@ -234,11 +234,11 @@ export const applications = pgTable("application", {
 		},
 	),
 	networkIds: text("networkIds").array().default([]),
-	detachZenthcloudNetwork: boolean("detachZenthcloudNetwork")
+	detachCompanyNetwork: boolean("detachCompanyNetwork")
 		.notNull()
 		.default(false),
 	// When true the service gets a dedicated overlay network so it is isolated
-	// from other services, while staying on zenthcloud-network for Traefik routing.
+	// from other services, while staying on company-network for Traefik routing.
 	isolatedNetwork: boolean("isolatedNetwork").notNull().default(false),
 });
 
@@ -382,7 +382,7 @@ const createSchema = createInsertSchema(applications, {
 	watchPaths: z.array(z.string()).optional().optional(),
 	previewLabels: z.array(z.string()).optional(),
 	networkIds: z.array(z.string()).optional(),
-	detachZenthcloudNetwork: z.boolean().optional(),
+	detachCompanyNetwork: z.boolean().optional(),
 	isolatedNetwork: z.boolean().optional(),
 	cleanCache: z.boolean().optional(),
 	stopGracePeriodSwarm: z.number().nullable(),

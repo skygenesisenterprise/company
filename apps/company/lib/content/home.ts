@@ -8,7 +8,7 @@ export const homeHero = {
 	title: "Cloud infrastructure.",
 	highlight: "Built to connect.",
 	description:
-		"Compute, storage, networking, platform and security services on infrastructure operated by ZenthCloud and by named partners. One catalogue, with availability and commercial state published per product and region.",
+		"Compute, storage, networking, platform and security services on infrastructure operated by Company and by named partners. One catalogue, with availability and commercial state published per product and region.",
 	primaryCta: { href: "/products", label: "Explore products" },
 	secondaryCta: { href: "/pricing", label: "View pricing" },
 } as const;
@@ -119,7 +119,7 @@ export const architectureSection = {
 	eyebrow: "Connected cloud and network",
 	title: "More than cloud. A connected infrastructure.",
 	description:
-		"ZenthCloud is not only a place to rent virtual machines. Compute, storage, private networking, DNS and security are modelled together, so a workload can be placed, addressed, protected and observed as one estate.",
+		"Company is not only a place to rent virtual machines. Compute, storage, private networking, DNS and security are modelled together, so a workload can be placed, addressed, protected and observed as one estate.",
 	note: "Conceptual view of how catalogue services combine. It is not a network topology, a facility map or a capacity statement; operational status is published per product and region.",
 } as const;
 
@@ -192,7 +192,7 @@ export const deploymentModels: readonly {
 	{
 		title: "Hybrid Cloud",
 		description:
-			"ZenthCloud resources combined with partner capacity or with infrastructure you already operate.",
+			"Company resources combined with partner capacity or with infrastructure you already operate.",
 		fit: "Progressive migration, data locality and multi-provider resilience.",
 		commercial:
 			"Scoped individually. The operating provider is named per product and region, never implied.",
@@ -252,7 +252,7 @@ export const developerTools: readonly {
 	{
 		title: "Git-based workflows",
 		description:
-			"Deploy from a repository and keep delivery in your pipeline. ZenthCloud does not impose an orchestration layer.",
+			"Deploy from a repository and keep delivery in your pipeline. Company does not impose an orchestration layer.",
 		href: "/solutions/developers",
 		label: "Developer solutions",
 		external: false,
@@ -333,21 +333,21 @@ export const securityCommitments = [
 ] as const;
 
 /* -------------------------------------------------------------------------- */
-/* 09 — Why ZenthCloud                                                        */
+/* 09 — Why Company                                                        */
 /* -------------------------------------------------------------------------- */
 
 export const whySection = {
-	eyebrow: "Why ZenthCloud",
+	eyebrow: "Why Company",
 	title: "An open approach to cloud infrastructure.",
 	description:
-		"The difference is not a slogan. It is how the offer is assembled, documented and sold — and how clearly the boundary between ZenthCloud and its partners is drawn.",
+		"The difference is not a slogan. It is how the offer is assembled, documented and sold — and how clearly the boundary between Company and its partners is drawn.",
 } as const;
 
 export const whyPoints: readonly { title: string; description: string }[] = [
 	{
 		title: "Infrastructure flexibility",
 		description:
-			"Combine capacity operated by ZenthCloud with partner infrastructure or your own estate. Each availability entry names the provider, so a hybrid design is explicit rather than assumed.",
+			"Combine capacity operated by Company with partner infrastructure or your own estate. Each availability entry names the provider, so a hybrid design is explicit rather than assumed.",
 	},
 	{
 		title: "Open and interoperable",
@@ -367,7 +367,7 @@ export const whyPoints: readonly { title: string; description: string }[] = [
 	{
 		title: "European roots. Global ambitions.",
 		description:
-			"ZenthCloud is built from Europe with an international outlook. That is an ambition, not a claim of worldwide facilities: regions appear here only once they are modelled and verified.",
+			"Company is built from Europe with an international outlook. That is an ambition, not a claim of worldwide facilities: regions appear here only once they are modelled and verified.",
 	},
 ];
 
@@ -432,7 +432,7 @@ export const resourceLinks: readonly {
 
 export const finalCta = {
 	eyebrow: "Start here",
-	title: "Ready to build on ZenthCloud?",
+	title: "Ready to build on Company?",
 	description:
 		"Explore our infrastructure services, discover available products or talk with our team about your requirements.",
 	primary: { href: "/products", label: "Explore products" },
@@ -453,9 +453,9 @@ export const homeFaqs: FaqEntry[] = [
 			"No commercial price is published yet. Pricing plans exist in the data model, but every plan is in draft and shows “Price not published”. We do not display placeholder prices that could be mistaken for an offer.",
 	},
 	{
-		question: "Does ZenthCloud own all of its infrastructure?",
+		question: "Does Company own all of its infrastructure?",
 		answer:
-			"No. ZenthCloud operates a hybrid model: owned infrastructure plus partner infrastructure. Products delivered on partner capacity are labelled “Partner service”, and the operating provider is named in the contract for that product and region.",
+			"No. Company operates a hybrid model: owned infrastructure plus partner infrastructure. Products delivered on partner capacity are labelled “Partner service”, and the operating provider is named in the contract for that product and region.",
 	},
 	{
 		question: "Where are the regions located?",

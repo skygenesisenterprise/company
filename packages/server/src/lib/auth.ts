@@ -152,7 +152,7 @@ const createBetterAuth = () =>
 				allowDifferentEmails: true,
 			},
 		},
-		appName: "Zenthcloud",
+		appName: "Company",
 		// Only register a social provider when its credentials are configured:
 		// an entry with missing env vars makes better-auth warn on every boot
 		// and offers a sign-in path that can never succeed.
@@ -253,12 +253,12 @@ const createBetterAuth = () =>
 							return { data: { emailVerified: true } };
 						}
 						if (!IS_CLOUD) {
-							const xZenthcloudToken =
-								context?.request?.headers?.get("x-zenthcloud-token");
-							if (xZenthcloudToken) {
+							const xCompanyToken =
+								context?.request?.headers?.get("x-company-token");
+							if (xCompanyToken) {
 								let invitation: Awaited<ReturnType<typeof getUserByToken>>;
 								try {
-									invitation = await getUserByToken(xZenthcloudToken);
+									invitation = await getUserByToken(xCompanyToken);
 								} catch {
 									throw new APIError("BAD_REQUEST", {
 										message: "Invalid invitation token",
@@ -586,7 +586,7 @@ export interface RequestApiKey {
 /**
  * Reads the API key from a request.
  *
- * `x-api-key` is Zenthcloud's own header and stays the documented one, but CI
+ * `x-api-key` is Company's own header and stays the documented one, but CI
  * clients (GitHub Actions included) speak `Authorization: Bearer <token>`, so
  * both are accepted rather than forcing every action to build a custom header.
  */

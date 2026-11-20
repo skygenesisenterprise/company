@@ -1,7 +1,7 @@
-import { db } from "@zenthcloud/server/db";
-import { notifications } from "@zenthcloud/server/db/schema";
-import { VolumeBackupEmail } from "@zenthcloud/server/emails/emails/volume-backup";
-import { redactSecrets } from "@zenthcloud/server/utils/security/redact";
+import { db } from "@company/server/db";
+import { notifications } from "@company/server/db/schema";
+import { VolumeBackupEmail } from "@company/server/emails/emails/volume-backup";
+import { redactSecrets } from "@company/server/utils/security/redact";
 import { render } from "@react-email/components";
 import { format } from "date-fns";
 import { and, eq } from "drizzle-orm";
@@ -59,7 +59,7 @@ export const sendVolumeBackupNotifications = async ({
 		),
 		with: {
 			email: true,
-			zenthcloud: true,
+			company: true,
 			telegram: true,
 			slack: true,
 			resend: true,
@@ -77,7 +77,7 @@ export const sendVolumeBackupNotifications = async ({
 		const {
 			email,
 			resend,
-			zenthcloud,
+			company,
 			telegram,
 			slack,
 			gotify,
@@ -112,11 +112,11 @@ export const sendVolumeBackupNotifications = async ({
 				}
 			}
 
-			if (zenthcloud) {
+			if (company) {
 				const decorate = (decoration: string, text: string) =>
-					`${zenthcloud.decoration ? decoration : ""} ${text}`.trim();
+					`${company.decoration ? decoration : ""} ${text}`.trim();
 
-				await sendDiscordNotification(zenthcloud, {
+				await sendDiscordNotification(company, {
 					title:
 						type === "success"
 							? decorate(">", "`✅` Volume Backup Successful")
@@ -180,7 +180,7 @@ export const sendVolumeBackupNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Zenthcloud Volume Backup Notification",
+						text: "Company Volume Backup Notification",
 					},
 				});
 			}
@@ -321,7 +321,7 @@ export const sendVolumeBackupNotifications = async ({
 				await sendMattermostNotification(mattermost, {
 					text: `**${statusEmoji} Volume Backup ${typeStatus}**\n\n**Project:** ${projectName}\n**Application:** ${applicationName}\n**Volume Name:** ${volumeName}\n**Service Type:** ${serviceType}${sizeInfo}\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}${errorMsg}`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Zenthcloud",
+					username: mattermost.username || "Company",
 				});
 			}
 

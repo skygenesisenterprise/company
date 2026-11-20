@@ -1,7 +1,7 @@
-import { db } from "@zenthcloud/server/db";
-import { notifications } from "@zenthcloud/server/db/schema";
-import BuildSuccessEmail from "@zenthcloud/server/emails/emails/build-success";
-import type { Domain } from "@zenthcloud/server/services/domain";
+import { db } from "@company/server/db";
+import { notifications } from "@company/server/db/schema";
+import BuildSuccessEmail from "@company/server/emails/emails/build-success";
+import type { Domain } from "@company/server/services/domain";
 import { render } from "@react-email/components";
 import { format } from "date-fns";
 import { and, eq } from "drizzle-orm";
@@ -48,7 +48,7 @@ export const sendBuildSuccessNotifications = async ({
 		),
 		with: {
 			email: true,
-			zenthcloud: true,
+			company: true,
 			telegram: true,
 			slack: true,
 			resend: true,
@@ -66,7 +66,7 @@ export const sendBuildSuccessNotifications = async ({
 		const {
 			email,
 			resend,
-			zenthcloud,
+			company,
 			telegram,
 			slack,
 			gotify,
@@ -93,7 +93,7 @@ export const sendBuildSuccessNotifications = async ({
 				if (email) {
 					await sendEmailNotification(
 						email,
-						"Build success for zenthcloud",
+						"Build success for company",
 						template,
 					);
 				}
@@ -101,17 +101,17 @@ export const sendBuildSuccessNotifications = async ({
 				if (resend) {
 					await sendResendNotification(
 						resend,
-						"Build success for zenthcloud",
+						"Build success for company",
 						template,
 					);
 				}
 			}
 
-			if (zenthcloud) {
+			if (company) {
 				const decorate = (decoration: string, text: string) =>
-					`${zenthcloud.decoration ? decoration : ""} ${text}`.trim();
+					`${company.decoration ? decoration : ""} ${text}`.trim();
 
-				await sendDiscordNotification(zenthcloud, {
+				await sendDiscordNotification(company, {
 					title: decorate(">", "`✅` Build Successes"),
 					color: 0x57f287,
 					fields: [
@@ -157,7 +157,7 @@ export const sendBuildSuccessNotifications = async ({
 					],
 					timestamp: date.toISOString(),
 					footer: {
-						text: "Zenthcloud Build Notification",
+						text: "Company Build Notification",
 					},
 				});
 			}
@@ -272,7 +272,7 @@ export const sendBuildSuccessNotifications = async ({
 				await sendMattermostNotification(mattermost, {
 					text: `**✅ Build Success**\n\n**Project:** ${projectName}\n**Application:** ${applicationName}\n**Type:** ${applicationType}\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}\n\n[View Build Details](${buildLink})`,
 					channel: mattermost.channel,
-					username: mattermost.username || "Zenthcloud",
+					username: mattermost.username || "Company",
 				});
 			}
 

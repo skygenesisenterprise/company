@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Autocomplete } from "@zenthcloud/kumo";
+import { Autocomplete } from "@company/kumo";
 import { languages, type Language } from "./data/languages";
 
 const fruits = [

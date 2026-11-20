@@ -40,7 +40,7 @@ export const solutions: SolutionPage[] = [
 		description:
 			"Compute, storage and networking exposed through an API, with documentation that states what is actually available.",
 		intro:
-			"ZenthCloud is built for teams that treat infrastructure as code. Resources are created through an API, described in documentation, and priced transparently once published. Nothing here promises a feature that has not been verified and documented.",
+			"Company is built for teams that treat infrastructure as code. Resources are created through an API, described in documentation, and priced transparently once published. Nothing here promises a feature that has not been verified and documented.",
 		outcomes: [
 			{
 				title: "Provision from the API",
@@ -71,7 +71,7 @@ export const solutions: SolutionPage[] = [
 			},
 			{
 				heading: "What we do not automate",
-				body: "Application deployment, CI runners and observability are not part of the infrastructure catalogue. Use the tools you already run; ZenthCloud provides the resources underneath.",
+				body: "Application deployment, CI runners and observability are not part of the infrastructure catalogue. Use the tools you already run; Company provides the resources underneath.",
 			},
 		],
 		related: [
@@ -180,7 +180,7 @@ export const solutions: SolutionPage[] = [
 		description:
 			"Private estates, bare metal, networking and managed operations with a contractual scope.",
 		intro:
-			"Enterprise engagements start from a responsibility matrix, not a product page. ZenthCloud provides dedicated and partner infrastructure, private networking and optional managed operations; the contract states what is included, what is excluded and what is guaranteed.",
+			"Enterprise engagements start from a responsibility matrix, not a product page. Company provides dedicated and partner infrastructure, private networking and optional managed operations; the contract states what is included, what is excluded and what is guaranteed.",
 		outcomes: [
 			{
 				title: "Isolation where it matters",
@@ -211,7 +211,7 @@ export const solutions: SolutionPage[] = [
 			},
 			{
 				heading: "Compliance language",
-				body: "ZenthCloud does not claim a certification on this website. Where a certification exists, it will be listed with its scope, issuing body and validity period.",
+				body: "Company does not claim a certification on this website. Where a certification exists, it will be listed with its scope, issuing body and validity period.",
 			},
 		],
 		related: [
@@ -225,7 +225,7 @@ export const solutions: SolutionPage[] = [
 		eyebrow: "For hosting providers",
 		title: "Capacity and primitives for your own platform",
 		description:
-			"Bare metal, private networking and block storage for providers building on top of ZenthCloud.",
+			"Bare metal, private networking and block storage for providers building on top of Company.",
 		intro:
 			"Hosting providers need capacity they can subdivide. The catalogue exposes dedicated hardware, private networks and attachable storage without forcing a particular orchestration layer on top.",
 		outcomes: [
@@ -258,7 +258,7 @@ export const solutions: SolutionPage[] = [
 			},
 			{
 				heading: "Branding",
-				body: "ZenthCloud does not offer white-label consoles through this website. Any co-branding arrangement is part of the commercial agreement.",
+				body: "Company does not offer white-label consoles through this website. Any co-branding arrangement is part of the commercial agreement.",
 			},
 		],
 		related: [
@@ -274,7 +274,7 @@ export const solutions: SolutionPage[] = [
 		description:
 			"GPU instances, high-capacity storage and private networking for training, inference and research clusters.",
 		intro:
-			"AI workloads stress three parts of an estate at once: accelerators, storage throughput and interconnect. ZenthCloud models GPU instances, block storage for datasets and private networking for multi-node jobs. Hardware models are published only once a supplier has confirmed them.",
+			"AI workloads stress three parts of an estate at once: accelerators, storage throughput and interconnect. Company models GPU instances, block storage for datasets and private networking for multi-node jobs. Hardware models are published only once a supplier has confirmed them.",
 		outcomes: [
 			{
 				title: "Whole-GPU allocation",
@@ -323,9 +323,9 @@ export const infrastructurePages: DetailPage[] = [
 		eyebrow: "Infrastructure",
 		title: "Global network",
 		description:
-			"How traffic reaches ZenthCloud services, and what is not yet published about the backbone.",
+			"How traffic reaches Company services, and what is not yet published about the backbone.",
 		intro:
-			"ZenthCloud combines owned and partner infrastructure. The public network is presented in terms of the services it exposes — public addressing, private networks, load balancing and VPN connectivity — rather than undisclosed capacity figures.",
+			"Company combines owned and partner infrastructure. The public network is presented in terms of the services it exposes — public addressing, private networks, load balancing and VPN connectivity — rather than undisclosed capacity figures.",
 		sections: [
 			{
 				heading: "What is published",
@@ -361,7 +361,7 @@ export const infrastructurePages: DetailPage[] = [
 			},
 			{
 				heading: "Partner network",
-				body: "Capacity supplied by external infrastructure partners. The operating provider and country are disclosed before a contract is signed. ZenthCloud does not own or operate these facilities.",
+				body: "Capacity supplied by external infrastructure partners. The operating provider and country are disclosed before a contract is signed. Company does not own or operate these facilities.",
 			},
 			{
 				heading: "How a location becomes verified",
@@ -380,15 +380,15 @@ export const infrastructurePages: DetailPage[] = [
 		description:
 			"Owned and partner facilities, with an explicit distinction between the two.",
 		intro:
-			"ZenthCloud operates a hybrid infrastructure model. Owned facilities are operated directly; partner facilities are supplied by external providers and integrated commercially. The website never presents a partner facility as ZenthCloud-owned.",
+			"Company operates a hybrid infrastructure model. Owned facilities are operated directly; partner facilities are supplied by external providers and integrated commercially. The website never presents a partner facility as Company-owned.",
 		sections: [
 			{
 				heading: "Owned infrastructure",
-				body: "Facilities owned or directly controlled by ZenthCloud. Power, cooling and physical access are managed by ZenthCloud or its contracted operator. Public addresses and certifications are published only after verification.",
+				body: "Facilities owned or directly controlled by Company. Power, cooling and physical access are managed by Company or its contracted operator. Public addresses and certifications are published only after verification.",
 			},
 			{
 				heading: "Partner infrastructure",
-				body: "Facilities operated by external providers. The provider of record is disclosed per product and region before purchase. ZenthCloud is the commercial interface, not the facility operator.",
+				body: "Facilities operated by external providers. The provider of record is disclosed per product and region before purchase. Company is the commercial interface, not the facility operator.",
 			},
 			{
 				heading: "Current publication state",
@@ -410,8 +410,8 @@ export const infrastructurePages: DetailPage[] = [
 			"Every availability entry in the catalogue references a provider. The website resolves that reference at render time, so a product page never hardcodes a supplier and a provider can change without rebuilding the page.",
 		sections: [
 			{
-				heading: "ZenthCloud (owned)",
-				body: "Infrastructure operated directly by ZenthCloud and Sky Genesis Enterprise. Products running here are labelled as owned in the availability table.",
+				heading: "Company (owned)",
+				body: "Infrastructure operated directly by Company and Sky Genesis Enterprise. Products running here are labelled as owned in the availability table.",
 			},
 			{
 				heading: "Partner infrastructure",
@@ -434,7 +434,7 @@ export const infrastructurePages: DetailPage[] = [
 		description:
 			"The building blocks behind the catalogue: compute, storage, network and the control surface.",
 		intro:
-			"ZenthCloud exposes infrastructure primitives rather than an opinionated application platform. This page describes how those primitives fit together and where the boundary between ZenthCloud and the customer sits.",
+			"Company exposes infrastructure primitives rather than an opinionated application platform. This page describes how those primitives fit together and where the boundary between Company and the customer sits.",
 		sections: [
 			{
 				heading: "Resource model",
@@ -446,7 +446,7 @@ export const infrastructurePages: DetailPage[] = [
 			},
 			{
 				heading: "Failure domains",
-				body: "A single instance is not highly available. Replicas, load balancing and multi-node topologies are choices the customer makes; ZenthCloud does not imply automatic redundancy for single resources.",
+				body: "A single instance is not highly available. Replicas, load balancing and multi-node topologies are choices the customer makes; Company does not imply automatic redundancy for single resources.",
 			},
 			{
 				heading: "Hybrid by design",
@@ -493,7 +493,7 @@ export const resourcePages: DetailPage[] = [
 		eyebrow: "Resources",
 		title: "API reference",
 		description:
-			"The public HTTP API for provisioning and managing ZenthCloud resources.",
+			"The public HTTP API for provisioning and managing Company resources.",
 		intro:
 			"The API reference documents endpoints, authentication and error semantics. It is generated from the API definition, so it reflects what exists rather than what is planned.",
 		sections: [
@@ -587,7 +587,7 @@ export const resourcePages: DetailPage[] = [
 		eyebrow: "Resources",
 		title: "Service status",
 		description:
-			"Live operational state of ZenthCloud services, published independently of this website.",
+			"Live operational state of Company services, published independently of this website.",
 		intro:
 			"The status page is the authoritative source for incidents and maintenance. This marketing page does not cache or restate operational state, because a stale status is worse than none.",
 		sections: [
@@ -615,11 +615,11 @@ export const developerPages: DetailPage[] = [
 	{
 		path: "/developers",
 		eyebrow: "Developers",
-		title: "Build on ZenthCloud",
+		title: "Build on Company",
 		description:
-			"The central technical entry point for building, integrating, deploying, and operating applications using ZenthCloud.",
+			"The central technical entry point for building, integrating, deploying, and operating applications using Company.",
 		intro:
-			"ZenthCloud provides a comprehensive developer ecosystem with documentation, APIs, SDKs, CLI tools, and integrations. Whether you're getting started, exploring our architecture, or automating your infrastructure, you'll find the resources you need here.",
+			"Company provides a comprehensive developer ecosystem with documentation, APIs, SDKs, CLI tools, and integrations. Whether you're getting started, exploring our architecture, or automating your infrastructure, you'll find the resources you need here.",
 		sections: [
 			{
 				heading: "What we offer",
@@ -643,19 +643,19 @@ export const developerPages: DetailPage[] = [
 	{
 		path: "/developers/getting-started",
 		eyebrow: "Developers",
-		title: "Getting Started with ZenthCloud",
+		title: "Getting Started with Company",
 		description:
-			"Your first steps with ZenthCloud: from account setup to deploying your first application.",
+			"Your first steps with Company: from account setup to deploying your first application.",
 		intro:
-			"Getting started with ZenthCloud is straightforward. This guide walks you through the essential steps: creating an account, understanding the resource model, provisioning your first resources, and deploying a simple application. Each step links to the relevant documentation.",
+			"Getting started with Company is straightforward. This guide walks you through the essential steps: creating an account, understanding the resource model, provisioning your first resources, and deploying a simple application. Each step links to the relevant documentation.",
 		sections: [
 			{
 				heading: "Step 1: Understand the platform",
-				body: "ZenthCloud provides compute, storage, networking, and managed services through a unified API and console. Resources are organized into projects, with clear availability and commercial state published per product and region.",
+				body: "Company provides compute, storage, networking, and managed services through a unified API and console. Resources are organized into projects, with clear availability and commercial state published per product and region.",
 			},
 			{
 				heading: "Step 2: Create your account",
-				body: "Sign up for a ZenthCloud account through the console. You'll need to provide basic information and verify your email address. Once registered, you can explore the catalogue and start provisioning resources.",
+				body: "Sign up for a Company account through the console. You'll need to provide basic information and verify your email address. Once registered, you can explore the catalogue and start provisioning resources.",
 			},
 			{
 				heading: "Step 3: Explore the documentation",
@@ -677,21 +677,21 @@ export const developerPages: DetailPage[] = [
 		eyebrow: "Developers",
 		title: "Architecture Guides",
 		description:
-			"Best practices, patterns, and reference architectures for building on ZenthCloud.",
+			"Best practices, patterns, and reference architectures for building on Company.",
 		intro:
 			"Our architecture guides cover the patterns and best practices we've developed and observed. They provide proven approaches to common challenges like scaling, security, high availability, and cost optimization. Each guide includes practical examples and considerations.",
 		sections: [
 			{
 				heading: "Design principles",
-				body: "ZenthCloud is designed around infrastructure primitives rather than opinionated application platforms. This means you have the flexibility to build the architecture that works best for your use case, while benefiting from our reliable, well-documented primitives.",
+				body: "Company is designed around infrastructure primitives rather than opinionated application platforms. This means you have the flexibility to build the architecture that works best for your use case, while benefiting from our reliable, well-documented primitives.",
 			},
 			{
 				heading: "Common patterns",
-				body: "We document the architectural patterns that work well on ZenthCloud: multi-tier applications, microservices, serverless architectures, and more. Each pattern includes a description, when to use it, and a reference implementation.",
+				body: "We document the architectural patterns that work well on Company: multi-tier applications, microservices, serverless architectures, and more. Each pattern includes a description, when to use it, and a reference implementation.",
 			},
 			{
 				heading: "Best practices",
-				body: "From security to performance to cost management, our best practices guides help you get the most out of ZenthCloud. These are living documents, updated as we learn from our customers and our own experiences.",
+				body: "From security to performance to cost management, our best practices guides help you get the most out of Company. These are living documents, updated as we learn from our customers and our own experiences.",
 			},
 		],
 		related: [
@@ -705,9 +705,9 @@ export const developerPages: DetailPage[] = [
 		eyebrow: "Developers",
 		title: "SDKs and Libraries",
 		description:
-			"Language-specific libraries and SDKs for interacting with ZenthCloud APIs.",
+			"Language-specific libraries and SDKs for interacting with Company APIs.",
 		intro:
-			"ZenthCloud provides SDKs and client libraries to make it easier to integrate with our APIs from your preferred programming language. While our APIs are RESTful and can be called directly, SDKs provide a more idiomatic and convenient interface.",
+			"Company provides SDKs and client libraries to make it easier to integrate with our APIs from your preferred programming language. While our APIs are RESTful and can be called directly, SDKs provide a more idiomatic and convenient interface.",
 		sections: [
 			{
 				heading: "Currently available",
@@ -739,9 +739,9 @@ export const developerPages: DetailPage[] = [
 		eyebrow: "Developers",
 		title: "Command-Line Interface",
 		description:
-			"Manage ZenthCloud resources from your terminal with our CLI.",
+			"Manage Company resources from your terminal with our CLI.",
 		intro:
-			"The ZenthCloud CLI provides a powerful way to manage your infrastructure directly from your terminal. It offers the same capabilities as the API and console, with a command-line interface optimized for scripting and automation.",
+			"The Company CLI provides a powerful way to manage your infrastructure directly from your terminal. It offers the same capabilities as the API and console, with a command-line interface optimized for scripting and automation.",
 		sections: [
 			{
 				heading: "Installation",
@@ -771,25 +771,25 @@ export const developerPages: DetailPage[] = [
 		eyebrow: "Developers",
 		title: "Integrations and Ecosystem",
 		description:
-			"Connect ZenthCloud with your existing tools and workflows.",
+			"Connect Company with your existing tools and workflows.",
 		intro:
-			"ZenthCloud integrates with a growing ecosystem of third-party tools and services. These integrations allow you to use ZenthCloud alongside your existing workflows, monitoring systems, CI/CD pipelines, and more. We also provide guides for building custom integrations.",
+			"Company integrates with a growing ecosystem of third-party tools and services. These integrations allow you to use Company alongside your existing workflows, monitoring systems, CI/CD pipelines, and more. We also provide guides for building custom integrations.",
 		sections: [
 			{
 				heading: "Monitoring and observability",
-				body: "Integrate ZenthCloud with popular monitoring tools to track your infrastructure's performance, availability, and health. Export metrics, logs, and traces to your existing observability stack.",
+				body: "Integrate Company with popular monitoring tools to track your infrastructure's performance, availability, and health. Export metrics, logs, and traces to your existing observability stack.",
 			},
 			{
 				heading: "CI/CD and deployment",
-				body: "Connect ZenthCloud to your CI/CD pipeline for automated testing, building, and deployment. Use our CLI or API to provision resources, configure environments, and manage your infrastructure as part of your deployment workflow.",
+				body: "Connect Company to your CI/CD pipeline for automated testing, building, and deployment. Use our CLI or API to provision resources, configure environments, and manage your infrastructure as part of your deployment workflow.",
 			},
 			{
 				heading: "Security and compliance",
-				body: "Integrate with security scanning tools, vulnerability management platforms, and compliance monitoring services. Automate security checks and maintain compliance across your ZenthCloud resources.",
+				body: "Integrate with security scanning tools, vulnerability management platforms, and compliance monitoring services. Automate security checks and maintain compliance across your Company resources.",
 			},
 			{
 				heading: "Custom integrations",
-				body: "Build your own integrations using our REST API, webhooks, or SDKs. Our documentation includes guides and examples for common integration patterns, helping you connect ZenthCloud with any tool or service.",
+				body: "Build your own integrations using our REST API, webhooks, or SDKs. Our documentation includes guides and examples for common integration patterns, helping you connect Company with any tool or service.",
 			},
 		],
 		related: [
@@ -803,9 +803,9 @@ export const developerPages: DetailPage[] = [
 		eyebrow: "Developers",
 		title: "Developer Tools and Utilities",
 		description:
-			"Tools to enhance your development experience with ZenthCloud.",
+			"Tools to enhance your development experience with Company.",
 		intro:
-			"Beyond our core APIs and SDKs, ZenthCloud provides additional tools and utilities to streamline your development workflow. These include interactive API explorers, webhook management, local development environments, and more.",
+			"Beyond our core APIs and SDKs, Company provides additional tools and utilities to streamline your development workflow. These include interactive API explorers, webhook management, local development environments, and more.",
 		sections: [
 			{
 				heading: "API Explorer",
@@ -813,19 +813,19 @@ export const developerPages: DetailPage[] = [
 			},
 			{
 				heading: "Webhooks",
-				body: "Configure webhooks to receive real-time notifications about events in your ZenthCloud account. Set up endpoints to be notified when resources are created, updated, or deleted, or when other events occur. Webhooks enable event-driven architectures and real-time integrations.",
+				body: "Configure webhooks to receive real-time notifications about events in your Company account. Set up endpoints to be notified when resources are created, updated, or deleted, or when other events occur. Webhooks enable event-driven architectures and real-time integrations.",
 			},
 			{
 				heading: "Local development",
-				body: "Develop and test your applications locally before deploying to ZenthCloud. Our local development tools include emulators, mock services, and testing frameworks that simulate ZenthCloud services on your local machine, reducing the feedback loop during development.",
+				body: "Develop and test your applications locally before deploying to Company. Our local development tools include emulators, mock services, and testing frameworks that simulate Company services on your local machine, reducing the feedback loop during development.",
 			},
 			{
 				heading: "Infrastructure as Code",
-				body: "Define and manage your ZenthCloud infrastructure using code. We support Terraform and other IaC tools, allowing you to version control your infrastructure, automate deployments, and maintain consistency across environments.",
+				body: "Define and manage your Company infrastructure using code. We support Terraform and other IaC tools, allowing you to version control your infrastructure, automate deployments, and maintain consistency across environments.",
 			},
 			{
 				heading: "Developer Console",
-				body: "Our web-based console provides a visual interface for managing your ZenthCloud resources. It complements the API and CLI, offering an intuitive way to explore, configure, and monitor your infrastructure.",
+				body: "Our web-based console provides a visual interface for managing your Company resources. It complements the API and CLI, offering an intuitive way to explore, configure, and monitor your infrastructure.",
 			},
 		],
 		related: [
@@ -839,21 +839,21 @@ export const developerPages: DetailPage[] = [
 		eyebrow: "Developers",
 		title: "Join the Community",
 		description:
-			"Connect with other developers, share knowledge, and contribute to ZenthCloud.",
+			"Connect with other developers, share knowledge, and contribute to Company.",
 		intro:
-			"The ZenthCloud community is a vibrant ecosystem of developers, operators, and enthusiasts. Whether you're looking for help, want to share your knowledge, or are interested in contributing to the platform itself, there are many ways to get involved.",
+			"The Company community is a vibrant ecosystem of developers, operators, and enthusiasts. Whether you're looking for help, want to share your knowledge, or are interested in contributing to the platform itself, there are many ways to get involved.",
 		sections: [
 			{
 				heading: "GitHub",
-				body: "Our source code, SDKs, examples, and documentation are all available on GitHub. You can browse the repositories, submit issues, create pull requests, and contribute to the development of ZenthCloud.",
+				body: "Our source code, SDKs, examples, and documentation are all available on GitHub. You can browse the repositories, submit issues, create pull requests, and contribute to the development of Company.",
 			},
 			{
 				heading: "Community discussions",
-				body: "Join our community forums to ask questions, share experiences, and connect with other ZenthCloud users. It's a great place to learn from others, get help with challenges, and stay up-to-date with the latest developments.",
+				body: "Join our community forums to ask questions, share experiences, and connect with other Company users. It's a great place to learn from others, get help with challenges, and stay up-to-date with the latest developments.",
 			},
 			{
 				heading: "Open source",
-				body: "ZenthCloud is committed to open source. We contribute to various open source projects and maintain several of our own. Our open source initiatives include tools, libraries, and frameworks that benefit the broader developer community.",
+				body: "Company is committed to open source. We contribute to various open source projects and maintain several of our own. Our open source initiatives include tools, libraries, and frameworks that benefit the broader developer community.",
 			},
 			{
 				heading: "Contributing",
@@ -861,7 +861,7 @@ export const developerPages: DetailPage[] = [
 			},
 			{
 				heading: "Stay informed",
-				body: "Stay up-to-date with the latest ZenthCloud news, product updates, and community announcements. Follow our blog, subscribe to our newsletter, or follow us on social media.",
+				body: "Stay up-to-date with the latest Company news, product updates, and community announcements. Follow our blog, subscribe to our newsletter, or follow us on social media.",
 			},
 		],
 		related: [
@@ -875,9 +875,9 @@ export const developerPages: DetailPage[] = [
 		eyebrow: "Developers",
 		title: "Changelog",
 		description:
-			"Stay up-to-date with the latest changes, improvements, and new features in ZenthCloud.",
+			"Stay up-to-date with the latest changes, improvements, and new features in Company.",
 		intro:
-			"Our changelog provides a comprehensive record of all changes to the ZenthCloud platform, including new product launches, feature updates, bug fixes, and deprecated functionality. Each entry includes details about the change, its impact, and any action you may need to take.",
+			"Our changelog provides a comprehensive record of all changes to the Company platform, including new product launches, feature updates, bug fixes, and deprecated functionality. Each entry includes details about the change, its impact, and any action you may need to take.",
 		sections: [
 			{
 				heading: "Recent updates",
@@ -912,11 +912,11 @@ export const companyPages: DetailPage[] = [
 	{
 		path: "/company/about",
 		eyebrow: "Company",
-		title: "About ZenthCloud",
+		title: "About Company",
 		description:
 			"A hybrid cloud provider built by Sky Genesis Enterprise, with European roots and global ambitions.",
 		intro:
-			"ZenthCloud is the cloud infrastructure brand of Sky Genesis Enterprise. The ambition is a unified provider: owned and partner infrastructure behind one catalogue, one commercial model and one operational standard.",
+			"Company is the cloud infrastructure brand of Sky Genesis Enterprise. The ambition is a unified provider: owned and partner infrastructure behind one catalogue, one commercial model and one operational standard.",
 		sections: [
 			{
 				heading: "What we are building",
@@ -924,7 +924,7 @@ export const companyPages: DetailPage[] = [
 			},
 			{
 				heading: "European roots",
-				body: "ZenthCloud is developed by Sky Genesis Enterprise, a European organisation. This is a statement about the team and the company, not a claim that every facility or supplier is located in Europe.",
+				body: "Company is developed by Sky Genesis Enterprise, a European organisation. This is a statement about the team and the company, not a claim that every facility or supplier is located in Europe.",
 			},
 			{
 				heading: "What we do not claim",
@@ -941,7 +941,7 @@ export const companyPages: DetailPage[] = [
 		eyebrow: "Company",
 		title: "Careers",
 		description:
-			"Open roles at ZenthCloud and Sky Genesis Enterprise.",
+			"Open roles at Company and Sky Genesis Enterprise.",
 		intro:
 			"We publish a role only when it is open and funded. There is no general application pipeline and no unpaid trial project.",
 		sections: [
@@ -963,11 +963,11 @@ export const companyPages: DetailPage[] = [
 		description:
 			"Infrastructure suppliers, registrars and technology partners behind the catalogue.",
 		intro:
-			"ZenthCloud works with infrastructure suppliers and service partners. The website distinguishes partner-delivered capacity from owned infrastructure and names the provider of record in commercial documents.",
+			"Company works with infrastructure suppliers and service partners. The website distinguishes partner-delivered capacity from owned infrastructure and names the provider of record in commercial documents.",
 		sections: [
 			{
 				heading: "Infrastructure partners",
-				body: "Capacity can be supplied by external providers and integrated into the ZenthCloud catalogue. Partner facilities are never presented as ZenthCloud-owned.",
+				body: "Capacity can be supplied by external providers and integrated into the Company catalogue. Partner facilities are never presented as Company-owned.",
 			},
 			{
 				heading: "Service partners",

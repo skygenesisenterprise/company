@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  ZenthcloudLogo,
-  PoweredByZenthcloud,
+  CompanyLogo,
+  PoweredByCompany,
   DropdownMenu,
-  generateZenthcloudLogoSvg,
-} from "@zenthcloud/kumo";
+  generateCompanyLogoSvg,
+} from "@company/kumo";
 import {
   CloudIcon,
   CodeIcon,
@@ -14,53 +14,53 @@ import {
 
 const COPIED_FEEDBACK_MS = 2000;
 
-export function ZenthcloudLogoBasicDemo() {
-  return <ZenthcloudLogo className="w-72" />;
+export function CompanyLogoBasicDemo() {
+  return <CompanyLogo className="w-72" />;
 }
 
-export function ZenthcloudLogoGlyphDemo() {
-  return <ZenthcloudLogo variant="glyph" className="w-24" />;
+export function CompanyLogoGlyphDemo() {
+  return <CompanyLogo variant="glyph" className="w-24" />;
 }
 
-export function ZenthcloudLogoColorVariantsDemo() {
+export function CompanyLogoColorVariantsDemo() {
   return (
     <div className="flex flex-wrap items-center gap-8">
-      <ZenthcloudLogo className="w-28" color="color" />
+      <CompanyLogo className="w-28" color="color" />
       <div className="rounded-lg bg-white p-4">
-        <ZenthcloudLogo className="w-28" color="black" />
+        <CompanyLogo className="w-28" color="black" />
       </div>
       <div className="rounded-lg bg-black p-4">
-        <ZenthcloudLogo className="w-28" color="white" />
+        <CompanyLogo className="w-28" color="white" />
       </div>
     </div>
   );
 }
 
-export function ZenthcloudLogoGlyphVariantsDemo() {
+export function CompanyLogoGlyphVariantsDemo() {
   return (
     <div className="flex flex-wrap items-center gap-8">
-      <ZenthcloudLogo variant="glyph" className="w-12" color="color" />
+      <CompanyLogo variant="glyph" className="w-12" color="color" />
       <div className="rounded-lg bg-white p-4">
-        <ZenthcloudLogo variant="glyph" className="w-12" color="black" />
+        <CompanyLogo variant="glyph" className="w-12" color="black" />
       </div>
       <div className="rounded-lg bg-black p-4">
-        <ZenthcloudLogo variant="glyph" className="w-12" color="white" />
+        <CompanyLogo variant="glyph" className="w-12" color="white" />
       </div>
     </div>
   );
 }
 
-export function ZenthcloudLogoSizesDemo() {
+export function CompanyLogoSizesDemo() {
   return (
     <div className="flex flex-wrap items-end gap-6">
-      <ZenthcloudLogo className="w-20" />
-      <ZenthcloudLogo className="w-28" />
-      <ZenthcloudLogo className="w-44" />
+      <CompanyLogo className="w-20" />
+      <CompanyLogo className="w-28" />
+      <CompanyLogo className="w-44" />
     </div>
   );
 }
 
-export function ZenthcloudLogoCopyDemo() {
+export function CompanyLogoCopyDemo() {
   const [copied, setCopied] = useState<string | null>(null);
   const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const copyAttemptRef = useRef(0);
@@ -108,7 +108,7 @@ export function ZenthcloudLogoCopyDemo() {
             type="button"
             className="flex items-center gap-2 rounded-lg bg-black px-4 py-3 text-white transition-opacity hover:opacity-80"
           >
-            <ZenthcloudLogo variant="glyph" color="white" className="w-8" />
+            <CompanyLogo variant="glyph" color="white" className="w-8" />
             <span className="font-medium">Logo</span>
           </button>
         </DropdownMenu.Trigger>
@@ -117,7 +117,7 @@ export function ZenthcloudLogoCopyDemo() {
             icon={CloudIcon}
             onClick={() =>
               copyToClipboard(
-                generateZenthcloudLogoSvg({ variant: "glyph" }),
+                generateCompanyLogoSvg({ variant: "glyph" }),
                 "glyph",
               )
             }
@@ -128,7 +128,7 @@ export function ZenthcloudLogoCopyDemo() {
             icon={CodeIcon}
             onClick={() =>
               copyToClipboard(
-                generateZenthcloudLogoSvg({ variant: "full" }),
+                generateCompanyLogoSvg({ variant: "full" }),
                 "full",
               )
             }
@@ -139,7 +139,7 @@ export function ZenthcloudLogoCopyDemo() {
             icon={DownloadSimpleIcon}
             onClick={() =>
               window.open(
-                "https://github.com/skygenesisenterprise/zenthcloud",
+                "https://github.com/skygenesisenterprise/company",
                 "_blank",
                 "noopener",
               )
@@ -152,7 +152,7 @@ export function ZenthcloudLogoCopyDemo() {
             icon={ArrowSquareOutIcon}
             onClick={() =>
               window.open(
-                "https://github.com/skygenesisenterprise/zenthcloud",
+                "https://github.com/skygenesisenterprise/company",
                 "_blank",
                 "noopener",
               )
@@ -171,32 +171,32 @@ export function ZenthcloudLogoCopyDemo() {
 }
 
 // =============================================================================
-// PoweredByZenthcloud Demos
+// PoweredByCompany Demos
 // =============================================================================
 
-export function PoweredByZenthcloudBasicDemo() {
-  return <PoweredByZenthcloud />;
+export function PoweredByCompanyBasicDemo() {
+  return <PoweredByCompany />;
 }
 
-export function PoweredByZenthcloudVariantsDemo() {
+export function PoweredByCompanyVariantsDemo() {
   return (
     <div className="flex flex-wrap items-center gap-4">
-      <PoweredByZenthcloud />
-      <PoweredByZenthcloud color="black" />
+      <PoweredByCompany />
+      <PoweredByCompany color="black" />
       <div className="rounded-lg bg-black p-3">
-        <PoweredByZenthcloud color="white" />
+        <PoweredByCompany color="white" />
       </div>
     </div>
   );
 }
 
-export function PoweredByZenthcloudFooterDemo() {
+export function PoweredByCompanyFooterDemo() {
   return (
     <footer className="flex w-full items-center justify-between rounded-lg border border-kumo-hairline bg-kumo-elevated px-6 py-4">
       <span className="text-sm text-kumo-subtle">
         &copy; 2026 Your Company. All rights reserved.
       </span>
-      <PoweredByZenthcloud />
+      <PoweredByCompany />
     </footer>
   );
 }

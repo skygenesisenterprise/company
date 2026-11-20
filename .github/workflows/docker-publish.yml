@@ -5,11 +5,11 @@ name: Docker Publish
 #   GitHub Actions -> Buildx -> GHCR -> cosign (keyless)
 #
 # Publishing is tag-only. Each package has its own `v<major>.<minor>.<patch>`
-# tag suffix (for example, `v1.2.3-cloud` publishes only `zenthcloud-cloud`).
+# tag suffix (for example, `v1.2.3-cloud` publishes only `company-cloud`).
 #
-# Every suffix also publishes a GitHub Release, titled `zenthcloud {Suffix}
-# v{major}.{minor}.{patch}` (`zenthcloud App v1.2.3`, `zenthcloud Cloud v1.2.3`,
-# `zenthcloud Console v1.2.3`, `zenthcloud Status v1.2.3`, `zenthcloud MCP v1.2.3`, ...),
+# Every suffix also publishes a GitHub Release, titled `company {Suffix}
+# v{major}.{minor}.{patch}` (`company App v1.2.3`, `company Cloud v1.2.3`,
+# `company Console v1.2.3`, `company Status v1.2.3`, `company MCP v1.2.3`, ...),
 # so a release always reads the same way whatever image it advertises. The
 # suffix label and the assets a release carries come from the catalog in
 # `select`, which is the single place to add an image.
@@ -60,7 +60,7 @@ env:
 
 jobs:
   # The pushed tag selects exactly one image (`v1.0.2-app` publishes only
-  # `zenthcloud`). The matrix is filtered here rather than letting every job
+  # `company`). The matrix is filtered here rather than letting every job
   # disable itself, so a tag push shows a single job in the run instead of
   # seven, six of them no-ops.
   select:
@@ -94,87 +94,87 @@ jobs:
           # and adding its suffix to the tag filters above.
           #
           # `release_name` is the label the GitHub Release is titled with
-          # (`zenthcloud {release_name} {version}`) and `release_assets` says
+          # (`company {release_name} {version}`) and `release_assets` says
           # whether that release carries the install scripts.
           #
           # `platforms` defaults to linux/amd64,linux/arm64 when omitted.
           read -r -d '' CATALOG <<'JSON' || true
           [
             {
-              "image": "zenthcloud",
+              "image": "company",
               "file": "./Dockerfile",
               "target": "selfhosted",
               "platforms": "linux/amd64",
               "tag_suffix": "-app",
-              "description": "zenthcloud self-hosted (dashboard, server and build tooling)",
+              "description": "company self-hosted (dashboard, server and build tooling)",
               "release_name": "App",
               "release_assets": true
             },
             {
-              "image": "zenthcloud-cloud",
+              "image": "company-cloud",
               "file": "./Dockerfile",
               "target": "cloud",
               "tag_suffix": "-cloud",
-              "description": "zenthcloud Cloud (dashboard + server)",
+              "description": "company Cloud (dashboard + server)",
               "release_name": "Cloud",
               "release_assets": true
             },
             {
-              "image": "zenthcloud-console",
+              "image": "company-console",
               "file": "./Dockerfile",
               "target": "console",
               "tag_suffix": "-console",
-              "description": "zenthcloud Console (instance and fleet management)",
+              "description": "company Console (instance and fleet management)",
               "release_name": "Console",
               "release_assets": true
             },
             {
-              "image": "zenthcloud-status",
+              "image": "company-status",
               "file": "./Dockerfile",
               "target": "status",
               "tag_suffix": "-status",
-              "description": "zenthcloud Status (status page, incidents and uptime history)",
+              "description": "company Status (status page, incidents and uptime history)",
               "release_name": "Status",
               "release_assets": false
             },
             {
-              "image": "zenthcloud-mcp",
+              "image": "company-mcp",
               "file": "./packages/mcp/Dockerfile",
               "tag_suffix": "-mcp",
-              "description": "zenthcloud MCP server",
+              "description": "company MCP server",
               "release_name": "MCP",
               "release_assets": false
             },
             {
-              "image": "zenthcloud-github",
+              "image": "company-github",
               "file": "./packages/github/Dockerfile",
               "tag_suffix": "-github",
-              "description": "zenthcloud GitHub integration",
+              "description": "company GitHub integration",
               "release_name": "GitHub",
               "release_assets": false
             },
             {
-              "image": "zenthcloud-website",
+              "image": "company-website",
               "file": "./web/Dockerfile.website",
               "platforms": "linux/amd64",
               "tag_suffix": "-website",
-              "description": "zenthcloud official website",
+              "description": "company official website",
               "release_name": "Website",
               "release_assets": false
             },
             {
-              "image": "zenthcloud-docs",
+              "image": "company-docs",
               "file": "./web/Dockerfile.docs",
               "tag_suffix": "-docs",
-              "description": "zenthcloud documentation",
+              "description": "company documentation",
               "release_name": "Docs",
               "release_assets": false
             },
             {
-              "image": "zenthcloud-templates",
+              "image": "company-templates",
               "file": "./templates/Dockerfile",
               "tag_suffix": "-templates",
-              "description": "zenthcloud templates gallery",
+              "description": "company templates gallery",
               "release_name": "Templates",
               "release_assets": false
             }
@@ -198,7 +198,7 @@ jobs:
           # The release fields are for the `release` job only: the build matrix
           # does not need them.
           echo "matrix=$(jq -c 'map(del(.release_name, .release_assets))' <<< "$selected")" >> "$GITHUB_OUTPUT"
-          echo "release_title=zenthcloud $release_name $version" >> "$GITHUB_OUTPUT"
+          echo "release_title=company $release_name $version" >> "$GITHUB_OUTPUT"
           echo "release_assets=$(jq -r '.[0].release_assets' <<< "$selected")" >> "$GITHUB_OUTPUT"
 
           # The self-hosted release is the one a running server and install.sh
@@ -357,8 +357,8 @@ jobs:
             exit 0
           fi
 
-          cp install.sh install-zenthcloud.sh
-          chmod +x install.sh install-zenthcloud.sh install.ps1
+          cp install.sh install-company.sh
+          chmod +x install.sh install-company.sh install.ps1
           echo "enabled=true" >> "$GITHUB_OUTPUT"
 
       # Idempotent: re-running the workflow updates the existing release instead
@@ -378,5 +378,5 @@ jobs:
           # publishes no file instead of failing on an unmatched glob.
           files: |
             ${{ steps.assets.outputs.enabled == 'true' && 'install.sh' || '' }}
-            ${{ steps.assets.outputs.enabled == 'true' && 'install-zenthcloud.sh' || '' }}
+            ${{ steps.assets.outputs.enabled == 'true' && 'install-company.sh' || '' }}
             ${{ steps.assets.outputs.enabled == 'true' && 'install.ps1' || '' }}

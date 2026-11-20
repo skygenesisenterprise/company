@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { ContextMenu } from '@zenthcloud/kumo/primitives/context-menu';
+ * import { ContextMenu } from '@company/kumo/primitives/context-menu';
  * ```
  */
 

@@ -1,4 +1,4 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateVaultProvider,
 	type apiCreateVaultSecret,
@@ -8,7 +8,7 @@ import {
 	type VaultProviderConfig,
 	vaultProvider,
 	vaultSecret,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import {
 	getVaultCapabilities,
 	getVaultClient,
@@ -18,7 +18,7 @@ import {
 	type VaultProviderType,
 	type VaultSecretRecord,
 	vaultProviderTypes,
-} from "@zenthcloud/server/utils/vault";
+} from "@company/server/utils/vault";
 import { TRPCError } from "@trpc/server";
 import { and, asc, eq } from "drizzle-orm";
 import type { z } from "zod";
@@ -392,7 +392,7 @@ export const findVaultSecretById = async (vaultSecretId: string) => {
 };
 
 /**
- * Secrets Zenthcloud manages itself, encrypted at rest. They resolve through the
+ * Secrets Company manages itself, encrypted at rest. They resolve through the
  * same `${{vault.<provider>.<name>}}` syntax as the provider's own secrets.
  */
 export const listVaultSecretsForProvider = async (vaultProviderId: string) =>

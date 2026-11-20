@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { Toolbar } from '@zenthcloud/kumo/primitives/toolbar';
+ * import { Toolbar } from '@company/kumo/primitives/toolbar';
  * ```
  */
 

@@ -1,7 +1,7 @@
 import { constants as fsConstants } from "node:fs";
 import { access, mkdir } from "node:fs/promises";
 import path from "node:path";
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateObjectStorageProvider,
 	destinations,
@@ -10,7 +10,7 @@ import {
 	type ObjectStorageProviderType,
 	objectStorageBucket,
 	objectStorageProvider,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { quote } from "shell-quote";
@@ -54,15 +54,15 @@ export const OBJECT_STORAGE_PROVIDER_META: Record<
 		rcloneProvider: "AWS",
 		docsUrl: "https://docs.aws.amazon.com/s3/",
 	},
-	"zenthcloud-r2": {
-		providerType: "zenthcloud-r2",
+	"company-r2": {
+		providerType: "company-r2",
 		category: "external",
-		label: "Zenthcloud R2",
-		endpointTemplate: "https://<accountid>.r2.zenthcloudstorage.com",
+		label: "Company R2",
+		endpointTemplate: "https://<accountid>.r2.companystorage.com",
 		defaultRegion: "auto",
 		pathStyle: true,
-		rcloneProvider: "Zenthcloud",
-		docsUrl: "https://github.com/skygenesisenterprise/zenthcloud",
+		rcloneProvider: "Company",
+		docsUrl: "https://github.com/skygenesisenterprise/company",
 	},
 	scaleway: {
 		providerType: "scaleway",
@@ -203,15 +203,15 @@ export const OBJECT_STORAGE_PROVIDER_META: Record<
 		pathStyle: true,
 		rcloneProvider: "Other",
 	},
-	"zenthcloud-internal": {
-		providerType: "zenthcloud-internal",
+	"company-internal": {
+		providerType: "company-internal",
 		category: "internal",
-		label: "Zenthcloud Internal Storage",
+		label: "Company Internal Storage",
 		endpointTemplate: "",
-		defaultRegion: "zenthcloud",
+		defaultRegion: "company",
 		pathStyle: false,
 		// The internal provider does not speak S3: it stores buckets as
-		// directories under Zenthcloud's own storage root.
+		// directories under Company's own storage root.
 		rcloneProvider: "local",
 	},
 };
@@ -328,7 +328,7 @@ export const findInternalObjectStorageProvider = async (
 	db.query.objectStorageProvider.findFirst({
 		where: and(
 			eq(objectStorageProvider.organizationId, organizationId),
-			eq(objectStorageProvider.providerType, "zenthcloud-internal"),
+			eq(objectStorageProvider.providerType, "company-internal"),
 		),
 	});
 
@@ -590,7 +590,7 @@ const buildRcloneFlags = ({
  */
 /**
  * Root directory backing the first-party internal provider. Providers may
- * override it, otherwise it lives under the Zenthcloud config path so it survives
+ * override it, otherwise it lives under the Company config path so it survives
  * restarts and can itself be backed up.
  */
 export const internalObjectStorageRoot = (rootPath?: string) =>
@@ -620,9 +620,9 @@ export const testObjectStorageConnection = async ({
 	bucket,
 	serverId,
 }: RcloneConnectionInput) => {
-	// The internal provider is Zenthcloud's own storage root, so a connection test
+	// The internal provider is Company's own storage root, so a connection test
 	// just proves the directory exists and is writable.
-	if (providerType === "zenthcloud-internal") {
+	if (providerType === "company-internal") {
 		try {
 			await ensureInternalStorageRoot(config.rootPath);
 			if (bucket) {
@@ -756,7 +756,7 @@ export const resolveObjectStorageConnection = async (
 		organizationId,
 	);
 
-	if (provider.providerType === "zenthcloud-internal") {
+	if (provider.providerType === "company-internal") {
 		const root = internalObjectStorageRoot(provider.config.rootPath);
 		return {
 			backend: "local" as const,
@@ -764,7 +764,7 @@ export const resolveObjectStorageConnection = async (
 			bucket: bucket.bucket,
 			rootPath: root,
 			path: path.join(root, sanitizeBucketPath(bucket.bucket)),
-			region: bucket.region || provider.config.region || "zenthcloud",
+			region: bucket.region || provider.config.region || "company",
 			endpoint: "",
 			providerType: provider.providerType,
 			pathStyle: false,

@@ -8,7 +8,7 @@ import {
 	updateApplicationStatus,
 	updateCompose,
 	updatePreviewDeployment,
-} from "@zenthcloud/server";
+} from "@company/server";
 import type { DeployJob } from "./schema.js";
 
 export const deploy = async (job: DeployJob) => {

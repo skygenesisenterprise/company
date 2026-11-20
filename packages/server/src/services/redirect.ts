@@ -1,10 +1,10 @@
-import { db } from "@zenthcloud/server/db";
-import { type apiCreateRedirect, redirects } from "@zenthcloud/server/db/schema";
+import { db } from "@company/server/db";
+import { type apiCreateRedirect, redirects } from "@company/server/db/schema";
 import {
 	createRedirectMiddleware,
 	removeRedirectMiddleware,
 	updateRedirectMiddleware,
-} from "@zenthcloud/server/utils/traefik/redirect";
+} from "@company/server/utils/traefik/redirect";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";

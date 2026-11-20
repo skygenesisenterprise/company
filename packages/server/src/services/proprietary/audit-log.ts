@@ -1,9 +1,9 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import type {
 	AuditAction,
 	AuditResourceType,
-} from "@zenthcloud/server/db/schema";
-import { auditLog } from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
+import { auditLog } from "@company/server/db/schema";
 import { and, asc, desc, eq, gte, ilike, lte, or } from "drizzle-orm";
 
 export type { AuditAction, AuditResourceType };

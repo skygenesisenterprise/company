@@ -1,8 +1,8 @@
 import {
   DOKPLOY_DESTINATION_CAPABILITIES,
   DOKPLOY_SOURCE_CAPABILITIES,
-  ZENTHCLOUD_DESTINATION_CAPABILITIES,
-  ZENTHCLOUD_SOURCE_CAPABILITIES,
+  COMPANY_DESTINATION_CAPABILITIES,
+  COMPANY_SOURCE_CAPABILITIES,
 } from "./capabilities";
 import { buildCompatibilityReport, buildMigrationPlan } from "./planning";
 import type {
@@ -24,13 +24,13 @@ export interface DockerMetadataInput {
   running?: boolean;
 }
 
-function isZenthcloudInfra(name: string): boolean {
-  return name === "zenthcloud" || name.startsWith("zenthcloud-") || name.startsWith("zenthcloud.");
+function isCompanyInfra(name: string): boolean {
+  return name === "company" || name.startsWith("company-") || name.startsWith("company.");
 }
 
 function isDokployAttributed(networks: string, labels: string): boolean {
   const nets = networks.split(",").map((s) => s.trim());
-  if (nets.some((n) => /dokploy/i.test(n) && !/zenthcloud/i.test(n))) return true;
+  if (nets.some((n) => /dokploy/i.test(n) && !/company/i.test(n))) return true;
   if (/(^|[, ])com\.dokploy/i.test(labels)) return true;
   return false;
 }
@@ -56,7 +56,7 @@ export function buildInventoryFromDockerMetadata(args: {
   let stoppedIds: string[] = [];
 
   for (const c of args.containers) {
-    if (isZenthcloudInfra(c.name)) continue;
+    if (isCompanyInfra(c.name)) continue;
     if (/traefik/i.test(c.name) && !/dokploy/i.test(c.name + (c.image ?? ""))) continue;
     const attributed = isDokployAttributed(c.networks, c.labels);
     const domains = collectDomains(c.labels);
@@ -94,7 +94,7 @@ export function buildInventoryFromDockerMetadata(args: {
   }
 
   for (const n of args.networks) {
-    if (/zenthcloud/i.test(n)) continue;
+    if (/company/i.test(n)) continue;
     if (!/dokploy/i.test(n)) continue;
     resources.push({
       id: `network:${n}`,
@@ -106,7 +106,7 @@ export function buildInventoryFromDockerMetadata(args: {
   }
 
   for (const v of args.volumes) {
-    if (/zenthcloud/i.test(v)) continue;
+    if (/company/i.test(v)) continue;
     if (!/dokploy/i.test(v)) continue;
     resources.push({
       id: `volume:${v}`,
@@ -136,7 +136,7 @@ export function buildInventoryFromDockerMetadata(args: {
 
 export class DokploySourceAdapter implements MigrationSourceAdapter {
   readonly product = "dokploy" as const;
-  readonly direction = "dokploy-to-zenthcloud" as const;
+  readonly direction = "dokploy-to-company" as const;
   constructor(private input?: { containers?: DockerMetadataInput[]; networks?: string[]; volumes?: string[] }) {}
   capabilities(): CapabilityMatrix {
     return DOKPLOY_SOURCE_CAPABILITIES;
@@ -153,7 +153,7 @@ export class DokploySourceAdapter implements MigrationSourceAdapter {
   }
   async inventory(detected: DetectedInstallation): Promise<MigrationInventory> {
     return buildInventoryFromDockerMetadata({
-      direction: "dokploy-to-zenthcloud",
+      direction: "dokploy-to-company",
       source: detected,
       containers: this.input?.containers ?? [],
       networks: this.input?.networks ?? [],
@@ -162,11 +162,11 @@ export class DokploySourceAdapter implements MigrationSourceAdapter {
   }
 }
 
-export class ZenthcloudDestinationAdapter implements MigrationDestinationAdapter {
-  readonly product = "zenthcloud" as const;
-  readonly direction = "dokploy-to-zenthcloud" as const;
+export class CompanyDestinationAdapter implements MigrationDestinationAdapter {
+  readonly product = "company" as const;
+  readonly direction = "dokploy-to-company" as const;
   capabilities(): CapabilityMatrix {
-    return ZENTHCLOUD_DESTINATION_CAPABILITIES;
+    return COMPANY_DESTINATION_CAPABILITIES;
   }
   async verifyDestination(): Promise<{ ok: boolean; errors: string[] }> {
     return { ok: true, errors: [] };
@@ -175,28 +175,28 @@ export class ZenthcloudDestinationAdapter implements MigrationDestinationAdapter
     return buildMigrationPlan(inventory, compatibility);
   }
   compatibility(inventory: MigrationInventory): CompatibilityReport {
-    return buildCompatibilityReport(inventory, ZENTHCLOUD_DESTINATION_CAPABILITIES);
+    return buildCompatibilityReport(inventory, COMPANY_DESTINATION_CAPABILITIES);
   }
 }
 
-export class ZenthcloudSourceAdapter implements MigrationSourceAdapter {
-  readonly product = "zenthcloud" as const;
-  readonly direction = "zenthcloud-to-dokploy" as const;
+export class CompanySourceAdapter implements MigrationSourceAdapter {
+  readonly product = "company" as const;
+  readonly direction = "company-to-dokploy" as const;
   capabilities(): CapabilityMatrix {
-    return ZENTHCLOUD_SOURCE_CAPABILITIES;
+    return COMPANY_SOURCE_CAPABILITIES;
   }
   async detect(): Promise<DetectedInstallation> {
     return {
-      product: "zenthcloud",
+      product: "company",
       version: "unknown",
       installationType: "swarm",
       confidence: "medium",
-      evidence: ["Zenthcloud source declared by caller"],
+      evidence: ["Company source declared by caller"],
     };
   }
   async inventory(detected: DetectedInstallation): Promise<MigrationInventory> {
     return {
-      direction: "zenthcloud-to-dokploy",
+      direction: "company-to-dokploy",
       source: detected,
       resources: [],
       unattributedCount: 0,
@@ -208,7 +208,7 @@ export class ZenthcloudSourceAdapter implements MigrationSourceAdapter {
 
 export class DokployDestinationAdapter implements MigrationDestinationAdapter {
   readonly product = "dokploy" as const;
-  readonly direction = "zenthcloud-to-dokploy" as const;
+  readonly direction = "company-to-dokploy" as const;
   constructor(private targetVersion?: string) {}
   capabilities(): CapabilityMatrix {
     return DOKPLOY_DESTINATION_CAPABILITIES;

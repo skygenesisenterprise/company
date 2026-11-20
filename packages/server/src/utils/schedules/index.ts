@@ -1,4 +1,4 @@
-import { schedules } from "@zenthcloud/server/db/schema";
+import { schedules } from "@company/server/db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "../../db/index";
 import { scheduleJob } from "./utils";

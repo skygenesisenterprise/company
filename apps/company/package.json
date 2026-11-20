@@ -1,12 +1,12 @@
 {
-	"name": "@zenthcloud/website",
+	"name": "@company/website",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/skygenesisenterprise/zenthcloud.git"
+		"url": "git+https://github.com/skygenesisenterprise/company.git"
 	},
-	"homepage": "https://github.com/skygenesisenterprise/zenthcloud",
+	"homepage": "https://github.com/skygenesisenterprise/company",
 	"bugs": {
-		"url": "https://github.com/skygenesisenterprise/zenthcloud/issues"
+		"url": "https://github.com/skygenesisenterprise/company/issues"
 	},
 	"license": "Apache-2.0",
 	"version": "1.0.0",
@@ -41,7 +41,7 @@
 		"@tabler/icons-react": "3.21.0",
 		"@tailwindcss/postcss": "^4.3.5",
 		"@tryghost/content-api": "^1.11.21",
-		"@zenthcloud/react": "workspace:*",
+		"@company/react": "workspace:*",
 		"@types/node": "20.4.6",
 		"autoprefixer": "^10.4.12",
 		"axios": "^1.8.1",

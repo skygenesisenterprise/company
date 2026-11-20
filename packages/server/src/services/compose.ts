@@ -1,43 +1,43 @@
 import { join } from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import { db } from "@zenthcloud/server/db";
+import { paths } from "@company/server/constants";
+import { db } from "@company/server/db";
 import {
 	type apiCreateCompose,
 	buildAppName,
 	cleanAppName,
 	compose,
-} from "@zenthcloud/server/db/schema";
-import { getBuildComposeCommand } from "@zenthcloud/server/utils/builders/compose";
-import { randomizeSpecificationFile } from "@zenthcloud/server/utils/docker/compose";
+} from "@company/server/db/schema";
+import { getBuildComposeCommand } from "@company/server/utils/builders/compose";
+import { randomizeSpecificationFile } from "@company/server/utils/docker/compose";
 import {
 	cloneCompose,
 	loadDockerCompose,
 	loadDockerComposeRemote,
-} from "@zenthcloud/server/utils/docker/domain";
-import type { ComposeSpecification } from "@zenthcloud/server/utils/docker/types";
-import { sendBuildErrorNotifications } from "@zenthcloud/server/utils/notifications/build-error";
-import { sendBuildSuccessNotifications } from "@zenthcloud/server/utils/notifications/build-success";
+} from "@company/server/utils/docker/domain";
+import type { ComposeSpecification } from "@company/server/utils/docker/types";
+import { sendBuildErrorNotifications } from "@company/server/utils/notifications/build-error";
+import { sendBuildSuccessNotifications } from "@company/server/utils/notifications/build-success";
 import {
 	ExecError,
 	execAsync,
 	execAsyncRemote,
-} from "@zenthcloud/server/utils/process/execAsync";
-import { cloneBitbucketRepository } from "@zenthcloud/server/utils/providers/bitbucket";
+} from "@company/server/utils/process/execAsync";
+import { cloneBitbucketRepository } from "@company/server/utils/providers/bitbucket";
 import {
 	cloneGitRepository,
 	getGitCommitInfo,
-} from "@zenthcloud/server/utils/providers/git";
-import { cloneGiteaRepository } from "@zenthcloud/server/utils/providers/gitea";
-import { cloneGithubRepository } from "@zenthcloud/server/utils/providers/github";
-import { cloneGitlabRepository } from "@zenthcloud/server/utils/providers/gitlab";
-import { getCreateComposeFileCommand } from "@zenthcloud/server/utils/providers/raw";
-import { redactSecrets } from "@zenthcloud/server/utils/security/redact";
+} from "@company/server/utils/providers/git";
+import { cloneGiteaRepository } from "@company/server/utils/providers/gitea";
+import { cloneGithubRepository } from "@company/server/utils/providers/github";
+import { cloneGitlabRepository } from "@company/server/utils/providers/gitlab";
+import { getCreateComposeFileCommand } from "@company/server/utils/providers/raw";
+import { redactSecrets } from "@company/server/utils/security/redact";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import { quote } from "shell-quote";
 import type { z } from "zod";
 import { encodeBase64 } from "../utils/docker/utils";
-import { getZenthcloudUrl } from "./admin";
+import { getCompanyUrl } from "./admin";
 import {
 	createDeploymentCompose,
 	updateDeployment,
@@ -239,7 +239,7 @@ export const deployCompose = async ({
 }) => {
 	const compose = await findComposeById(composeId);
 
-	const buildLink = `${await getZenthcloudUrl()}/dashboard/project/${
+	const buildLink = `${await getCompanyUrl()}/dashboard/project/${
 		compose.environment.projectId
 	}/environment/${compose.environmentId}/services/compose/${compose.composeId}?tab=deployments`;
 	const deployment = await createDeploymentCompose({
@@ -474,7 +474,7 @@ export const removeCompose = async (
 
 		if (compose.composeType === "stack") {
 			const command = `
-			docker network disconnect ${compose.appName} zenthcloud-traefik;
+			docker network disconnect ${compose.appName} company-traefik;
 			docker stack rm ${compose.appName};
 			rm -rf ${projectPath}`;
 
@@ -485,7 +485,7 @@ export const removeCompose = async (
 			}
 		} else {
 			const command = `
-			docker network disconnect ${compose.appName} zenthcloud-traefik;
+			docker network disconnect ${compose.appName} company-traefik;
 			env -i PATH="$PATH" docker compose -p ${compose.appName} down ${
 				deleteVolumes ? "--volumes" : ""
 			};

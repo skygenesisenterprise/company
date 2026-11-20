@@ -1,5 +1,5 @@
-import { ShikiProvider } from "@zenthcloud/kumo/code";
-import { Text } from "@zenthcloud/kumo";
+import { ShikiProvider } from "@company/kumo/code";
+import { Text } from "@company/kumo";
 import { isValidElement } from "react";
 import { CodeExample, designTips } from "./design-tips";
 import { DesignTip } from "./DesignTip";

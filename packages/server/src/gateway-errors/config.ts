@@ -34,19 +34,19 @@ export const getGatewayErrorPageConfig = (
 	env: Record<string, string | undefined> = process.env,
 ): GatewayErrorPageConfig => {
 	const brandName =
-		readString(env.ZENTHCLOUD_GATEWAY_BRAND_NAME)?.slice(
+		readString(env.COMPANY_GATEWAY_BRAND_NAME)?.slice(
 			0,
 			MAX_BRAND_NAME_LENGTH,
-		) ?? "Zenthcloud";
-	const locale = readString(env.ZENTHCLOUD_GATEWAY_LOCALE);
+		) ?? "Company";
+	const locale = readString(env.COMPANY_GATEWAY_LOCALE);
 	const isCloud =
-		env.IS_CLOUD === "true" || env.ZENTHCLOUD_PRODUCT === "cloud";
+		env.IS_CLOUD === "true" || env.COMPANY_PRODUCT === "cloud";
 
 	return {
-		brandName: brandName || "Zenthcloud",
-		docsUrl: safeHttpUrl(env.ZENTHCLOUD_GATEWAY_DOCS_URL),
-		statusUrl: safeHttpUrl(env.ZENTHCLOUD_GATEWAY_STATUS_URL),
-		supportUrl: safeHttpUrl(env.ZENTHCLOUD_GATEWAY_SUPPORT_URL),
+		brandName: brandName || "Company",
+		docsUrl: safeHttpUrl(env.COMPANY_GATEWAY_DOCS_URL),
+		statusUrl: safeHttpUrl(env.COMPANY_GATEWAY_STATUS_URL),
+		supportUrl: safeHttpUrl(env.COMPANY_GATEWAY_SUPPORT_URL),
 		locale: locale && LOCALE_PATTERN.test(locale) ? locale : "en",
 		isCloud,
 	};

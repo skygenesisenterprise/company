@@ -12,16 +12,16 @@
 
 export const links = {
 	docs: {
-		home: 'https://docs.zenthcloud.com',
-		api: 'https://docs.zenthcloud.com/api',
-		tutorials: 'https://docs.zenthcloud.com/tutorials',
-		support: 'https://docs.zenthcloud.com/support',
-		differences: 'https://docs.zenthcloud.com/docs/core/differences',
+		home: 'https://docs.company.com',
+		api: 'https://docs.company.com/api',
+		tutorials: 'https://docs.company.com/tutorials',
+		support: 'https://docs.company.com/support',
+		differences: 'https://docs.company.com/docs/core/differences',
 	},
-	status: 'https://status.zenthcloud.com',
-	console: 'https://dash.zenthcloud.com',
-	blog: 'https://blog.zenthcloud.com',
-	github: 'https://github.com/skygenesisenterprise/zenthcloud',
+	status: 'https://status.company.com',
+	console: 'https://dash.company.com',
+	blog: 'https://blog.company.com',
+	github: 'https://github.com/skygenesisenterprise/company',
 	trust: '/company/trust',
 	skyGenesis: 'https://skygenesisenterprise.com/',
 	l0ck7: 'https://lk7cloud.com/',
@@ -217,14 +217,14 @@ export const mainNav: NavGroup[] = [
 			{
 				title: 'Documentation',
 				links: [
-					{ href: '/developers/getting-started', label: 'Getting Started', description: 'Begin your journey with ZenthCloud' },
+					{ href: '/developers/getting-started', label: 'Getting Started', description: 'Begin your journey with Company' },
 					{ href: links.docs.home, label: 'Product Guides', description: 'Comprehensive product documentation', external: true },
 					{ href: '/developers/documentation', label: 'Architecture Guides', description: 'Best practices and patterns' },
 					{ href: links.docs.tutorials, label: 'Tutorials', description: 'Step-by-step walkthroughs', external: true },
 				],
 			},
 			{
-				title: 'Build with ZenthCloud',
+				title: 'Build with Company',
 				links: [
 					{ href: links.docs.api, label: 'API Reference', description: 'Complete API documentation', external: true },
 					{ href: '/developers/sdks', label: 'SDKs', description: 'Language-specific libraries' },
@@ -275,7 +275,7 @@ export const mainNav: NavGroup[] = [
 					},
 					{
 						href: '/resources',
-						label: 'zenthcloud Radar',
+						label: 'company Radar',
 						description: 'Internet traffic and security trends',
 					},
 				],
@@ -292,7 +292,7 @@ export const mainNav: NavGroup[] = [
 					{
 						href: links.docs.api,
 						label: 'API Reference',
-						description: 'zenthcloud API documentation',
+						description: 'company API documentation',
 						external: true,
 					},
 					{
@@ -330,7 +330,7 @@ export const mainNav: NavGroup[] = [
 		href: '/company',
 		columns: [
 			{
-				title: 'About ZenthCloud',
+				title: 'About Company',
 				links: [
 					{ href: '/company/about', label: 'About Us', description: 'Who we are and what we do' },
 					{ href: '/company/mission', label: 'Our Mission', description: 'Our purpose and values' },
@@ -361,7 +361,7 @@ export const mainNav: NavGroup[] = [
 			{
 				title: 'Work with us',
 				links: [
-					{ href: '/company/partners', label: 'Partners', description: 'Partner with ZenthCloud' },
+					{ href: '/company/partners', label: 'Partners', description: 'Partner with Company' },
 					{ href: '/company/careers', label: 'Careers', description: 'Join our team' },
 					{ href: '/company/newsroom', label: 'Newsroom', description: 'Latest news and announcements' },
 					{ href: '/company/contact', label: 'Contact', description: 'Get in touch' },
@@ -414,7 +414,7 @@ export const footerSections: { title: string; links: NavLink[] }[] = [
 		links: [
 			{ href: '/solutions/ai-research', label: 'Project Galileo' },
 			{ href: '/solutions/small-business', label: 'Athenian Project' },
-			{ href: '/solutions/enterprise', label: 'zenthcloud for Campaigns' },
+			{ href: '/solutions/enterprise', label: 'company for Campaigns' },
 			{ href: '/solutions/startups', label: 'Project Fairshot' },
 			{ href: '/company/about', label: 'Impact' },
 		],
@@ -423,7 +423,7 @@ export const footerSections: { title: string; links: NavLink[] }[] = [
 		title: 'Resources',
 		links: [
 			{ href: '/resources/blog', label: 'App Innovation report' },
-			{ href: '/resources', label: 'zenthcloud Radar' },
+			{ href: '/resources', label: 'company Radar' },
 			{ href: '/resources', label: 'Case studies' },
 			{ href: links.status, label: 'Status', external: true },
 			{ href: '/resources/support', label: 'Support' },
@@ -477,10 +477,10 @@ export const footerSections: { title: string; links: NavLink[] }[] = [
 ];
 
 export const organisation = {
-	name: 'ZenthCloud',
+	name: 'Company',
 	legalName: 'Sky Genesis Enterprise',
 	positioning: 'European Integrated Cloud Infrastructure',
 	supporting: 'European roots. Global ambitions.',
 	description:
-		'ZenthCloud is a European integrated cloud infrastructure provider building compute, storage, networking, developer and security services on owned and partner infrastructure.',
+		'Company is a European integrated cloud infrastructure provider building compute, storage, networking, developer and security services on owned and partner infrastructure.',
 } as const

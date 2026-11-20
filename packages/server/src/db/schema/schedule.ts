@@ -15,7 +15,7 @@ export const scheduleType = pgEnum("scheduleType", [
 	"application",
 	"compose",
 	"server",
-	"zenthcloud-server",
+	"company-server",
 ]);
 
 export const schedules = pgTable("schedule", {
@@ -80,7 +80,7 @@ export const schedulesRelations = relations(schedules, ({ one, many }) => ({
 }));
 
 export const createScheduleSchema = createInsertSchema(schedules, {
-	scheduleType: z.enum(["application", "compose", "server", "zenthcloud-server"]),
+	scheduleType: z.enum(["application", "compose", "server", "company-server"]),
 });
 
 export const updateScheduleSchema = createScheduleSchema.extend({

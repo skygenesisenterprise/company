@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# Zenthcloud container entrypoint — the single place that decides how a
+# Company container entrypoint — the single place that decides how a
 # container starts. Every target of the root Dockerfile calls this script, and the
-# role is selected by ZENTHCLOUD_ROLE (or by the first argument, which is how
+# role is selected by COMPANY_ROLE (or by the first argument, which is how
 # the one-shot `migrate` job asks for the migrations):
 #
 #   api       backend: wait for PostgreSQL, optionally migrate, exec dist/server.mjs
@@ -20,17 +20,17 @@
 #   5. exec the server
 #
 # Escape hatches:
-#   ZENTHCLOUD_ROLE=api|client|migrate|status  select the role explicitly
-#   ZENTHCLOUD_ROLE=healthcheck                the Docker health probe
-#   ZENTHCLOUD_MODE=development                force dev mode
-#   ZENTHCLOUD_SKIP_DB_WAIT=1                  skip the wait-for-postgres step
-#   ZENTHCLOUD_SKIP_MIGRATIONS=1               skip migrations
-#   ZENTHCLOUD_RUN_MIGRATIONS=1                migrate before starting the API
-#   ZENTHCLOUD_COMMAND="<cmd>"                 run an arbitrary command instead
+#   COMPANY_ROLE=api|client|migrate|status  select the role explicitly
+#   COMPANY_ROLE=healthcheck                the Docker health probe
+#   COMPANY_MODE=development                force dev mode
+#   COMPANY_SKIP_DB_WAIT=1                  skip the wait-for-postgres step
+#   COMPANY_SKIP_MIGRATIONS=1               skip migrations
+#   COMPANY_RUN_MIGRATIONS=1                migrate before starting the API
+#   COMPANY_COMMAND="<cmd>"                 run an arbitrary command instead
 #   <entrypoint> shell                                drop into a bash shell
 set -euo pipefail
 
-ROLE="${1:-${ZENTHCLOUD_ROLE:-api}}"
+ROLE="${1:-${COMPANY_ROLE:-api}}"
 case "$ROLE" in
 api | client | migrate | status | healthcheck) ;;
 *)
@@ -38,7 +38,7 @@ api | client | migrate | status | healthcheck) ;;
 	;;
 esac
 
-MODE="${ZENTHCLOUD_MODE:-${NODE_ENV:-production}}"
+MODE="${COMPANY_MODE:-${NODE_ENV:-production}}"
 case "$MODE" in
 dev | development) MODE="development" ;;
 prod | production) MODE="production" ;;
@@ -47,14 +47,14 @@ prod | production) MODE="production" ;;
 	;;
 esac
 
-log() { printf '[zenthcloud] %s\n' "$*"; }
+log() { printf '[company] %s\n' "$*"; }
 
 # --- Healthcheck ------------------------------------------------------------
 # One image serves every role, so the Docker HEALTHCHECK cannot hard-code a
 # single path: it asks the entrypoint, which probes the *container* role
-# (ZENTHCLOUD_ROLE) on its own port. Exits 0 when the app answers.
+# (COMPANY_ROLE) on its own port. Exits 0 when the app answers.
 if [ "$ROLE" = "healthcheck" ]; then
-	probe_role="${ZENTHCLOUD_ROLE:-api}"
+	probe_role="${COMPANY_ROLE:-api}"
 	case "$probe_role" in
 	client)
 		# Probe the login page directly: `/` is a deliberate 307 to `/login`, so
@@ -77,13 +77,13 @@ fi
 if [ "${2:-}" = "shell" ] || [ "${1:-}" = "shell" ]; then
 	exec bash
 fi
-if [ -n "${ZENTHCLOUD_COMMAND:-}" ]; then
-	log "running custom command: ${ZENTHCLOUD_COMMAND}"
-	exec bash -lc "${ZENTHCLOUD_COMMAND}"
+if [ -n "${COMPANY_COMMAND:-}" ]; then
+	log "running custom command: ${COMPANY_COMMAND}"
+	exec bash -lc "${COMPANY_COMMAND}"
 fi
 
 # --- Status page application -----------------------------------------------
-# `ZENTHCLOUD_ROLE=status` runs the standalone status page (apps/status)
+# `COMPANY_ROLE=status` runs the standalone status page (apps/status)
 # instead of the platform: no PostgreSQL, no Redis, no migrations. The engine keeps
 # its state in a SQLite file under STATUS_DATA_DIR.
 if [ "$ROLE" = "status" ]; then
@@ -106,7 +106,7 @@ if [ "$ROLE" = "client" ]; then
 	CLIENT_BIND_HOST="${HOST:-${HOSTNAME:-0.0.0.0}}"
 	if [ "$MODE" = "development" ]; then
 		log "role: client (development, port ${CLIENT_CONTAINER_PORT})"
-		[ -d ./apps/zenthcloud ] && cd apps/zenthcloud
+		[ -d ./apps/company ] && cd apps/company
 		# Turbopack is the dev bundler (Next 16 default): a route compiles in about a
 		# second instead of the ~7s webpack needs for the same page. The webpack
 		# configuration is only exported for `next build --webpack`.
@@ -117,11 +117,11 @@ if [ "$ROLE" = "client" ]; then
 fi
 
 # --- Locate the backend application ----------------------------------------
-if [ -n "${ZENTHCLOUD_APP_DIR:-}" ]; then
-	cd "${ZENTHCLOUD_APP_DIR}"
-elif [ ! -f "./dist/server.mjs" ] && [ -f "./apps/zenthcloud/package.json" ]; then
-	# Dev image: we are at the monorepo root, the app lives in apps/zenthcloud.
-	cd apps/zenthcloud
+if [ -n "${COMPANY_APP_DIR:-}" ]; then
+	cd "${COMPANY_APP_DIR}"
+elif [ ! -f "./dist/server.mjs" ] && [ -f "./apps/company/package.json" ]; then
+	# Dev image: we are at the monorepo root, the app lives in apps/company.
+	cd apps/company
 fi
 
 if [ "$MODE" = "development" ]; then
@@ -142,7 +142,7 @@ else
 fi
 
 # --- Wait for PostgreSQL ---------------------------------------------------
-if [ "${ZENTHCLOUD_SKIP_DB_WAIT:-0}" != "1" ]; then
+if [ "${COMPANY_SKIP_DB_WAIT:-0}" != "1" ]; then
 	if [ -f "${SCRIPT_DIR}/wait-for-postgres.${SCRIPT_EXT}" ]; then
 		log "waiting for the database to accept connections..."
 		"${RUNNER[@]}" "${SCRIPT_DIR}/wait-for-postgres.${SCRIPT_EXT}"
@@ -150,18 +150,18 @@ if [ "${ZENTHCLOUD_SKIP_DB_WAIT:-0}" != "1" ]; then
 		log "wait-for-postgres script not found, skipping"
 	fi
 else
-	log "database wait disabled (ZENTHCLOUD_SKIP_DB_WAIT=1)"
+	log "database wait disabled (COMPANY_SKIP_DB_WAIT=1)"
 fi
 
 # --- Migrations ------------------------------------------------------------
 # Only the `migrate` job and an explicitly opted-in API run them: two API
 # replicas must never race on the same schema.
 RUN_MIGRATIONS="0"
-if [ "$ROLE" = "migrate" ] || [ "${ZENTHCLOUD_RUN_MIGRATIONS:-0}" = "1" ]; then
+if [ "$ROLE" = "migrate" ] || [ "${COMPANY_RUN_MIGRATIONS:-0}" = "1" ]; then
 	RUN_MIGRATIONS="1"
 fi
 
-if [ "$RUN_MIGRATIONS" = "1" ] && [ "${ZENTHCLOUD_SKIP_MIGRATIONS:-0}" != "1" ]; then
+if [ "$RUN_MIGRATIONS" = "1" ] && [ "${COMPANY_SKIP_MIGRATIONS:-0}" != "1" ]; then
 	if [ -f "${SCRIPT_DIR}/migration.${SCRIPT_EXT}" ]; then
 		log "applying database migrations..."
 		"${RUNNER[@]}" "${SCRIPT_DIR}/migration.${SCRIPT_EXT}"
@@ -177,5 +177,5 @@ if [ "$ROLE" = "migrate" ]; then
 fi
 
 # --- Start -----------------------------------------------------------------
-log "starting Zenthcloud (${ROLE})..."
+log "starting Company (${ROLE})..."
 exec "${SERVER_CMD[@]}"

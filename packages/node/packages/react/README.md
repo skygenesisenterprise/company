@@ -1,16 +1,16 @@
-# @zenthcloud/react
+# @company/react
 
-ZenthCloud's React component library and design system for building modern web applications.
+Company's React component library and design system for building modern web applications.
 
 ## Installation
 
 ```bash
-pnpm add @zenthcloud/react
+pnpm add @company/react
 ```
 
 ### Peer Dependencies
 
-ZenthCloud React requires the following peer dependencies:
+Company React requires the following peer dependencies:
 
 ```bash
 pnpm add react react-dom @phosphor-icons/react
@@ -18,12 +18,12 @@ pnpm add react react-dom @phosphor-icons/react
 
 ## Component Documentation
 
-ZenthCloud React includes a built-in CLI for quick component reference:
+Company React includes a built-in CLI for quick component reference:
 
 ```bash
-npx @zenthcloud/react ls         # List all components
-npx @zenthcloud/react doc Button # Get component documentation
-npx @zenthcloud/react docs       # Get all component docs
+npx @company/react ls         # List all components
+npx @company/react doc Button # Get component documentation
+npx @company/react docs       # Get all component docs
 ```
 
 The CLI reads from `ai/component-registry.json` (generated from TypeScript types + demo examples).
@@ -34,10 +34,10 @@ The CLI reads from `ai/component-registry.json` (generated from TypeScript types
 
 ```tsx
 // Main package import
-import { Button, Input, Surface } from "@zenthcloud/react";
+import { Button, Input, Surface } from "@company/react";
 
 // Granular imports (recommended for tree-shaking)
-import { Button } from "@zenthcloud/react/components/button";
+import { Button } from "@company/react/components/button";
 ```
 
 ### Import Styles
@@ -45,18 +45,18 @@ import { Button } from "@zenthcloud/react/components/button";
 Import the precompiled stylesheet once, in your application entry point:
 
 ```tsx
-import "@zenthcloud/react/styles.css";
+import "@company/react/styles.css";
 ```
 
 That is all that is required. **Tailwind is not required in the consuming application**: no Tailwind install, config file, `@source` directive, or rebuild of the library styles.
 
-The stylesheet includes the ZenthCloud design tokens, light/dark themes, accessibility rules, animations, and every utility class used by the compiled components.
+The stylesheet includes the Company design tokens, light/dark themes, accessibility rules, animations, and every utility class used by the compiled components.
 
 See **[docs/css.md](./docs/css.md)** for the full design system documentation: tokens, theming, customization, Next.js/Vite setup, exports and migration.
 
 #### Applying the theme surface
 
-The library never resets `html` or `body`. Set the color mode on the document and opt into the ZenthCloud surface when you want its canvas, foreground color and typography:
+The library never resets `html` or `body`. Set the color mode on the document and opt into the Company surface when you want its canvas, foreground color and typography:
 
 ```html
 <html data-zenth-mode="dark">
@@ -71,9 +71,9 @@ The library never resets `html` or `body`. Set the color mode on the document an
 #### Tokens only
 
 ```tsx
-import "@zenthcloud/react/tokens.css";
-import "@zenthcloud/react/themes/light.css";
-import "@zenthcloud/react/themes/dark.css";
+import "@company/react/tokens.css";
+import "@company/react/themes/light.css";
+import "@company/react/themes/dark.css";
 ```
 
 #### For Tailwind CSS Users (optional)
@@ -81,38 +81,38 @@ import "@zenthcloud/react/themes/dark.css";
 If your application already runs Tailwind CSS v4 and wants the `@theme` tokens to use `bg-zenth-*` utilities in its own code, import the raw entry before `tailwindcss`:
 
 ```css
-@source "../node_modules/@zenthcloud/react/dist/**/*.{js,jsx,ts,tsx}";
-@import "@zenthcloud/react/styles/tailwind";
+@source "../node_modules/@company/react/dist/**/*.{js,jsx,ts,tsx}";
+@import "@company/react/styles/tailwind";
 @import "tailwindcss";
 ```
 
-> **Import order matters** — import the ZenthCloud entry **before** `@import "tailwindcss"` so its `@theme` tokens are registered first.
+> **Import order matters** — import the Company entry **before** `@import "tailwindcss"` so its `@theme` tokens are registered first.
 
-> **Note:** The `@source` path is relative to your CSS file. Adjust it to your project layout — e.g. from `src/styles/` use `../../node_modules/@zenthcloud/react/dist/**/*.{js,jsx,ts,tsx}`.
+> **Note:** The `@source` path is relative to your CSS file. Adjust it to your project layout — e.g. from `src/styles/` use `../../node_modules/@company/react/dist/**/*.{js,jsx,ts,tsx}`.
 
 This pipeline is optional. `styles.css` already covers every component.
 
 #### Legacy entry points (deprecated)
 
-`@zenthcloud/react/styles`, `@zenthcloud/react/styles/tailwind` and `@zenthcloud/react/styles/standalone` still resolve. New code should use `styles.css`, or `styles/tailwind` when it needs the raw Tailwind source.
+`@company/react/styles`, `@company/react/styles/tailwind` and `@company/react/styles/standalone` still resolve. New code should use `styles.css`, or `styles/tailwind` when it needs the raw Tailwind source.
 
 ### Base UI Primitives
 
-ZenthCloud React bundles [Base UI](https://base-ui.com) and re-exports all primitives for advanced use cases:
+Company React bundles [Base UI](https://base-ui.com) and re-exports all primitives for advanced use cases:
 
 ```tsx
 // Barrel import - imports all primitives (convenient but larger bundle)
-import { Popover, Slider, Accordion } from "@zenthcloud/react/primitives";
+import { Popover, Slider, Accordion } from "@company/react/primitives";
 
 // Granular imports - tree-shakeable, smaller bundles (recommended)
-import { Popover } from "@zenthcloud/react/primitives/popover";
-import { Slider } from "@zenthcloud/react/primitives/slider";
-import { Accordion } from "@zenthcloud/react/primitives/accordion";
+import { Popover } from "@company/react/primitives/popover";
+import { Slider } from "@company/react/primitives/slider";
+import { Accordion } from "@company/react/primitives/accordion";
 ```
 
-> **Note:** Prefer styled ZenthCloud React components when available. Primitives are for custom components not yet in ZenthCloud React or cases requiring fine-grained control.
+> **Note:** Prefer styled Company React components when available. Primitives are for custom components not yet in Company React or cases requiring fine-grained control.
 >
-> **Performance tip:** Use granular imports (`@zenthcloud/react/primitives/{name}`) for better tree-shaking and smaller bundle sizes.
+> **Performance tip:** Use granular imports (`@company/react/primitives/{name}`) for better tree-shaking and smaller bundle sizes.
 
 #### Updating Primitives
 
@@ -257,7 +257,7 @@ pnpm dev
 
 When you edit a component:
 
-1. ZenthCloud React rebuilds automatically (~400ms)
+1. Company React rebuilds automatically (~400ms)
 2. Refresh browser to see changes in docs site
 3. Changes are validated against the actual build output
 
@@ -288,10 +288,10 @@ pnpm test:coverage
 
 **What's tested:**
 
-- All components importable from main entry: `import { Component } from "@zenthcloud/react"`
-- All components importable via deep imports: `import { Component } from "@zenthcloud/react/components/component-name"`
-- All blocks importable from main entry: `import { Block } from "@zenthcloud/react"`
-- All blocks importable via deep imports: `import { Block } from "@zenthcloud/react/blocks/block-name"`
+- All components importable from main entry: `import { Component } from "@company/react"`
+- All components importable via deep imports: `import { Component } from "@company/react/components/component-name"`
+- All blocks importable from main entry: `import { Block } from "@company/react"`
+- All blocks importable via deep imports: `import { Block } from "@company/react/blocks/block-name"`
 - Package.json exports sync with actual components and blocks
 - Export paths and formats are correct
 - Build configuration consistency
@@ -310,15 +310,15 @@ Beta releases are automatically triggered for pull requests through GitHub Actio
 
 - **Workflow**: `package-preview-pr.yml`
 - **Triggers**: Pull requests with changes to `packages/react/**` or `.changeset/**`
-- **Dependencies**: Requires changeset to exist for `@zenthcloud/react`
+- **Dependencies**: Requires changeset to exist for `@company/react`
 
 **Process Flow:**
 
-1. **Validate**: Ensures changeset exists for `@zenthcloud/react`
+1. **Validate**: Ensures changeset exists for `@company/react`
 2. **Version**: Runs `pnpm run version:beta`
    - Consumes pending changesets
    - Appends `-beta.{commit-hash}` to version number
-3. **Build**: Runs `pnpm --filter @zenthcloud/react build`
+3. **Build**: Runs `pnpm --filter @company/react build`
 4. **Publish**: Publishes to npm with `beta` tag
 5. **Notify**: Posts PR comment with installation instructions
 
@@ -343,10 +343,10 @@ When a beta is published, the PR will include a comment with installation instru
 
 ```bash
 # Install the specific beta version
-npm install @zenthcloud/react@0.1.0-beta.a1b2c3d
+npm install @company/react@0.1.0-beta.a1b2c3d
 
 # Or with pnpm
-pnpm add @zenthcloud/react@0.1.0-beta.a1b2c3d
+pnpm add @company/react@0.1.0-beta.a1b2c3d
 ```
 
 ### Testing Beta Releases
@@ -366,7 +366,7 @@ All pull requests with changes to `packages/react/` must include a changeset:
 pnpm changeset
 ```
 
-- Select `@zenthcloud/react` when prompted
+- Select `@company/react` when prompted
 - Choose the type of change: `patch`, `minor`, or `major`
 - Write a clear description of what changed
 
@@ -391,7 +391,7 @@ This package uses [Changesets](https://github.com/changesets/changesets) for ver
    pnpm changeset
    ```
 
-   - Select `@zenthcloud/react` from the list
+   - Select `@company/react` from the list
    - Select the type of change: `patch`, `minor`, or `major`
    - Write a clear description of what changed
    - This creates a `.changeset/*.md` file describing the change
@@ -440,7 +440,7 @@ After publishing:
 
    ```bash
    git add .
-   git commit -m "chore: release @zenthcloud/react@{version}"
+   git commit -m "chore: release @company/react@{version}"
    git push
    ```
 
@@ -452,7 +452,7 @@ After publishing:
 
 3. **Verify publication**:
    ```bash
-   npm view @zenthcloud/react versions
+   npm view @company/react versions
    ```
 
 ### Semantic Versioning
@@ -482,8 +482,8 @@ The changelog includes all changeset descriptions, providing clear documentation
 If the CI fails with a changeset validation error:
 
 1. **Check if changeset exists**: Run `ls .changeset/*.md` to see pending changesets
-2. **Create changeset**: Run `pnpm changeset` and select `@zenthcloud/react`
-3. **Verify changeset targets correct package**: Open the changeset file and ensure it includes `@zenthcloud/react`
+2. **Create changeset**: Run `pnpm changeset` and select `@company/react`
+3. **Verify changeset targets correct package**: Open the changeset file and ensure it includes `@company/react`
 4. **Commit changeset**: Add and commit the changeset file to your branch
 
 **Beta Publication Failed**

@@ -1,4 +1,4 @@
-import type { kubernetesVaultConfigSchema } from "@zenthcloud/server/db/schema";
+import type { kubernetesVaultConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import { type VaultClient, vaultFetch } from "./types";
 

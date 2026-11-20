@@ -1,6 +1,6 @@
 "use client";
 
-import { Input as ZenthInput } from "@zenthcloud/react";
+import { Input as ZenthInput } from "@company/react";
 import * as React from "react";
 
 export interface InputProps

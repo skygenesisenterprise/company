@@ -6,7 +6,7 @@ import {
   LayerCard,
   Select,
   Switch,
-} from "@zenthcloud/kumo";
+} from "@company/kumo";
 import * as echarts from "echarts/core";
 import type { EChartsOption } from "echarts";
 import { BarChart, LineChart, PieChart } from "echarts/charts";

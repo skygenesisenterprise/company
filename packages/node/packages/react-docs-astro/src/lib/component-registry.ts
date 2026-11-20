@@ -4,15 +4,15 @@
  */
 
 // Import the registry JSON from the kumo package export
-import registry from "@zenthcloud/kumo/ai/component-registry.json";
+import registry from "@company/kumo/ai/component-registry.json";
 
-// Import shared types from @zenthcloud/kumo
+// Import shared types from @company/kumo
 import type {
   ComponentRegistry,
   ComponentSchema,
   PropSchema,
   SubComponentSchema,
-} from "@zenthcloud/kumo";
+} from "@company/kumo";
 
 // Re-export types for convenience
 export type { PropSchema, SubComponentSchema as SubComponentData };

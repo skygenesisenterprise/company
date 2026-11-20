@@ -1,21 +1,21 @@
-# ZenthCloud Server
+# Company Server
 
-[![npm](https://img.shields.io/npm/v/@zenthcloud/server.svg?style=flat&color=brightgreen)](https://www.npmjs.com/package/@zenthcloud/server)
+[![npm](https://img.shields.io/npm/v/@company/server.svg?style=flat&color=brightgreen)](https://www.npmjs.com/package/@company/server)
 [![Node](https://img.shields.io/badge/Node-%5E24.4.0-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-required-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org)
-[![License](https://img.shields.io/badge/License-see%20repository-lightgrey)](https://github.com/skygenesisenterprise/zenthcloud)
+[![License](https://img.shields.io/badge/License-see%20repository-lightgrey)](https://github.com/skygenesisenterprise/company)
 
-> The server engine behind ZenthCloud: deployment services, database schema, setup routines and runtime utilities.
+> The server engine behind Company: deployment services, database schema, setup routines and runtime utilities.
 
-**`@zenthcloud/server`** is the shared server package of the ZenthCloud platform. It contains the domain services that create and deploy applications and compose stacks, the Drizzle schema and connection, the Docker and Traefik integration, server setup routines, backup and restore helpers, monitoring, gateway error pages and the supporting utilities used by the API and dashboard applications.
+**`@company/server`** is the shared server package of the Company platform. It contains the domain services that create and deploy applications and compose stacks, the Drizzle schema and connection, the Docker and Traefik integration, server setup routines, backup and restore helpers, monitoring, gateway error pages and the supporting utilities used by the API and dashboard applications.
 
-**Perfect for:** contributors working on ZenthCloud's control plane, host applications that need to reuse the deployment engine, and operators who need to understand the configuration the server expects.
+**Perfect for:** contributors working on Company's control plane, host applications that need to reuse the deployment engine, and operators who need to understand the configuration the server expects.
 
 ## Contents
 
-- [ZenthCloud Server](#zenthcloud-server)
+- [Company Server](#company-server)
   - [Contents](#contents)
-  - [Why ZenthCloud Server matters](#why-zenthcloud-server-matters)
+  - [Why Company Server matters](#why-company-server-matters)
   - [What you can do](#what-you-can-do)
   - [Quick start](#quick-start)
     - [Requirements](#requirements)
@@ -29,7 +29,7 @@
     - [Docker](#docker)
     - [Paths](#paths)
     - [Other environment variables](#other-environment-variables)
-  - [How ZenthCloud Server is built](#how-zenthcloud-server-is-built)
+  - [How Company Server is built](#how-company-server-is-built)
     - [Services](#services)
     - [Setup routines](#setup-routines)
     - [Deployment builders](#deployment-builders)
@@ -45,7 +45,7 @@
   - [License](#license)
   - [Note](#note)
 
-## Why ZenthCloud Server matters
+## Why Company Server matters
 
 🎯 **Single deployment engine** — Applications, compose stacks, previews, rollbacks, servers and backups all share one set of services.
 
@@ -81,14 +81,14 @@
 
 ```bash
 pnpm install
-pnpm --filter @zenthcloud/server build
+pnpm --filter @company/server build
 ```
 
 The package exports TypeScript sources during development and compiled output after `build`, which runs `tsc` and rewrites path aliases.
 
 ```bash
-pnpm --filter @zenthcloud/server dev        # esbuild + declarations
-pnpm --filter @zenthcloud/server typecheck  # tsc --noEmit
+pnpm --filter @company/server dev        # esbuild + declarations
+pnpm --filter @company/server typecheck  # tsc --noEmit
 ```
 
 ### Connecting to the database
@@ -96,7 +96,7 @@ pnpm --filter @zenthcloud/server typecheck  # tsc --noEmit
 The connection is created once per process and cached on `globalThis`, so bundlers that duplicate the module still share a single pool.
 
 ```ts
-import { db, dbUrl } from "@zenthcloud/server/db";
+import { db, dbUrl } from "@company/server/db";
 
 const applications = await db.query.applications.findMany();
 console.log(dbUrl);
@@ -107,8 +107,8 @@ Prefer `DATABASE_URL`, or point `POSTGRES_PASSWORD_FILE` at a Docker secret. Wit
 ### Using the package
 
 ```ts
-import { docker, paths } from "@zenthcloud/server/constants";
-import { createApplication } from "@zenthcloud/server";
+import { docker, paths } from "@company/server/constants";
+import { createApplication } from "@company/server";
 
 console.log(paths().APPLICATIONS_PATH);
 
@@ -121,7 +121,7 @@ const application = await createApplication({
 console.log(application.applicationId);
 ```
 
-`@zenthcloud/server` is a library, not a listening server. The HTTP surface lives in the host applications: `apps/api` serves the programmatic API, and `apps/zenthcloud` and `apps/schedules` mount the same services.
+`@company/server` is a library, not a listening server. The HTTP surface lives in the host applications: `apps/api` serves the programmatic API, and `apps/company` and `apps/schedules` mount the same services.
 
 ## Configuration
 
@@ -131,9 +131,9 @@ console.log(application.applicationId);
 | --- | --- | --- |
 | `DATABASE_URL` | Full Postgres connection URL. Takes precedence over the `POSTGRES_*` variables. | — |
 | `POSTGRES_PASSWORD_FILE` | Path to a file containing the Postgres password. Builds the URL with the variables below. | — |
-| `POSTGRES_USER` | Postgres user. | `zenthcloud` |
-| `POSTGRES_DB` | Postgres database. | `zenthcloud` |
-| `POSTGRES_HOST` | Postgres host. | `zenthcloud-postgres` |
+| `POSTGRES_USER` | Postgres user. | `company` |
+| `POSTGRES_DB` | Postgres database. | `company` |
+| `POSTGRES_HOST` | Postgres host. | `company-postgres` |
 | `POSTGRES_PORT` | Postgres port. | `5432` |
 
 ### Authentication and encryption
@@ -150,20 +150,20 @@ console.log(application.applicationId);
 | Variable | Description |
 | --- | --- |
 | `IS_CLOUD` | Legacy cloud flavour hint. |
-| `ZENTHCLOUD_FLAVOR` | Legacy flavour hint kept for compatibility with the capability model. |
-| `ZENTHCLOUD_PRODUCT` | Product the instance was launched as: `self`, `cloud` or `console`. Takes precedence over the hints above, but is not an authorization. |
-| `ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY` | Public key used to verify cloud/console entitlements. Empty by default, so protected products fail closed. |
-| `ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY_FILE` | File containing the entitlement public key. |
-| `ZENTHCLOUD_ALLOW_UNLICENSED_DEV` | Development-only escape hatch (`1`, `true` or `yes`). Ignored when `NODE_ENV=production`. |
+| `COMPANY_FLAVOR` | Legacy flavour hint kept for compatibility with the capability model. |
+| `COMPANY_PRODUCT` | Product the instance was launched as: `self`, `cloud` or `console`. Takes precedence over the hints above, but is not an authorization. |
+| `COMPANY_ENTITLEMENT_PUBLIC_KEY` | Public key used to verify cloud/console entitlements. Empty by default, so protected products fail closed. |
+| `COMPANY_ENTITLEMENT_PUBLIC_KEY_FILE` | File containing the entitlement public key. |
+| `COMPANY_ALLOW_UNLICENSED_DEV` | Development-only escape hatch (`1`, `true` or `yes`). Ignored when `NODE_ENV=production`. |
 
 ### Docker
 
 | Variable | Description |
 | --- | --- |
 | `DOCKER_HOST` | Docker socket or host. Used during automatic socket detection. |
-| `ZENTHCLOUD_DOCKER_HOST` | Explicit remote Docker host. |
-| `ZENTHCLOUD_DOCKER_PORT` | Remote Docker port. |
-| `ZENTHCLOUD_DOCKER_API_VERSION` | Pin the Docker API version. |
+| `COMPANY_DOCKER_HOST` | Explicit remote Docker host. |
+| `COMPANY_DOCKER_PORT` | Remote Docker port. |
+| `COMPANY_DOCKER_API_VERSION` | Pin the Docker API version. |
 
 Socket detection tries `DOCKER_HOST`, the Rancher Desktop socket and `/var/run/docker.sock`, then falls back to the default Docker configuration.
 
@@ -180,7 +180,7 @@ Socket detection tries `DOCKER_HOST`, the Rancher Desktop socket and `/var/run/d
 }
 ```
 
-`ZENTHCLOUD_CONFIG_PATH` overrides the base directory. Otherwise production and server mode use `/etc/zenthcloud`, and development uses `.docker` under the current working directory.
+`COMPANY_CONFIG_PATH` overrides the base directory. Otherwise production and server mode use `/etc/company`, and development uses `.docker` under the current working directory.
 
 ### Other environment variables
 
@@ -193,16 +193,16 @@ Socket detection tries `DOCKER_HOST`, the Rancher Desktop socket and `/var/run/d
 | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GITHUB_TOKEN` | GitHub integration. |
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google sign-in. |
 | `TRAEFIK_PORT`, `TRAEFIK_SSL_PORT`, `TRAEFIK_HTTP3_PORT`, `TRAEFIK_VERSION` | Traefik ports and image version. |
-| `ZENTHCLOUD_DNS_HOST`, `ZENTHCLOUD_DNS_PORT`, `ZENTHCLOUD_DNS_SERVER`, `ZENTHCLOUD_DNS_UPSTREAM` | Internal DNS server. |
-| `ZENTHCLOUD_TOR_IMAGE` | Image used for managed Tor Onion Services. |
-| `ZENTHCLOUD_GATEWAY_ERRORS_SCRIPT_PATH` | Custom script injected into gateway error pages. |
-| `ZENTHCLOUD_TEMPLATES_DIR` | Directory for deployment templates. |
+| `COMPANY_DNS_HOST`, `COMPANY_DNS_PORT`, `COMPANY_DNS_SERVER`, `COMPANY_DNS_UPSTREAM` | Internal DNS server. |
+| `COMPANY_TOR_IMAGE` | Image used for managed Tor Onion Services. |
+| `COMPANY_GATEWAY_ERRORS_SCRIPT_PATH` | Custom script injected into gateway error pages. |
+| `COMPANY_TEMPLATES_DIR` | Directory for deployment templates. |
 | `OPENAPI_MAX_JSON_BODY_SIZE` | JSON body limit for the OpenAPI route. |
 | `OPENAPI_MAX_UPLOAD_SIZE` | Upload limit for the OpenAPI route. |
 | `TRAFFIC_TRAEFIK_LOG_PATH`, `TRAFFIC_AUDIENCE_INGEST`, `TRAFFIC_COLLECTOR_CRON`, `TRAFFIC_RETENTION_CRON` | Traffic analytics. |
 | `COMMUNITY_SYNC_CRON`, `COMMUNITY_EVENT_RETENTION_DAYS` | Community synchronisation. |
 
-## How ZenthCloud Server is built
+## How Company Server is built
 
 The package is TypeScript with strict mode and exports subpaths for `./db`, `./constants` and `./setup/*`. The application, compose and server services orchestrate Docker, Traefik, Git providers and the database.
 
@@ -225,7 +225,7 @@ The package is TypeScript with strict mode and exports subpaths for `./db`, `./c
 
 ### Setup routines
 
-`src/setup/` provisions a host. It initialises Docker Swarm, creates the `zenthcloud-network` overlay, prepares directories under the config path, writes the Traefik configuration and middlewares, starts the Traefik container, installs Nixpacks, Buildpacks and Railpack, configures monitoring and validates the server.
+`src/setup/` provisions a host. It initialises Docker Swarm, creates the `company-network` overlay, prepares directories under the config path, writes the Traefik configuration and middlewares, starts the Traefik container, installs Nixpacks, Buildpacks and Railpack, configures monitoring and validates the server.
 
 ### Deployment builders
 
@@ -246,8 +246,8 @@ The package is TypeScript with strict mode and exports subpaths for `./db`, `./c
 ### Database export
 
 ```bash
-pnpm --filter @zenthcloud/server dbml:generate
-pnpm --filter @zenthcloud/server generate:drizzle
+pnpm --filter @company/server dbml:generate
+pnpm --filter @company/server generate:drizzle
 ```
 
 The first command generates DBML from the Drizzle schema. The second regenerates the Better Auth Drizzle schema.
@@ -255,9 +255,9 @@ The first command generates DBML from the Drizzle schema. The second regenerates
 ## Development
 
 ```bash
-pnpm --filter @zenthcloud/server dev
-pnpm --filter @zenthcloud/server build
-pnpm --filter @zenthcloud/server typecheck
+pnpm --filter @company/server dev
+pnpm --filter @company/server build
+pnpm --filter @company/server typecheck
 ```
 
 Use the workspace root scripts for linting and formatting. Run `typecheck` before opening a pull request.
@@ -266,7 +266,7 @@ Use the workspace root scripts for linting and formatting. Run `typecheck` befor
 
 ### Is this a server I can start on its own?
 
-No. It is the engine library. `apps/api`, `apps/zenthcloud` and `apps/schedules` are the hosts.
+No. It is the engine library. `apps/api`, `apps/company` and `apps/schedules` are the hosts.
 
 ### Which database does it use?
 
@@ -287,23 +287,23 @@ Yes. Deployment, Swarm, Traefik and monitoring management all talk to the Docker
 ## Related resources
 
 - API host: [`apps/api`](apps/api)
-- Dashboard host: [`apps/zenthcloud`](apps/zenthcloud)
+- Dashboard host: [`apps/company`](apps/company)
 - Scheduler host: [`apps/schedules`](apps/schedules)
 - Database schema: [`src/db/schema`](src/db/schema)
-- ZenthCloud repository: [github.com/skygenesisenterprise/zenthcloud](https://github.com/skygenesisenterprise/zenthcloud)
+- Company repository: [github.com/skygenesisenterprise/company](https://github.com/skygenesisenterprise/company)
 
 ## Contributing
 
-Contributions and suggestions are welcome. Read the repository [contribution guide](https://github.com/skygenesisenterprise/zenthcloud) before participating. Do not push directly to `main`; all changes go through a pull request.
+Contributions and suggestions are welcome. Read the repository [contribution guide](https://github.com/skygenesisenterprise/company) before participating. Do not push directly to `main`; all changes go through a pull request.
 
 ## Security
 
-Do not report security vulnerabilities in public issues. Follow the private reporting instructions in the repository [`SECURITY.md`](https://github.com/skygenesisenterprise/zenthcloud). Never commit secrets; use the `*_FILE` variables with Docker secrets.
+Do not report security vulnerabilities in public issues. Follow the private reporting instructions in the repository [`SECURITY.md`](https://github.com/skygenesisenterprise/company). Never commit secrets; use the `*_FILE` variables with Docker secrets.
 
 ## License
 
-See the repository [LICENSE](https://github.com/skygenesisenterprise/zenthcloud) for licensing terms.
+See the repository [LICENSE](https://github.com/skygenesisenterprise/company) for licensing terms.
 
 ## Note
 
-ZenthCloud Server is an open-source project maintained by [Sky Genesis Enterprise](https://skygenesisenterprise.com). Links to external services are provided for convenience and do not imply endorsement.
+Company Server is an open-source project maintained by [Sky Genesis Enterprise](https://skygenesisenterprise.com). Links to external services are provided for convenience and do not imply endorsement.

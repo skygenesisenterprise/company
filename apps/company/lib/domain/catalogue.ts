@@ -20,7 +20,7 @@ import { CatalogueSchema, type Catalogue, type Product } from "./schema";
 
 const EU = "eu-core";
 const GLOBAL = "global-partner";
-const OWN = "zenthcloud";
+const OWN = "company";
 const PARTNER = "partner-network";
 
 type AvailabilityInput = {
@@ -69,11 +69,11 @@ const catalogueData = {
 	providers: [
 		{
 			id: OWN,
-			name: "ZenthCloud",
+			name: "Company",
 			type: "own" as const,
-			website: "https://zenthcloud.com",
+			website: "https://company.com",
 			description:
-				"Infrastructure operated directly by ZenthCloud and Sky Genesis Enterprise. Capacity, locations and commercial terms are published per product once verified.",
+				"Infrastructure operated directly by Company and Sky Genesis Enterprise. Capacity, locations and commercial terms are published per product once verified.",
 			regions: [EU],
 		},
 		{
@@ -82,7 +82,7 @@ const catalogueData = {
 			type: "partner" as const,
 			website: null,
 			description:
-				"External infrastructure suppliers integrated into the ZenthCloud catalogue. ZenthCloud does not own or operate partner data centres; the supplying provider is disclosed per product and region.",
+				"External infrastructure suppliers integrated into the Company catalogue. Company does not own or operate partner data centres; the supplying provider is disclosed per product and region.",
 			regions: [GLOBAL],
 		},
 	],
@@ -118,21 +118,21 @@ const catalogueData = {
 			relatedFamilies: ["compute-infrastructure" as const],
 			tagline: "Authoritative DNS zones and records",
 			summary:
-				"DNS zones, records and DNS hosting for domains you run on ZenthCloud or elsewhere.",
+				"DNS zones, records and DNS hosting for domains you run on Company or elsewhere.",
 			description:
-				"ZenthDNS provides authoritative DNS zones and records for the domains you operate. Zones support common record types and can point at ZenthCloud resources or external targets. Domain registration is delivered with an accredited registrar partner, and the registrar of record is visible in the contract.",
+				"ZenthDNS provides authoritative DNS zones and records for the domains you operate. Zones support common record types and can point at Company resources or external targets. Domain registration is delivered with an accredited registrar partner, and the registrar of record is visible in the contract.",
 			availability: "limited" as const,
 			deliveryModels: ["partner_provided" as const, "managed_service" as const],
 			features: [
 				"Authoritative DNS zones",
 				"A, AAAA, CNAME, MX, TXT, NS and SRV records",
-				"DNS pointing to ZenthCloud or external services",
+				"DNS pointing to Company or external services",
 				"Domain registration through an accredited partner",
 			],
 			benefits: [
 				"DNS and registration reachable from the same account",
 				"Registrar of record disclosed in the contract",
-				"Records can target services outside ZenthCloud",
+				"Records can target services outside Company",
 			],
 			specs: [
 				{
@@ -147,7 +147,7 @@ const catalogueData = {
 					title: "DNS",
 					rows: [
 						{ label: "Records", value: "A, AAAA, CNAME, MX, TXT, NS, SRV" },
-						{ label: "Targets", value: "ZenthCloud or external" },
+						{ label: "Targets", value: "Company or external" },
 						{ label: "Hosting", value: "Authoritative zones" },
 					],
 				},
@@ -168,9 +168,9 @@ const catalogueData = {
 			tags: ["dns", "domains", "records"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthDNS — ZenthCloud",
+				title: "ZenthDNS — Company",
 				description:
-					"Authoritative DNS zones and records for ZenthCloud and external targets, with domain registration through an accredited partner.",
+					"Authoritative DNS zones and records for Company and external targets, with domain registration through an accredited partner.",
 			},
 		},
 		{
@@ -183,9 +183,9 @@ const catalogueData = {
 			summary:
 				"Private networks that connect instances, containers and infrastructure you already operate.",
 			description:
-				"ZenthNetwork provides private networks and connectivity between ZenthCloud resources. Networks are isolated per project, resources receive private addresses, and a site-to-site VPN links a project to infrastructure you already operate. Public addressing and load balancing are separate catalogue entries rather than implied parts of this service.",
+				"ZenthNetwork provides private networks and connectivity between Company resources. Networks are isolated per project, resources receive private addresses, and a site-to-site VPN links a project to infrastructure you already operate. Public addressing and load balancing are separate catalogue entries rather than implied parts of this service.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Private networks isolated per project",
 				"Site-to-site connectivity with existing infrastructure",
@@ -224,9 +224,9 @@ const catalogueData = {
 			tags: ["private network", "vpn", "connectivity"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthNetwork — ZenthCloud",
+				title: "ZenthNetwork — Company",
 				description:
-					"Private networks, per-project addressing and site-to-site VPN connectivity for ZenthCloud and existing infrastructure.",
+					"Private networks, per-project addressing and site-to-site VPN connectivity for Company and existing infrastructure.",
 			},
 		},
 		{
@@ -238,9 +238,9 @@ const catalogueData = {
 			tagline: "Reverse proxy and HTTP/HTTPS traffic routing",
 			summary: "Reverse proxy and HTTP/HTTPS traffic routing.",
 			description:
-				"A reverse proxy for routing HTTP and HTTPS traffic to ZenthCloud services. The service is catalogued as a planned offering; no endpoint, feature set, routing behaviour or availability is published yet.",
+				"A reverse proxy for routing HTTP and HTTPS traffic to Company services. The service is catalogued as a planned offering; no endpoint, feature set, routing behaviour or availability is published yet.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["reverse proxy", "http", "routing"],
 		},
 		{
@@ -254,7 +254,7 @@ const catalogueData = {
 			description:
 				"Content distribution and caching for static and dynamic responses. Planned; no points of presence, cache behaviour or coverage is claimed.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["cdn", "caching"],
 		},
 		{
@@ -266,9 +266,9 @@ const catalogueData = {
 			tagline: "Load balancing across services and instances",
 			summary: "Load balancing across services and instances.",
 			description:
-				"Load balancing for HTTP(S) and TCP services across ZenthCloud resources. The capability is modelled; supported algorithms, health checks and limits are not published.",
+				"Load balancing for HTTP(S) and TCP services across Company resources. The capability is modelled; supported algorithms, health checks and limits are not published.",
 			availability: "coming_soon" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["load balancing"],
 		},
 		{
@@ -280,9 +280,9 @@ const catalogueData = {
 			tagline: "Web application firewall for HTTP(S) traffic",
 			summary: "Web application firewall for HTTP(S) traffic.",
 			description:
-				"HTTP(S) request filtering for applications behind ZenthCloud entry points. Rule sets, managed policies and logging are not published yet.",
+				"HTTP(S) request filtering for applications behind Company entry points. Rule sets, managed policies and logging are not published yet.",
 			availability: "coming_soon" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["waf", "application security"],
 		},
 		{
@@ -291,12 +291,12 @@ const catalogueData = {
 			name: "ZenthDDoS",
 			family: "network-edge" as const,
 			relatedFamilies: ["security-identity" as const],
-			tagline: "DDoS protection for ZenthCloud services",
-			summary: "DDoS protection for traffic reaching ZenthCloud services.",
+			tagline: "DDoS protection for Company services",
+			summary: "DDoS protection for traffic reaching Company services.",
 			description:
-				"Network-level mitigation for traffic reaching ZenthCloud services. Scrubbing capacity, coverage and response commitments are not claimed.",
+				"Network-level mitigation for traffic reaching Company services. Scrubbing capacity, coverage and response commitments are not claimed.",
 			availability: "coming_soon" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["ddos", "network security"],
 		},
 		{
@@ -310,7 +310,7 @@ const catalogueData = {
 			description:
 				"Edge execution for latency-sensitive workloads. Planned; no locations, runtimes or coverage are published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["edge", "compute"],
 		},
 		{
@@ -322,9 +322,9 @@ const catalogueData = {
 			tagline: "TLS certificate lifecycle management",
 			summary: "TLS certificate lifecycle management.",
 			description:
-				"Issuance and renewal of TLS certificates for ZenthCloud-hosted services. Supported validation methods and automation are not published.",
+				"Issuance and renewal of TLS certificates for Company-hosted services. Supported validation methods and automation are not published.",
 			availability: "coming_soon" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["tls", "certificates"],
 		},
 		{
@@ -336,9 +336,9 @@ const catalogueData = {
 			tagline: "Public IP address resources and management",
 			summary: "Public IP address resources and management.",
 			description:
-				"Public IPv4 and IPv6 addresses that can be attached to ZenthCloud resources. Allocation rules, quotas and pricing are not published.",
+				"Public IPv4 and IPv6 addresses that can be attached to Company resources. Allocation rules, quotas and pricing are not published.",
 			availability: "coming_soon" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["ipv4", "ipv6", "public addresses"],
 		},
 
@@ -356,7 +356,7 @@ const catalogueData = {
 			description:
 				"Fixed-size virtual servers for small applications and first deployments. Planned; plan sizes, locations and commercial terms are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["vps", "virtual machines"],
 		},
 		{
@@ -369,9 +369,9 @@ const catalogueData = {
 			summary:
 				"Virtual machines with dedicated vCPU and memory allocations, attached block storage and private networking.",
 			description:
-				"ZenthCompute provides the general-purpose virtual machines of ZenthCloud. Each instance receives a fixed share of vCPU and memory, can attach block volumes, join a private network and be rebuilt from a snapshot. Instances are designed for web services, APIs, build agents, staging environments and background workers.",
+				"ZenthCompute provides the general-purpose virtual machines of Company. Each instance receives a fixed share of vCPU and memory, can attach block volumes, join a private network and be rebuilt from a snapshot. Instances are designed for web services, APIs, build agents, staging environments and background workers.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Fixed resource allocations instead of shared, throttled CPU",
 				"Rebuild or resize without re-installing the operating system",
@@ -414,7 +414,7 @@ const catalogueData = {
 			tags: ["virtual machines", "linux", "instances"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthCompute — ZenthCloud",
+				title: "ZenthCompute — Company",
 				description:
 					"General-purpose virtual machines with fixed vCPU and memory, attached block storage, snapshots and private networking.",
 			},
@@ -429,9 +429,9 @@ const catalogueData = {
 			summary:
 				"Single-tenant physical servers for workloads that need full hardware control.",
 			description:
-				"ZenthBareMetal provides dedicated physical machines. There is no hypervisor between the operating system and the hardware, so you control the kernel, the network stack and the firmware update policy. ZenthCloud provides the machine, the network port and remote management; the operating system and everything above it remain yours.",
+				"ZenthBareMetal provides dedicated physical machines. There is no hypervisor between the operating system and the hardware, so you control the kernel, the network stack and the firmware update policy. Company provides the machine, the network port and remote management; the operating system and everything above it remain yours.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_owned" as const, "partner_provided" as const],
+			deliveryModels: ["company_owned" as const, "partner_provided" as const],
 			benefits: [
 				"No noisy neighbours and no hypervisor overhead",
 				"Full control of kernel, drivers and networking",
@@ -471,7 +471,7 @@ const catalogueData = {
 			tags: ["dedicated servers", "physical hardware"],
 			docsPath: null,
 			seo: {
-				title: "ZenthBareMetal — ZenthCloud",
+				title: "ZenthBareMetal — Company",
 				description:
 					"Dedicated single-tenant servers with full hardware control, remote management and optional private networking.",
 			},
@@ -488,7 +488,7 @@ const catalogueData = {
 			description:
 				"ZenthGPU provides dedicated accelerator cards attached to a virtual machine. It is intended for workloads that need predictable access to a GPU rather than a shared scheduling queue. Availability, card models and supported drivers are published only once a supplier has confirmed them, so the current page describes the offer structure without naming hardware that has not been contracted.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Whole-GPU allocation with no time-slicing by default",
 				"Standard images with CUDA-compatible drivers",
@@ -527,7 +527,7 @@ const catalogueData = {
 			tags: ["gpu", "accelerators", "ai"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthGPU — ZenthCloud",
+				title: "ZenthGPU — Company",
 				description:
 					"Dedicated GPU virtual machines for training, inference and rendering. Hardware and capacity are published only once contracted.",
 			},
@@ -543,7 +543,7 @@ const catalogueData = {
 			description:
 				"Managed container runtime for stateless workloads. Planned; orchestration model, registry integration and limits are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["containers"],
 		},
 		{
@@ -558,7 +558,7 @@ const catalogueData = {
 			description:
 				"ZenthKubernetes operates the cluster control plane and leaves worker capacity under your control. It suits teams already standardised on Kubernetes that do not want to run etcd or the API server. The page describes the responsibility split; version support, SLA and autoscaling behaviour are published only once verified.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Managed control plane with upgrades",
 				"Worker pools sized independently",
@@ -574,7 +574,7 @@ const catalogueData = {
 				{
 					title: "Cluster",
 					rows: [
-						{ label: "Control plane", value: "Managed by ZenthCloud" },
+						{ label: "Control plane", value: "Managed by Company" },
 						{ label: "Workers", value: "Customer-selected pools" },
 						{ label: "Access", value: "kubectl and Kubernetes API" },
 					],
@@ -597,7 +597,7 @@ const catalogueData = {
 			tags: ["kubernetes", "containers", "orchestration"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthKubernetes — ZenthCloud",
+				title: "ZenthKubernetes — Company",
 				description:
 					"Kubernetes with a managed control plane and customer-controlled worker pools, integrated with private networking.",
 			},
@@ -612,9 +612,9 @@ const catalogueData = {
 			summary:
 				"Reserved compute, storage and networking for organisations that need isolation.",
 			description:
-				"A ZenthPrivateCloud reserves a pool of compute and storage for one organisation. It is intended for workloads that cannot share a multi-tenant platform, or that need their own network boundaries and quota model. The estate can be operated by ZenthCloud or handed to your team with ZenthCloud support.",
+				"A ZenthPrivateCloud reserves a pool of compute and storage for one organisation. It is intended for workloads that cannot share a multi-tenant platform, or that need their own network boundaries and quota model. The estate can be operated by Company or handed to your team with Company support.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Reserved capacity rather than shared tenancy",
 				"Organisation-specific network and quota boundaries",
@@ -639,7 +639,7 @@ const catalogueData = {
 				{
 					title: "Responsibility",
 					rows: [
-						{ label: "Platform operations", value: "ZenthCloud or your team" },
+						{ label: "Platform operations", value: "Company or your team" },
 						{ label: "Guest systems", value: "Always the customer" },
 						{ label: "Contract", value: "Custom, capacity-based" },
 					],
@@ -654,7 +654,7 @@ const catalogueData = {
 			tags: ["private cloud", "isolation"],
 			docsPath: null,
 			seo: {
-				title: "ZenthPrivateCloud — ZenthCloud",
+				title: "ZenthPrivateCloud — Company",
 				description:
 					"Reserved compute, storage and networking for organisations that need isolation and their own quota model.",
 			},
@@ -671,7 +671,7 @@ const catalogueData = {
 			description:
 				"ZenthWebHosting provides a managed runtime for websites and small applications, including TLS certificates and routine updates. It is designed for users who want a working site without administering a server. Resource limits per plan, supported runtimes and migration options are published with pricing.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"No server administration",
 				"TLS certificates managed for you",
@@ -710,7 +710,7 @@ const catalogueData = {
 			tags: ["hosting", "websites"],
 			docsPath: "/resources/tutorials",
 			seo: {
-				title: "ZenthWebHosting — ZenthCloud",
+				title: "ZenthWebHosting — Company",
 				description:
 					"Managed web hosting with automatic TLS, routine updates and a clear upgrade path to cloud compute.",
 			},
@@ -731,7 +731,7 @@ const catalogueData = {
 			description:
 				"ZenthObject stores immutable objects in buckets and exposes them through an HTTP API. S3 compatibility is not advertised until an interoperable endpoint has been verified and published, so this page describes the product model rather than claiming a specific API contract.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Buckets with per-object metadata and lifecycle rules",
 				"Access keys scoped per bucket or project",
@@ -771,7 +771,7 @@ const catalogueData = {
 			tags: ["object storage", "buckets"],
 			docsPath: "/resources/api",
 			seo: {
-				title: "ZenthObject — ZenthCloud",
+				title: "ZenthObject — Company",
 				description:
 					"Bucket-based object storage for backups, media and application assets, with scoped access keys and lifecycle rules.",
 			},
@@ -788,7 +788,7 @@ const catalogueData = {
 			description:
 				"ZenthBlock provides volumes that behave like local disks but persist independently of an instance. A volume can be detached from one instance and attached to another, and snapshotted before risky operations. Volumes are the right choice for databases, application state and anything that needs a filesystem.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Independent lifecycle from the compute instance",
 				"Snapshots before upgrades or migrations",
@@ -827,7 +827,7 @@ const catalogueData = {
 			tags: ["block storage", "volumes"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthBlock — ZenthCloud",
+				title: "ZenthBlock — Company",
 				description:
 					"Network-attached volumes with snapshots and encryption, independent from the lifecycle of a compute instance.",
 			},
@@ -844,7 +844,7 @@ const catalogueData = {
 			description:
 				"ZenthBackup covers two related mechanisms: instance and volume snapshots for fast rollback, and scheduled backups with longer retention for recovery. Retention is a contractual setting, not a promise: the page states the mechanism and the configuration surface, and the exact retention offered per plan is published with pricing.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Separate rollback (snapshots) and recovery (backups) paths",
 				"Retention configured per policy",
@@ -883,7 +883,7 @@ const catalogueData = {
 			tags: ["backup", "snapshots", "recovery"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthBackup — ZenthCloud",
+				title: "ZenthBackup — Company",
 				description:
 					"Snapshots for rollback and scheduled backups with configurable retention, restorable into new volumes or instances.",
 			},
@@ -899,7 +899,7 @@ const catalogueData = {
 			description:
 				"Low-cost retention for data that must be kept but rarely read. Planned; storage classes, retrieval times and retention terms are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["archive", "retention"],
 		},
 		{
@@ -914,7 +914,7 @@ const catalogueData = {
 			description:
 				"ZenthDatabase provisions a database engine, its storage and its backup policy, and keeps the engine patched. It removes day-two work such as version upgrades and backup verification, but it does not make an application highly available by itself: replica topology and failover behaviour are stated per plan, not assumed. Database engines are offers beneath ZenthDatabase rather than separate product families.",
 			availability: "limited" as const,
-			deliveryModels: ["zenthcloud_operated" as const, "partner_provided" as const],
+			deliveryModels: ["company_operated" as const, "partner_provided" as const],
 			benefits: [
 				"Provisioning without operating the host",
 				"Automated backups with restore",
@@ -953,7 +953,7 @@ const catalogueData = {
 			tags: ["postgresql", "mysql", "mariadb", "redis"],
 			docsPath: "/resources/documentation",
 			seo: {
-				title: "ZenthDatabase — ZenthCloud",
+				title: "ZenthDatabase — Company",
 				description:
 					"Provisioned PostgreSQL, MySQL, MariaDB and Redis with automated backups, patching and private network access.",
 			},
@@ -969,11 +969,11 @@ const catalogueData = {
 			family: "developer-platform" as const,
 			relatedFamilies: ["compute-infrastructure" as const],
 			tagline: "Application deployment and operations platform",
-			summary: "A platform for building and operating applications on ZenthCloud.",
+			summary: "A platform for building and operating applications on Company.",
 			description:
-				"A platform for building and operating applications on ZenthCloud. In planning. The relationship between ZenthPaaS and Notploy is not established on this website, and neither product is presented as the other.",
+				"A platform for building and operating applications on Company. In planning. The relationship between ZenthPaaS and Notploy is not established on this website, and neither product is presented as the other.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["paas", "deployment"],
 		},
@@ -988,7 +988,7 @@ const catalogueData = {
 			description:
 				"A registry for container images and build artifacts. Planned; supported formats, storage limits and access controls are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["registry", "containers", "artifacts"],
 		},
 		{
@@ -1000,9 +1000,9 @@ const catalogueData = {
 			tagline: "Continuous integration and delivery pipelines",
 			summary: "Continuous integration and delivery pipelines.",
 			description:
-				"Pipelines that build, test and deploy applications on ZenthCloud. Planned; supported runtimes and repository integrations are not published.",
+				"Pipelines that build, test and deploy applications on Company. Planned; supported runtimes and repository integrations are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["ci", "cd", "pipelines"],
 		},
@@ -1017,7 +1017,7 @@ const catalogueData = {
 			description:
 				"Event-driven function execution without managing servers. Planned; supported runtimes, limits and triggers are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["serverless", "functions"],
 		},
@@ -1032,7 +1032,7 @@ const catalogueData = {
 			description:
 				"Build pipelines that produce deployable artifacts and images. Planned; build environments, caching and limits are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["build", "artifacts"],
 		},
 		{
@@ -1044,9 +1044,9 @@ const catalogueData = {
 			tagline: "Deployment lifecycle management",
 			summary: "Deployment lifecycle management.",
 			description:
-				"Deployment lifecycle management across ZenthCloud resources. Planned; supported strategies and rollback behaviour are not published.",
+				"Deployment lifecycle management across Company resources. Planned; supported strategies and rollback behaviour are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["deployment", "release"],
 		},
 		{
@@ -1060,7 +1060,7 @@ const catalogueData = {
 			description:
 				"Scheduled and one-off job execution. Planned; scheduling guarantees, retries and limits are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["jobs", "scheduling"],
 		},
 		{
@@ -1072,9 +1072,9 @@ const catalogueData = {
 			tagline: "Metrics, logs, traces and monitoring",
 			summary: "Metrics, logs, traces and monitoring.",
 			description:
-				"Metrics, logs, traces and alerting for ZenthCloud resources. Planned; retention, instrumentation and alert-routing behaviour are not published.",
+				"Metrics, logs, traces and alerting for Company resources. Planned; retention, instrumentation and alert-routing behaviour are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["observability", "metrics", "logs", "traces"],
 		},
@@ -1089,7 +1089,7 @@ const catalogueData = {
 			description:
 				"Storage and distribution of application secrets. Planned; encryption model, rotation and access policy are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["secrets", "configuration"],
 		},
 
@@ -1105,9 +1105,9 @@ const catalogueData = {
 			tagline: "Identities, users, roles and permissions",
 			summary: "Identities, users, roles and permissions.",
 			description:
-				"Identity, users, roles and permissions for ZenthCloud organisations. Planned; supported identity sources, role model and policy behaviour are not published.",
+				"Identity, users, roles and permissions for Company organisations. Planned; supported identity sources, role model and policy behaviour are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["identity", "roles", "permissions"],
 		},
@@ -1120,9 +1120,9 @@ const catalogueData = {
 			tagline: "Secure access to cloud resources",
 			summary: "Secure access to cloud resources.",
 			description:
-				"Controlled access to ZenthCloud resources and private services. Planned; supported authentication methods and access policies are not published.",
+				"Controlled access to Company resources and private services. Planned; supported authentication methods and access policies are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["access", "zero trust"],
 		},
@@ -1135,9 +1135,9 @@ const catalogueData = {
 			tagline: "Network traffic filtering and policy enforcement",
 			summary: "Network traffic filtering and policy enforcement.",
 			description:
-				"Network traffic filtering and policy enforcement for ZenthCloud projects. The capability is modelled as coming soon; rule syntax, logging and limits are not published.",
+				"Network traffic filtering and policy enforcement for Company projects. The capability is modelled as coming soon; rule syntax, logging and limits are not published.",
 			availability: "coming_soon" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["firewall", "network security"],
 		},
@@ -1150,9 +1150,9 @@ const catalogueData = {
 			tagline: "Audit trails and action traceability",
 			summary: "Audit trails and action traceability.",
 			description:
-				"Audit trails for actions taken on ZenthCloud resources. Planned; event coverage, retention and export formats are not published.",
+				"Audit trails for actions taken on Company resources. Planned; event coverage, retention and export formats are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["audit", "compliance"],
 		},
 		{
@@ -1166,7 +1166,7 @@ const catalogueData = {
 			description:
 				"Secure storage and distribution of secrets for applications and operators. Planned; the encryption model and access policy are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			featured: true,
 			tags: ["secrets", "vault"],
 		},
@@ -1184,7 +1184,7 @@ const catalogueData = {
 			summary:
 				"Infrastructure operations, patching and monitoring delivered as a service.",
 			description:
-				"Managed Services transfers a defined set of operational tasks to ZenthCloud: patching, monitoring, backup verification and incident response within an agreed scope. The scope is contractual and written down before the service starts; this page does not claim coverage or response times that are not in a signed agreement.",
+				"Managed Services transfers a defined set of operational tasks to Company: patching, monitoring, backup verification and incident response within an agreed scope. The scope is contractual and written down before the service starts; this page does not claim coverage or response times that are not in a signed agreement.",
 			availability: "limited" as const,
 			deliveryModels: ["managed_service" as const, "partner_provided" as const],
 			benefits: [
@@ -1224,7 +1224,7 @@ const catalogueData = {
 			tags: ["managed operations", "support"],
 			docsPath: null,
 			seo: {
-				title: "Managed Services — ZenthCloud",
+				title: "Managed Services — Company",
 				description:
 					"Infrastructure operations with a written responsibility matrix: patching, monitoring, backup verification and escalation.",
 			},
@@ -1238,9 +1238,9 @@ const catalogueData = {
 			tagline: "Infrastructure provisioning and orchestration",
 			summary: "Infrastructure provisioning and orchestration.",
 			description:
-				"Infrastructure provisioning and orchestration across ZenthCloud resources. Planned; supported resource types and orchestration behaviour are not published.",
+				"Infrastructure provisioning and orchestration across Company resources. Planned; supported resource types and orchestration behaviour are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["orchestration", "provisioning"],
 		},
 		{
@@ -1252,9 +1252,9 @@ const catalogueData = {
 			tagline: "Billing, usage and cost visibility",
 			summary: "Billing, usage and cost visibility.",
 			description:
-				"Billing, usage and cost visibility for ZenthCloud accounts. Planned; invoice formats, cost allocation and exports are not published.",
+				"Billing, usage and cost visibility for Company accounts. Planned; invoice formats, cost allocation and exports are not published.",
 			availability: "planned" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["billing", "usage", "costs"],
 		},
 		{
@@ -1266,9 +1266,9 @@ const catalogueData = {
 			tagline: "Customer support and service requests",
 			summary: "Customer support and service requests.",
 			description:
-				"Customer support and service requests for ZenthCloud accounts. Support routes are documented; response commitments exist only where a contract states them.",
+				"Customer support and service requests for Company accounts. Support routes are documented; response commitments exist only where a contract states them.",
 			availability: "coming_soon" as const,
-			deliveryModels: ["zenthcloud_operated" as const],
+			deliveryModels: ["company_operated" as const],
 			tags: ["support", "service requests"],
 			docsPath: "/resources/support",
 		},

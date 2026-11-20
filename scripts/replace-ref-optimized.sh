@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-# Optimized script to replace zenthcloud, zenthcloud references with zenthcloud
+# Optimized script to replace company, company references with company
 
-REPO_ROOT="/home/liam/Bureau/enterprise/zenthcloud"
+REPO_ROOT="/home/liam/Bureau/enterprise/company"
 cd "$REPO_ROOT"
 
 echo "Starting replacements..."
@@ -15,34 +15,34 @@ FILE_PATTERN="\( -name \"*.ts\" -o -name \"*.tsx\" -o -name \"*.js\" -o -name \"
 # Exclusion patterns
 EXCLUDE_PATTERN="! -path \"./node_modules/*\" ! -path \"./.git/*\" ! -path \"./.pnpm-store/*\" ! -path \"*/node_modules/*\""
 
-# Step 1: Replace zenthcloud (case-insensitive) with zenthcloud
-echo "=== Step 1: Replacing zenthcloud ==="
-find . -type f \( $FILE_PATTERN \) $EXCLUDE_PATTERN -exec grep -l "zenthcloud" {} + | while read -r file; do
-    sed -i 's/zenthcloud/zenthcloud/gi' "$file"
+# Step 1: Replace company (case-insensitive) with company
+echo "=== Step 1: Replacing company ==="
+find . -type f \( $FILE_PATTERN \) $EXCLUDE_PATTERN -exec grep -l "company" {} + | while read -r file; do
+    sed -i 's/company/company/gi' "$file"
 done
 echo "Step 1 completed"
 echo ""
 
-# Step 2: Replace Zenthcloud (with space) with Zenthcloud
-echo "=== Step 2: Replacing Zenthcloud ==="
-find . -type f \( $FILE_PATTERN \) $EXCLUDE_PATTERN -exec grep -l "Zenthcloud" {} + | while read -r file; do
-    sed -i 's/Zenthcloud/Zenthcloud/g' "$file"
+# Step 2: Replace Company (with space) with Company
+echo "=== Step 2: Replacing Company ==="
+find . -type f \( $FILE_PATTERN \) $EXCLUDE_PATTERN -exec grep -l "Company" {} + | while read -r file; do
+    sed -i 's/Company/Company/g' "$file"
 done
 echo "Step 2 completed"
 echo ""
 
-# Step 3: Replace zenthcloud (case-insensitive) with zenthcloud
-echo "=== Step 3: Replacing zenthcloud ==="
-find . -type f \( $FILE_PATTERN \) $EXCLUDE_PATTERN -exec grep -l "zenthcloud" {} + | while read -r file; do
-    sed -i 's/zenthcloud/zenthcloud/gi' "$file"
+# Step 3: Replace company (case-insensitive) with company
+echo "=== Step 3: Replacing company ==="
+find . -type f \( $FILE_PATTERN \) $EXCLUDE_PATTERN -exec grep -l "company" {} + | while read -r file; do
+    sed -i 's/company/company/gi' "$file"
 done
 echo "Step 3 completed"
 echo ""
 
-# Step 4: Replace Notploy (case-sensitive) with Zenthcloud
+# Step 4: Replace Notploy (case-sensitive) with Company
 echo "=== Step 4: Replacing Notploy ==="
 find . -type f \( $FILE_PATTERN \) $EXCLUDE_PATTERN -exec grep -l "Notploy" {} + | while read -r file; do
-    sed -i 's/Notploy/Zenthcloud/g' "$file"
+    sed -i 's/Notploy/Company/g' "$file"
 done
 echo "Step 4 completed"
 echo ""
@@ -53,8 +53,8 @@ echo "Checking for remaining references..."
 echo ""
 
 # Check for remaining references
-REMAINING_ASTRON=$(grep -r "zenthcloud" --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.json" --include="*.md" --include="*.yaml" --include="*.yml" --include="*.txt" --include="*.html" --include="*.css" -l 2>/dev/null | grep -v node_modules | wc -l)
-REMAINING_NOTPLOY=$(grep -r "zenthcloud" --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.json" --include="*.md" --include="*.yaml" --include="*.yml" --include="*.txt" --include="*.html" --include="*.css" -l 2>/dev/null | grep -v node_modules | wc -l)
+REMAINING_ASTRON=$(grep -r "company" --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.json" --include="*.md" --include="*.yaml" --include="*.yml" --include="*.txt" --include="*.html" --include="*.css" -l 2>/dev/null | grep -v node_modules | wc -l)
+REMAINING_NOTPLOY=$(grep -r "company" --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.json" --include="*.md" --include="*.yaml" --include="*.yml" --include="*.txt" --include="*.html" --include="*.css" -l 2>/dev/null | grep -v node_modules | wc -l)
 
-echo "Remaining files with zenthcloud: $REMAINING_ASTRON"
-echo "Remaining files with zenthcloud: $REMAINING_NOTPLOY"
+echo "Remaining files with company: $REMAINING_ASTRON"
+echo "Remaining files with company: $REMAINING_NOTPLOY"

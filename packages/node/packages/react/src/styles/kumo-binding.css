@@ -1,7 +1,7 @@
 /**
- * @deprecated Use `@zenthcloud/react/styles/tailwind` instead.
+ * @deprecated Use `@company/react/styles/tailwind` instead.
  *
  * Legacy binding entry kept for applications upgrading from
- * `@zenthcloud/kumo/styles/tailwind`.
+ * `@company/kumo/styles/tailwind`.
  */
 @import "./tailwind.css";

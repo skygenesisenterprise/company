@@ -1,4 +1,4 @@
-import type { VaultProviderConfig } from "@zenthcloud/server/db/schema";
+import type { VaultProviderConfig } from "@company/server/db/schema";
 
 /**
  * A browsable secret exposed by a provider. Values are never included: the
@@ -7,9 +7,9 @@ import type { VaultProviderConfig } from "@zenthcloud/server/db/schema";
 export interface VaultSecretRecord {
 	/** Name used in a `${{vault.<provider>.<name>}}` reference. */
 	name: string;
-	/** Present for Zenthcloud-managed records, so the Console can edit them. */
+	/** Present for Company-managed records, so the Console can edit them. */
 	id?: string;
-	/** True for secrets stored by Zenthcloud rather than the external provider. */
+	/** True for secrets stored by Company rather than the external provider. */
 	managed?: boolean;
 	/** Where the record lives, for providers with several sources. */
 	source?: string;

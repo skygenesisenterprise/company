@@ -4,7 +4,7 @@ import {
   DropdownMenu,
   Breadcrumbs,
   type SidebarState,
-} from "@zenthcloud/kumo";
+} from "@company/kumo";
 import {
   HouseIcon,
   GlobeIcon,

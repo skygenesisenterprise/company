@@ -30,7 +30,7 @@ export const initializeNetwork = async () => {
 	} else {
 		await docker.createNetwork({
 			Attachable: true,
-			Name: "zenthcloud-network",
+			Name: "company-network",
 			Driver: "overlay",
 		});
 		console.log("Network was initialized");
@@ -39,7 +39,7 @@ export const initializeNetwork = async () => {
 
 export const dockerNetworkInitialized = async () => {
 	try {
-		await docker.getNetwork("zenthcloud-network").inspect();
+		await docker.getNetwork("company-network").inspect();
 		return true;
 	} catch {
 		return false;

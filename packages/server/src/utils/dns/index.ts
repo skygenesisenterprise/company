@@ -1,6 +1,6 @@
-import type { DnsProviderConfig } from "@zenthcloud/server/db/schema";
+import type { DnsProviderConfig } from "@company/server/db/schema";
 import { bindClient } from "./bind";
-import { zenthcloudClient } from "./zenthcloud";
+import { companyClient } from "./company";
 import {
 	type InternalConfigWithProvider,
 	internalDnsClient,
@@ -33,7 +33,7 @@ import {
 } from "./types";
 
 const clients: Record<DnsProviderConfig["providerType"], DnsClient> = {
-	zenthcloud: zenthcloudClient as DnsClient,
+	company: companyClient as DnsClient,
 	route53: route53Client as DnsClient,
 	porkbun: porkbunClient as DnsClient,
 	infomaniak: infomaniakClient as DnsClient,
@@ -55,7 +55,7 @@ const clients: Record<DnsProviderConfig["providerType"], DnsClient> = {
 	coredns: corednsClient as DnsClient,
 	unbound: unboundClient as DnsClient,
 	custom: customClient as DnsClient,
-	"zenthcloud-internal": internalDnsClient as unknown as DnsClient,
+	"company-internal": internalDnsClient as unknown as DnsClient,
 };
 
 export const getDnsClient = (providerType: DnsProviderConfig["providerType"]) =>
@@ -81,7 +81,7 @@ const capabilityMatrix: Record<
 	DnsProviderConfig["providerType"],
 	DnsCapabilityMatrix
 > = {
-	zenthcloud: { ...managedCapabilities },
+	company: { ...managedCapabilities },
 	route53: { ...managedCapabilities },
 	porkbun: { ...managedCapabilities },
 	infomaniak: { ...managedCapabilities },
@@ -103,7 +103,7 @@ const capabilityMatrix: Record<
 	coredns: { ...selfHostedCapabilities },
 	unbound: { ...selfHostedCapabilities },
 	custom: { ...managedCapabilities },
-	"zenthcloud-internal": {
+	"company-internal": {
 		...fullDnsCapabilities,
 		// Internal DNS cannot satisfy a public ACME challenge, but the
 		// abstraction still supports DNS-01 for private/internal issuers.

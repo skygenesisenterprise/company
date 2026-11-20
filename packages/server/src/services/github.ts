@@ -1,9 +1,9 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	type apiCreateGithub,
 	github,
 	gitProvider,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";
@@ -186,7 +186,7 @@ export const createPreviewDeploymentComment = async ({
 		owner: owner || "",
 		repo: repository || "",
 		issue_number: Number.parseInt(issue_number),
-		body: `### Zenthcloud Preview Deployment\n\n${runningComment}`,
+		body: `### Company Preview Deployment\n\n${runningComment}`,
 	});
 
 	return await updatePreviewDeployment(previewDeploymentId, {

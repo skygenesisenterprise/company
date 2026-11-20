@@ -1,5 +1,5 @@
-import { db } from "@zenthcloud/server/db";
-import { type apiCreateBackup, backups } from "@zenthcloud/server/db/schema";
+import { db } from "@company/server/db";
+import { type apiCreateBackup, backups } from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";

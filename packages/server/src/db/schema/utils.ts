@@ -1,5 +1,5 @@
-import { decryptValue, encryptValue } from "@zenthcloud/server/lib/encryption";
-import { generatePassword } from "@zenthcloud/server/templates";
+import { decryptValue, encryptValue } from "@company/server/lib/encryption";
+import { generatePassword } from "@company/server/templates";
 import { faker } from "@faker-js/faker";
 import { customType } from "drizzle-orm/pg-core";
 import { customAlphabet } from "nanoid";

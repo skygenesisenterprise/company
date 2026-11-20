@@ -1,4 +1,4 @@
-import { Badge } from "@zenthcloud/react";
+import { Badge } from "@company/react";
 import {
 	COMMERCIAL_STATUS_META,
 	PRODUCT_AVAILABILITY_META,

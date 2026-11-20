@@ -88,7 +88,7 @@ export function SiteSearch({
 					className="fixed left-1/2 top-[12vh] z-[61] w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-xl border border-border bg-popover shadow-2xl focus:outline-none"
 					aria-describedby="site-search-description"
 				>
-					<Dialog.Title className="sr-only">Search ZenthCloud</Dialog.Title>
+					<Dialog.Title className="sr-only">Search Company</Dialog.Title>
 					<Dialog.Description id="site-search-description" className="sr-only">
 						Search products, solutions, pricing, infrastructure and company pages.
 					</Dialog.Description>

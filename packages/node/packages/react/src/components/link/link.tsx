@@ -103,8 +103,8 @@ export function linkVariants({
  *
  * @example External link
  * ```tsx
- * <Link href="https://github.com/skygenesisenterprise/zenthcloud" target="_blank" rel="noopener noreferrer">
- *   Visit Zenthcloud <Link.ExternalIcon />
+ * <Link href="https://github.com/skygenesisenterprise/company" target="_blank" rel="noopener noreferrer">
+ *   Visit Company <Link.ExternalIcon />
  * </Link>
  * ```
  *
@@ -134,8 +134,8 @@ export type LinkProps = useRender.ComponentProps<"a"> &
  *
  * @example External link with icon
  * ```tsx
- * <Link href="https://github.com/skygenesisenterprise/zenthcloud" target="_blank" rel="noopener noreferrer">
- *   Visit Zenthcloud <Link.ExternalIcon />
+ * <Link href="https://github.com/skygenesisenterprise/company" target="_blank" rel="noopener noreferrer">
+ *   Visit Company <Link.ExternalIcon />
  * </Link>
  * ```
  *

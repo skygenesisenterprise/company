@@ -1,21 +1,21 @@
 import path from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import { db } from "@zenthcloud/server/db";
+import { paths } from "@company/server/constants";
+import { db } from "@company/server/db";
 import {
 	type apiCreateMount,
 	mounts,
 	type ServiceType,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import {
 	createFile,
 	encodeBase64,
 	getCreateFileCommand,
-} from "@zenthcloud/server/utils/docker/utils";
-import { removeFileOrDirectory } from "@zenthcloud/server/utils/filesystem/directory";
+} from "@company/server/utils/docker/utils";
+import { removeFileOrDirectory } from "@company/server/utils/filesystem/directory";
 import {
 	execAsync,
 	execAsyncRemote,
-} from "@zenthcloud/server/utils/process/execAsync";
+} from "@company/server/utils/process/execAsync";
 import { TRPCError } from "@trpc/server";
 import { eq, type SQL, sql } from "drizzle-orm";
 import { quote } from "shell-quote";

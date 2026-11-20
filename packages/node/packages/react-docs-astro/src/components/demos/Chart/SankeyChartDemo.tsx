@@ -4,7 +4,7 @@ import {
   ChartPalette,
   type SankeyTooltipParams,
   type SankeyNodeData,
-} from "@zenthcloud/kumo";
+} from "@company/kumo";
 import * as echarts from "echarts/core";
 import { SankeyChart as SankeyChartType } from "echarts/charts";
 import { TooltipComponent } from "echarts/components";

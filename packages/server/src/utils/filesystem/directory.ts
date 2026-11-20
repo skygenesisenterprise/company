@@ -1,7 +1,7 @@
 import fs, { promises as fsPromises } from "node:fs";
 import path from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import type { Application } from "@zenthcloud/server/services/application";
+import { paths } from "@company/server/constants";
+import type { Application } from "@company/server/services/application";
 import { execAsync, execAsyncRemote } from "../process/execAsync";
 
 export const recreateDirectory = async (pathFolder: string): Promise<void> => {

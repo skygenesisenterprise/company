@@ -1,7 +1,7 @@
 /**
  * Phase 1 — shared observability contracts for Prometheus/Grafana.
  *
- * These types are intentionally transport-agnostic: the Zenthcloud console must
+ * These types are intentionally transport-agnostic: the Company console must
  * not be coupled to whether metrics come from the managed stack or from an
  * external Prometheus/Grafana pair. Adapters (Phase 3) implement these
  * contracts; the console (Phase 4) only consumes them.
@@ -12,7 +12,7 @@
  * - Prometheus read paths must not depend on Grafana at runtime.
  */
 
-/** Stable resource identity used to join Zenthcloud objects to metric series. */
+/** Stable resource identity used to join Company objects to metric series. */
 export interface ObservableResourceRef {
 	organizationId: string;
 	serverId?: string;
@@ -32,30 +32,30 @@ export interface ObservableResourceRef {
 }
 
 /**
- * Mastered Prometheus label set for Zenthcloud series.
+ * Mastered Prometheus label set for Company series.
  * Keep cardinality bounded: no secrets, no unbounded/free-form values.
  */
 export type ObservabilityLabelKey =
-	| "zenthcloudorg_id"
-	| "zenthcloudserver_id"
-	| "zenthcloudproject_id"
-	| "zenthcloudenvironment_id"
-	| "zenthcloudservice_id"
-	| "zenthcloudservice_type"
-	| "zenthcloudcontainer_name";
+	| "companyorg_id"
+	| "companyserver_id"
+	| "companyproject_id"
+	| "companyenvironment_id"
+	| "companyservice_id"
+	| "companyservice_type"
+	| "companycontainer_name";
 
 export type ObservabilityLabels = Partial<
 	Record<ObservabilityLabelKey, string>
 >;
 
 const OBSERVABILITY_LABEL_KEYS: ReadonlySet<string> = new Set([
-	"zenthcloudorg_id",
-	"zenthcloudserver_id",
-	"zenthcloudproject_id",
-	"zenthcloudenvironment_id",
-	"zenthcloudservice_id",
-	"zenthcloudservice_type",
-	"zenthcloudcontainer_name",
+	"companyorg_id",
+	"companyserver_id",
+	"companyproject_id",
+	"companyenvironment_id",
+	"companyservice_id",
+	"companyservice_type",
+	"companycontainer_name",
 ]);
 
 /** Guard against secret, high-cardinality, or unbounded label keys. */
@@ -66,13 +66,13 @@ export const toObservabilityLabels = (
 	ref: ObservableResourceRef,
 ): ObservabilityLabels => {
 	const labels: ObservabilityLabels = {};
-	if (ref.organizationId) labels.zenthcloudorg_id = ref.organizationId;
-	if (ref.serverId) labels.zenthcloudserver_id = ref.serverId;
-	if (ref.projectId) labels.zenthcloudproject_id = ref.projectId;
-	if (ref.environmentId) labels.zenthcloudenvironment_id = ref.environmentId;
-	if (ref.serviceId) labels.zenthcloudservice_id = ref.serviceId;
-	if (ref.serviceType) labels.zenthcloudservice_type = ref.serviceType;
-	if (ref.containerName) labels.zenthcloudcontainer_name = ref.containerName;
+	if (ref.organizationId) labels.companyorg_id = ref.organizationId;
+	if (ref.serverId) labels.companyserver_id = ref.serverId;
+	if (ref.projectId) labels.companyproject_id = ref.projectId;
+	if (ref.environmentId) labels.companyenvironment_id = ref.environmentId;
+	if (ref.serviceId) labels.companyservice_id = ref.serviceId;
+	if (ref.serviceType) labels.companyservice_type = ref.serviceType;
+	if (ref.containerName) labels.companycontainer_name = ref.containerName;
 	return labels;
 };
 

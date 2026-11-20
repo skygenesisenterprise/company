@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Select, Text, Badge } from "@zenthcloud/kumo";
+import { Select, Text, Badge } from "@company/kumo";
 
 /** Basic Select with visible label - the recommended pattern. */
 export function SelectBasicDemo() {

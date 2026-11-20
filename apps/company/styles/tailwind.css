@@ -1,5 +1,5 @@
 /*
- * ZenthCloud website styles.
+ * Company website styles.
  *
  * Tailwind v4, CSS-first: the token contract is defined here, not in a JS
  * config. Follows the same approach as the documentation
@@ -8,7 +8,7 @@
  * and design tokens declared in `:root` / `.dark`.
  *
  * Themes: colour, surface and elevation tokens come from
- * `@zenthcloud/react`; the bridge at the end maps the site aliases onto them.
+ * `@company/react`; the bridge at the end maps the site aliases onto them.
  * Status colours are reserved for availability and never used decoratively.
  */
 
@@ -200,7 +200,7 @@
  * Design tokens
  * ------------------------------------------------------------------------- */
 
-/* Colour, surface and overlay tokens come from @zenthcloud/react.
+/* Colour, surface and overlay tokens come from @company/react.
  * The bridge at the end of this file maps the site aliases onto library tokens. */
 
 /* ---------------------------------------------------------------------------
@@ -341,7 +341,7 @@
 /* ---------------------------------------------------------------------------
  * Design-system bridge
  *
- * `@zenthcloud/react` is the source of truth for colour, elevation, radius and
+ * `@company/react` is the source of truth for colour, elevation, radius and
  * motion. The site keeps its semantic variable names so existing pages do not
  * need rewriting, but every value now resolves to a library token. Because the
  * library uses light-dark(), the same aliases switch with color-scheme.

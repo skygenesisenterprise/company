@@ -8,7 +8,7 @@
  *
  * Required environment variables:
  * - PACKAGE_VERSION: Published package version
- * - PACKAGE_NAME: Package name (default: @zenthcloud/kumo)
+ * - PACKAGE_NAME: Package name (default: @company/kumo)
  */
 
 import {

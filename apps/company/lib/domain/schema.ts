@@ -35,8 +35,8 @@ export const ProductAvailability = z.enum([
 export type ProductAvailability = z.infer<typeof ProductAvailability>;
 
 export const ProductDeliveryModel = z.enum([
-	"zenthcloud_owned",
-	"zenthcloud_operated",
+	"company_owned",
+	"company_operated",
 	"partner_provided",
 	"managed_service",
 	"software_service",

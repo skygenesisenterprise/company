@@ -2,10 +2,10 @@ import fs from "node:fs";
 import {
 	allowUnlicensedDevInstance,
 	IS_CLOUD,
-	ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY,
-	ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY_FILE,
-	ZENTHCLOUD_FLAVOR,
-	ZENTHCLOUD_PRODUCT,
+	COMPANY_ENTITLEMENT_PUBLIC_KEY,
+	COMPANY_ENTITLEMENT_PUBLIC_KEY_FILE,
+	COMPANY_FLAVOR,
+	COMPANY_PRODUCT,
 	paths,
 } from "../constants/index";
 import {
@@ -25,15 +25,15 @@ import {
 	type EntitlementPayload,
 	type IdentityDiagnostic,
 	type InstanceIdentity,
-	type ZenthcloudCapability,
-	type ZenthcloudProduct,
+	type CompanyCapability,
+	type CompanyProduct,
 	protectedProducts,
 } from "../utils/pki/types";
 
 /**
  * Runtime installation identity (issue #75 §1, §5, §6).
  *
- * Assembles the locally stored identity, the verified Zenthcloud entitlement and
+ * Assembles the locally stored identity, the verified Company entitlement and
  * the centralized capability evaluation into one `Installation` object. Both the
  * runtime and the UI query capabilities through `installation.hasCapability`,
  * so product authorization has a single source of truth.
@@ -41,13 +41,13 @@ import {
 
 export interface Installation {
 	/** Effective product, derived from the identity and entitlement. */
-	product: ZenthcloudProduct;
-	/** Legacy flavour hint (ZENTHCLOUD_FLAVOR / IS_CLOUD), never authoritative. */
-	productHint: ZenthcloudProduct;
+	product: CompanyProduct;
+	/** Legacy flavour hint (COMPANY_FLAVOR / IS_CLOUD), never authoritative. */
+	productHint: CompanyProduct;
 	/** Effective capabilities after evaluation. */
-	capabilities: ZenthcloudCapability[];
+	capabilities: CompanyCapability[];
 	/** Product capabilities that were not authorized. */
-	missingCapabilities: ZenthcloudCapability[];
+	missingCapabilities: CompanyCapability[];
 	identity: InstanceIdentity | null;
 	/** Verified entitlement, if one was present and valid. */
 	entitlement: EntitlementPayload | null;
@@ -58,14 +58,14 @@ export interface Installation {
 
 /** Resolves the entitlement public key from config, file or nothing. */
 export const getEntitlementPublicKey = (): string => {
-	if (ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY_FILE) {
+	if (COMPANY_ENTITLEMENT_PUBLIC_KEY_FILE) {
 		try {
-			return fs.readFileSync(ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY_FILE, "utf8");
+			return fs.readFileSync(COMPANY_ENTITLEMENT_PUBLIC_KEY_FILE, "utf8");
 		} catch {
 			return "";
 		}
 	}
-	return ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY;
+	return COMPANY_ENTITLEMENT_PUBLIC_KEY;
 };
 
 export interface GetInstallationOptions {
@@ -80,7 +80,7 @@ export interface GetInstallationOptions {
 	allowUnlicensed?: boolean;
 }
 
-const isProtected = (product: ZenthcloudProduct) =>
+const isProtected = (product: CompanyProduct) =>
 	protectedProducts.includes(product);
 
 const defaultIdentityDir = () => paths().IDENTITY_PATH;
@@ -88,17 +88,17 @@ const defaultIdentityDir = () => paths().IDENTITY_PATH;
 /**
  * Product this instance was launched as (`self`, `cloud` or `console`).
  *
- * Resolved from the launcher (`ZENTHCLOUD_PRODUCT`, then `ZENTHCLOUD_FLAVOR`, then
+ * Resolved from the launcher (`COMPANY_PRODUCT`, then `COMPANY_FLAVOR`, then
  * `IS_CLOUD`) and used for display decisions such as the UI surface and the
  * product name. It is deliberately distinct from `getInstallation().product`,
  * which is authoritative for *authorization* but can differ: the persisted
  * instance identity is reused while coherent, even when the instance is started
  * under another product.
  */
-export const getConfiguredProduct = (): ZenthcloudProduct =>
+export const getConfiguredProduct = (): CompanyProduct =>
 	resolveProductHint({
-		product: ZENTHCLOUD_PRODUCT,
-		flavor: ZENTHCLOUD_FLAVOR,
+		product: COMPANY_PRODUCT,
+		flavor: COMPANY_FLAVOR,
 		isCloud: IS_CLOUD,
 	});
 
@@ -150,9 +150,9 @@ export const getInstallation = (
 				code: "entitlement.invalid",
 				severity: "error",
 				message:
-					"An entitlement token is present but no Zenthcloud entitlement public key is configured",
+					"An entitlement token is present but no Company entitlement public key is configured",
 				remediation:
-					"Set ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY or ZENTHCLOUD_ENTITLEMENT_PUBLIC_KEY_FILE to Zenthcloud's public key.",
+					"Set COMPANY_ENTITLEMENT_PUBLIC_KEY or COMPANY_ENTITLEMENT_PUBLIC_KEY_FILE to Company's public key.",
 			});
 		} else {
 			const verified = verifyEntitlementForInstance(
@@ -173,14 +173,14 @@ export const getInstallation = (
 					severity: "error",
 					message: verified.reason,
 					remediation:
-						"Request a new entitlement for this instance from Zenthcloud and place it in entitlement.token.",
+						"Request a new entitlement for this instance from Company and place it in entitlement.token.",
 				});
 			}
 		}
 	}
 
 	const productHint = resolveProductHint({
-		flavor: ZENTHCLOUD_FLAVOR,
+		flavor: COMPANY_FLAVOR,
 		isCloud: IS_CLOUD,
 	});
 
@@ -231,9 +231,9 @@ export const getInstallation = (
 		diagnostics.push({
 			code: "entitlement.missing",
 			severity: allowUnlicensed ? "warning" : "error",
-			message: `Product "${product}" requires a Zenthcloud-signed entitlement`,
+			message: `Product "${product}" requires a Company-signed entitlement`,
 			remediation: allowUnlicensed
-				? "Running unlicensed is allowed only in development (ZENTHCLOUD_ALLOW_UNLICENSED_DEV). Enroll this instance with a signed entitlement before deploying."
+				? "Running unlicensed is allowed only in development (COMPANY_ALLOW_UNLICENSED_DEV). Enroll this instance with a signed entitlement before deploying."
 				: "Enroll this instance with a signed entitlement; a local installer flag is not a security boundary.",
 		});
 	}
@@ -264,7 +264,7 @@ export const getInstallation = (
 export interface InstallationValidation {
 	/** False when any diagnostic is an error. */
 	healthy: boolean;
-	product: ZenthcloudProduct;
+	product: CompanyProduct;
 	diagnostics: IdentityDiagnostic[];
 }
 
@@ -289,10 +289,10 @@ export const validateInstallation = (
 
 export interface InitializeInstallationOptions {
 	identityDir?: string;
-	product?: ZenthcloudProduct;
+	product?: CompanyProduct;
 	instanceId?: string;
 	subjectAltNames?: string[];
-	/** Zenthcloud-signed entitlement required for cloud/console. */
+	/** Company-signed entitlement required for cloud/console. */
 	entitlementToken?: string;
 	/** Overrides the configured entitlement public key (tests, tooling). */
 	entitlementPublicKey?: string;
@@ -313,7 +313,7 @@ export const initializeInstallationIdentity = (
 	const identityDir = options.identityDir ?? defaultIdentityDir();
 	const product =
 		options.product ??
-		resolveProductHint({ flavor: ZENTHCLOUD_FLAVOR, isCloud: IS_CLOUD });
+		resolveProductHint({ flavor: COMPANY_FLAVOR, isCloud: IS_CLOUD });
 
 	if (isProtected(product) && !options.entitlementToken) {
 		throw new Error(

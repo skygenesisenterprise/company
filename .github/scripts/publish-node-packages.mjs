@@ -11,9 +11,9 @@ const repositoryRoot = path.resolve(
 );
 const npmjsRegistry = "https://registry.npmjs.org/";
 const packages = [
-  { name: "@zenthcloud/cli", directory: "packages/cli" },
-  { name: "@zenthcloud/sdk", directory: "packages/sdk" },
-  { name: "@zenthcloud/trpc-openapi", directory: "packages/trpc-openapi" },
+  { name: "@company/cli", directory: "packages/cli" },
+  { name: "@company/sdk", directory: "packages/sdk" },
+  { name: "@company/trpc-openapi", directory: "packages/trpc-openapi" },
 ];
 
 function run(command, args, options = {}) {
@@ -158,7 +158,7 @@ async function main() {
   }
 
   const tempDirectory = await mkdtemp(
-    path.join(os.tmpdir(), "zenthcloud-node-release-"),
+    path.join(os.tmpdir(), "company-node-release-"),
   );
   const npmConfig = path.join(tempDirectory, "npmrc");
   const completedPackages = [];

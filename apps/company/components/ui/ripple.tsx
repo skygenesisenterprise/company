@@ -35,26 +35,26 @@ const Ripple = React.memo(function Ripple({
 		{
 			name: "Hostinger",
 			image: "https://avatars.githubusercontent.com/u/2630767?s=200&v=4",
-			link: "https://www.hostinger.com/vps-hosting?ref=zenthcloud",
+			link: "https://www.hostinger.com/vps-hosting?ref=company",
 			type: "hero",
 		},
 		{
 			name: "LinkDR",
 			image: "linkdr-logo.svg",
-			link: "https://linkdr.com/?ref=zenthcloud",
+			link: "https://linkdr.com/?ref=company",
 			type: "supporting",
 		},
 		{
 			name: "Lxaer",
 			image:
-				"https://raw.githubusercontent.com/skygenesisenterprise/zenthcloud/canary/.github/sponsors/lxaer.png",
-			link: "https://www.lxaer.com?ref=zenthcloud",
+				"https://raw.githubusercontent.com/skygenesisenterprise/company/canary/.github/sponsors/lxaer.png",
+			link: "https://www.lxaer.com?ref=company",
 			type: "hero",
 		},
 		{
 			name: "LambdaTest",
 			image: "https://www.lambdatest.com/blue-logo.png",
-			link: "https://www.lambdatest.com/?utm_source=zenthcloud&utm_medium=sponsor",
+			link: "https://www.lambdatest.com/?utm_source=company&utm_medium=sponsor",
 			type: "premium",
 		},
 	];
@@ -62,14 +62,14 @@ const Ripple = React.memo(function Ripple({
 		{
 			name: "Supafort",
 			image: "supafort.png",
-			link: "https://supafort.com/?ref=zenthcloud",
+			link: "https://supafort.com/?ref=company",
 			type: "premium",
 		},
 		{
 			name: "AgentDock",
 			image:
-				"https://raw.githubusercontent.com/skygenesisenterprise/zenthcloud/refs/heads/canary/.github/sponsors/agentdock.png",
-			link: "https://agentdock.ai/?ref=zenthcloud",
+				"https://raw.githubusercontent.com/skygenesisenterprise/company/refs/heads/canary/.github/sponsors/agentdock.png",
+			link: "https://agentdock.ai/?ref=company",
 			type: "premium",
 		},
 	];
@@ -79,7 +79,7 @@ const Ripple = React.memo(function Ripple({
 			name: "AmericanCloud",
 			image:
 				"https://media.licdn.com/dms/image/v2/D560BAQGQ0rVfEgLUMQ/company-logo_200_200/company-logo_200_200/0/1722459194382/americancloud_logo?e=2147483647&v=beta&t=990H-OldnorPQbgbN3jHihJijOb2aDmhwFl8DU_d680",
-			link: "https://americancloud.com/?ref=zenthcloud",
+			link: "https://americancloud.com/?ref=company",
 			type: "elite",
 		},
 		{
@@ -94,27 +94,27 @@ const Ripple = React.memo(function Ripple({
 		{
 			name: "Cloudblast",
 			image: "https://cloudblast.io/img/logo-icon.193cf13e.svg",
-			link: "https://cloudblast.io/?ref=zenthcloud",
+			link: "https://cloudblast.io/?ref=company",
 			type: "supporting",
 		},
 		
 		{
 			name: "Synexa",
 			image:
-				"https://raw.githubusercontent.com/skygenesisenterprise/zenthcloud/refs/heads/canary/.github/sponsors/synexa.png",
-			link: "https://synexa.ai/?ref=zenthcloud",
+				"https://raw.githubusercontent.com/skygenesisenterprise/company/refs/heads/canary/.github/sponsors/synexa.png",
+			link: "https://synexa.ai/?ref=company",
 			type: "supporting",
 		},
 		{
 			name: "HahuCloud",
 			image: "hahucloud_logo_1.png",
-			link: "https://www.hahucloud.com/?ref=zenthcloud",
+			link: "https://www.hahucloud.com/?ref=company",
 			type: "supporting",
 		},
 		{
 			name: "Teramont",
 			image: "terramont.ico",
-			link: "https://teramont.net/zenthcloud",
+			link: "https://teramont.net/company",
 			type: "supporting",
 		},
 	];

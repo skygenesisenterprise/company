@@ -1,4 +1,4 @@
-import { Link } from "@zenthcloud/react";
+import { Link } from "@company/react";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "@/components/Container";
 import {
@@ -18,7 +18,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = pageMetadata({
 	title: "Pricing",
 	description:
-		"ZenthCloud Cloud subscriptions — Free, Pro and Enterprise — with one platform covering six service families. Platform fees and infrastructure consumption are billed separately, and Self needs no subscription.",
+		"Company Cloud subscriptions — Free, Pro and Enterprise — with one platform covering six service families. Platform fees and infrastructure consumption are billed separately, and Self needs no subscription.",
 	path: "/pricing",
 });
 

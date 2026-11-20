@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { Separator } from '@zenthcloud/kumo/primitives/separator';
+ * import { Separator } from '@company/kumo/primitives/separator';
  * ```
  */
 

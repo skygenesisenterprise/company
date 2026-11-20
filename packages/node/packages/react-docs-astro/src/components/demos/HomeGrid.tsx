@@ -7,7 +7,7 @@ import {
   ButtonGroup,
   Checkbox,
   ClipboardText,
-  ZenthcloudLogo,
+  CompanyLogo,
   Collapsible,
   Combobox,
   DatePicker,
@@ -42,8 +42,8 @@ import {
   Tooltip,
   TooltipProvider,
   useKumoToastManager,
-} from "@zenthcloud/kumo";
-import { ShikiProvider, CodeHighlighted } from "@zenthcloud/kumo/code";
+} from "@company/kumo";
+import { ShikiProvider, CodeHighlighted } from "@company/kumo/code";
 import { CommandPaletteBasicDemo } from "~/components/demos/CommandPaletteDemo";
 import { InputGroupDemo } from "~/components/demos/InputGroupDemo";
 import {
@@ -64,7 +64,7 @@ const componentRoutes: Record<string, string> = {
   "button-group": "/components/button-group",
   checkbox: "/components/checkbox",
   "clipboard-text": "/components/clipboard-text",
-  "zenthcloud-logo": "/components/zenthcloud-logo",
+  "company-logo": "/components/company-logo",
   "code-highlighted": "/components/code-highlighted",
   collapsible: "/components/collapsible",
   autocomplete: "/components/autocomplete",
@@ -376,7 +376,7 @@ export function HomeGrid() {
         >
           <Collapsible.DefaultTrigger>What is Kumo?</Collapsible.DefaultTrigger>
           <Collapsible.DefaultPanel>
-            <Text>Kumo is Zenthcloud's component library.</Text>
+            <Text>Kumo is Company's component library.</Text>
           </Collapsible.DefaultPanel>
         </Collapsible.Root>
       ),
@@ -515,9 +515,9 @@ export function HomeGrid() {
       ),
     },
     {
-      name: "ZenthcloudLogo",
-      id: "zenthcloud-logo",
-      Component: <ZenthcloudLogo className="w-48 max-w-full" />,
+      name: "CompanyLogo",
+      id: "company-logo",
+      Component: <CompanyLogo className="w-48 max-w-full" />,
     },
     {
       name: "Toast",

@@ -219,8 +219,8 @@ function executeCommand(
   // Parse kumo command
   let commandIndex = 1;
   if (baseCommand === "npx") {
-    // Skip "@zenthcloud/kumo" part
-    if (parts[1] === "@zenthcloud/kumo") {
+    // Skip "@company/kumo" part
+    if (parts[1] === "@company/kumo") {
       commandIndex = 2;
     } else {
       return {
@@ -466,11 +466,11 @@ function executeCommand(
       if (block.dependencies && block.dependencies.length > 0) {
         output.push("This block depends on the following Kumo components:");
         for (const dep of block.dependencies) {
-          output.push(`  - ${dep} (from @zenthcloud/kumo)`);
+          output.push(`  - ${dep} (from @company/kumo)`);
         }
         output.push("");
-        output.push("Make sure @zenthcloud/kumo is installed in your project:");
-        output.push("  pnpm add @zenthcloud/kumo");
+        output.push("Make sure @company/kumo is installed in your project:");
+        output.push("  pnpm add @company/kumo");
         output.push("");
       }
 

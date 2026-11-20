@@ -17,7 +17,7 @@ build({
 	format: "esm",
 	plugins: [
 		alias({
-			"@zenthcloud/server": path.resolve(__dirname, "src"),
+			"@company/server": path.resolve(__dirname, "src"),
 		}),
 	],
 	packages: "external",

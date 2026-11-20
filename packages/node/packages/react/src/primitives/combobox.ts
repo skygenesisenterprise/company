@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { Combobox } from '@zenthcloud/kumo/primitives/combobox';
+ * import { Combobox } from '@company/kumo/primitives/combobox';
  * ```
  */
 

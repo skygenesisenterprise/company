@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input } from "@zenthcloud/kumo";
+import { Input } from "@company/kumo";
 
 export function InputBasicDemo() {
   return (

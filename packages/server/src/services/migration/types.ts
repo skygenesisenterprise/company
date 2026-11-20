@@ -15,9 +15,9 @@
  * - every significant operation is auditable without sensitive data.
  */
 
-export type MigrationDirection = "dokploy-to-zenthcloud" | "zenthcloud-to-dokploy";
+export type MigrationDirection = "dokploy-to-company" | "company-to-dokploy";
 
-export type InstallationProduct = "dokploy" | "zenthcloud" | "unknown";
+export type InstallationProduct = "dokploy" | "company" | "unknown";
 
 export type InstallationType = "swarm" | "compose" | "docker" | "unknown";
 

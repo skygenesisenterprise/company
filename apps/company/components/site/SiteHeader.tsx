@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, DropdownMenu, Link, LinkButton } from "@zenthcloud/react";
+import { Button, DropdownMenu, Link, LinkButton } from "@company/react";
 import {
 	ArrowRight,
 	CaretDown,
@@ -153,7 +153,7 @@ function DesktopNavItem({
 		<div
 			onPointerEnter={() => onOpen(group.title)}
 			// Hover opens the panel, but a click on the label goes to the group's
-			// landing page like zenthcloud does. Only clicks coming from the trigger
+			// landing page like company does. Only clicks coming from the trigger
 			// are intercepted; links rendered inside the panel keep working.
 			onClickCapture={(event) => {
 				const trigger = triggerRef.current;
@@ -502,11 +502,11 @@ export function SiteHeader() {
 					<Link
 						href="/"
 						variant="plain"
-						aria-label="ZenthCloud home"
+						aria-label="Company home"
 						className="flex shrink-0 items-center justify-self-start no-underline!"
 					>
 						<span className="font-display text-[15px] font-bold uppercase tracking-[0.18em] text-foreground">
-							ZenthCloud
+							Company
 						</span>
 					</Link>
 

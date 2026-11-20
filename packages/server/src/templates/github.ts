@@ -36,7 +36,7 @@ export interface CompleteTemplate {
 	};
 }
 
-export const TEMPLATES_BASE_URL = "https://templates.zenthcloud.com";
+export const TEMPLATES_BASE_URL = "https://templates.company.com";
 
 export interface TemplateMetadata {
 	id: string;

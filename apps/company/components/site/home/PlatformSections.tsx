@@ -1,4 +1,4 @@
-import { Badge, Link, LinkButton } from "@zenthcloud/react";
+import { Badge, Link, LinkButton } from "@company/react";
 import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "@/components/Container";
 import { SectionIntro } from "./SectionIntro";
@@ -99,7 +99,7 @@ export function DeploymentSection() {
 				<div className="mx-auto mt-12 max-w-6xl overflow-x-auto rounded-2xl border border-border">
 					<table className="w-full min-w-[880px] border-collapse text-left text-sm">
 						<caption className="sr-only">
-							ZenthCloud deployment models and their commercial state
+							Company deployment models and their commercial state
 						</caption>
 						<thead className="bg-muted">
 							<tr>
@@ -211,7 +211,7 @@ export function DeveloperSection() {
 							<code>{`{
   "product": "compute-instances",
   "region": "eu-core",
-  "providerId": "zenthcloud",
+  "providerId": "company",
   "commercialStatus": "coming_soon",
   "operationalStatus": "unknown",
   "price": null
@@ -325,7 +325,7 @@ export function FootprintSection() {
 							/>
 							{provider.name} —{" "}
 							{provider.type === "own"
-								? "ZenthCloud operated"
+								? "Company operated"
 								: "Partner operated"}
 						</span>
 					))}

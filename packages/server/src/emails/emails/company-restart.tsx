@@ -16,10 +16,10 @@ export type TemplateProps = {
 	date: string;
 };
 
-export const ZenthcloudRestartEmail = ({
+export const CompanyRestartEmail = ({
 	date = "2023-05-01T00:00:00.000Z",
 }: TemplateProps) => {
-	const previewText = "Your zenthcloud server was restarted";
+	const previewText = "Your company server was restarted";
 	return (
 		<Html>
 			<Preview>{previewText}</Preview>
@@ -31,22 +31,22 @@ export const ZenthcloudRestartEmail = ({
 						<Section className="mt-[32px]">
 							<Img
 								src={
-									"https://raw.githubusercontent.com/skygenesisenterprise/zenthcloud/refs/heads/master/apps/zenthcloud/logo.png"
+									"https://raw.githubusercontent.com/skygenesisenterprise/company/refs/heads/master/apps/company/logo.png"
 								}
 								width="100"
 								height="50"
-								alt="Zenthcloud"
+								alt="Company"
 								className="my-0 mx-auto"
 							/>
 						</Section>
 						<Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
-							Zenthcloud Server Restart
+							Company Server Restart
 						</Heading>
 						<Text className="text-black text-[14px] leading-[24px]">
 							Hello,
 						</Text>
 						<Text className="text-black text-[14px] leading-[24px]">
-							Your zenthcloud server was restarted ✅
+							Your company server was restarted ✅
 						</Text>
 
 						<Section className="flex text-black text-[14px]  leading-[24px] bg-[#F4F4F5] rounded-lg p-2">
@@ -62,4 +62,4 @@ export const ZenthcloudRestartEmail = ({
 	);
 };
 
-export default ZenthcloudRestartEmail;
+export default CompanyRestartEmail;

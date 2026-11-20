@@ -1,14 +1,14 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import type {
 	AuditAction,
 	AuditResourceType,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import {
 	auditLog,
 	member,
 	organization,
 	user,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { and, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import {

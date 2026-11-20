@@ -12,7 +12,7 @@
 import {
 	type IdentityOauthConfig,
 	identityOauthConfigSchema,
-} from "@zenthcloud/server/db/schema/sso";
+} from "@company/server/db/schema/sso";
 
 export type { IdentityOauthConfig };
 

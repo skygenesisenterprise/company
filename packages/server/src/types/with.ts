@@ -1,4 +1,4 @@
-import type * as schema from "@zenthcloud/server/db/schema";
+import type * as schema from "@company/server/db/schema";
 import type {
 	BuildQueryResult,
 	DBQueryConfig,

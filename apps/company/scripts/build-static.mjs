@@ -1,5 +1,5 @@
 /**
- * Builds the marketing site as a static export for GitHub Pages / Zenthcloud
+ * Builds the marketing site as a static export for GitHub Pages / Company
  * Pages.
  *
  * Three route handlers need a Node server and cannot be exported:

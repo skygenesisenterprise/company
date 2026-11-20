@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { Toggle } from '@zenthcloud/kumo/primitives/toggle';
+ * import { Toggle } from '@company/kumo/primitives/toggle';
  * ```
  */
 

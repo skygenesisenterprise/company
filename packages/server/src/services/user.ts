@@ -1,11 +1,11 @@
-import { db } from "@zenthcloud/server/db";
+import { db } from "@company/server/db";
 import {
 	account,
 	apikey,
 	invitation,
 	member,
 	user,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import * as bcrypt from "bcrypt";
 import { and, eq } from "drizzle-orm";

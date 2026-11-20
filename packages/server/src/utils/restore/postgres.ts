@@ -1,6 +1,6 @@
-import type { apiRestoreBackup } from "@zenthcloud/server/db/schema";
-import type { Destination } from "@zenthcloud/server/services/destination";
-import type { Postgres } from "@zenthcloud/server/services/postgres";
+import type { apiRestoreBackup } from "@company/server/db/schema";
+import type { Destination } from "@company/server/services/destination";
+import type { Postgres } from "@company/server/services/postgres";
 import { quote } from "shell-quote";
 import type { z } from "zod";
 import { getS3Credentials } from "../backups/utils";

@@ -87,7 +87,7 @@ export const sendInvitationEmail = async ({
 	});
 	await sendEmail({
 		email,
-		subject: `You've been invited to join ${organizationName} on Zenthcloud`,
+		subject: `You've been invited to join ${organizationName} on Company`,
 		text: html,
 	});
 };

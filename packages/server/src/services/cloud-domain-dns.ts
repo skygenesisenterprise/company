@@ -1,30 +1,30 @@
 import { isIP } from "node:net";
-import { zenthcloudClient } from "@zenthcloud/server/utils/dns/zenthcloud";
-import type { DnsClient } from "@zenthcloud/server/utils/dns/types";
-import { redactSecretValues } from "@zenthcloud/server/utils/security/redact";
+import { companyClient } from "@company/server/utils/dns/company";
+import type { DnsClient } from "@company/server/utils/dns/types";
+import { redactSecretValues } from "@company/server/utils/security/redact";
 
 /**
- * Zenthcloud-side DNS bootstrap for Zenthcloud Cloud hostnames (issue https://github.com/skygenesisenterprise/zenthcloud/issues/113 §2).
+ * Company-side DNS bootstrap for Company Cloud hostnames (issue https://github.com/skygenesisenterprise/company/issues/113 §2).
  *
- * Ownership and uniqueness stay in the `cloud_domain` ledger; Zenthcloud is
- * only the resolution layer. A single wildcard record (`*.zenthcloud.app`) is
+ * Ownership and uniqueness stay in the `cloud_domain` ledger; Company is
+ * only the resolution layer. A single wildcard record (`*.company.app`) is
  * enough for every generated hostname, so deployments never create DNS records
  * per tenant and the zone does not become an ownership database.
  *
  * Configuration is central and optional:
- * - `ZENTHCLOUD_API_TOKEN` (required to enable)
- * - `ZENTHCLOUD_CLOUD_DNS_ZONE_ID` (optional; resolved from the zone list)
- * - `ZENTHCLOUD_CLOUD_INGRESS_TARGET` (A/AAAA IP or CNAME target of the ingress)
- * - `ZENTHCLOUD_CLOUD_DNS_PROXIED` (defaults to `true`, Zenthcloud terminates TLS)
+ * - `COMPANY_API_TOKEN` (required to enable)
+ * - `COMPANY_CLOUD_DNS_ZONE_ID` (optional; resolved from the zone list)
+ * - `COMPANY_CLOUD_INGRESS_TARGET` (A/AAAA IP or CNAME target of the ingress)
+ * - `COMPANY_CLOUD_DNS_PROXIED` (defaults to `true`, Company terminates TLS)
  */
 
-export const ZENTHCLOUD_TOKEN_ENV = "ZENTHCLOUD_API_TOKEN";
-export const CLOUD_DNS_ZONE_ENV = "ZENTHCLOUD_CLOUD_DNS_ZONE_ID";
-export const CLOUD_DNS_TARGET_ENV = "ZENTHCLOUD_CLOUD_INGRESS_TARGET";
-export const CLOUD_DNS_PROXIED_ENV = "ZENTHCLOUD_CLOUD_DNS_PROXIED";
+export const COMPANY_TOKEN_ENV = "COMPANY_API_TOKEN";
+export const CLOUD_DNS_ZONE_ENV = "COMPANY_CLOUD_DNS_ZONE_ID";
+export const CLOUD_DNS_TARGET_ENV = "COMPANY_CLOUD_INGRESS_TARGET";
+export const CLOUD_DNS_PROXIED_ENV = "COMPANY_CLOUD_DNS_PROXIED";
 
 const CACHE_TTL_MS = 5 * 60 * 1000;
-const RECORD_COMMENT = "Managed by Zenthcloud Cloud";
+const RECORD_COMMENT = "Managed by Company Cloud";
 
 export interface CloudDnsConfig {
 	apiToken: string;
@@ -51,7 +51,7 @@ export const resetCloudDnsCache = () => cache.clear();
 export const getCloudDnsConfig = (
 	env: Record<string, string | undefined> = process.env,
 ): CloudDnsConfig | null => {
-	const apiToken = env[ZENTHCLOUD_TOKEN_ENV]?.trim();
+	const apiToken = env[COMPANY_TOKEN_ENV]?.trim();
 	const target = env[CLOUD_DNS_TARGET_ENV]?.trim();
 	if (!apiToken || !target) {
 		return null;
@@ -60,7 +60,7 @@ export const getCloudDnsConfig = (
 		apiToken,
 		zoneId: env[CLOUD_DNS_ZONE_ENV]?.trim() || null,
 		target,
-		// Proxied by default: Zenthcloud serves the wildcard TLS certificate at
+		// Proxied by default: Company serves the wildcard TLS certificate at
 		// the edge, which is what makes generated hostnames HTTPS with no
 		// per-host ACME. Set to `false` for a DNS-only setup.
 		proxied: (env[CLOUD_DNS_PROXIED_ENV] ?? "true").toLowerCase() !== "false",
@@ -74,7 +74,7 @@ const recordTypeFor = (target: string): "A" | "AAAA" | "CNAME" => {
 	return "CNAME";
 };
 
-/** Longest matching zone for a hostname (`a.b.zenthcloud.app` → `zenthcloud.app`). */
+/** Longest matching zone for a hostname (`a.b.company.app` → `company.app`). */
 export const selectZoneId = (
 	zones: { id: string; name: string }[],
 	base: string,
@@ -90,7 +90,7 @@ export const ensureCloudWildcardRecord = async ({
 	env = process.env,
 	force = false,
 	now = Date.now(),
-	client = zenthcloudClient,
+	client = companyClient,
 }: {
 	base: string | null;
 	env?: Record<string, string | undefined>;
@@ -107,7 +107,7 @@ export const ensureCloudWildcardRecord = async ({
 		return {
 			status: "skipped",
 			reason:
-				"Zenthcloud DNS is not configured (ZENTHCLOUD_API_TOKEN / ZENTHCLOUD_CLOUD_INGRESS_TARGET)",
+				"Company DNS is not configured (COMPANY_API_TOKEN / COMPANY_CLOUD_INGRESS_TARGET)",
 		};
 	}
 
@@ -126,18 +126,18 @@ export const ensureCloudWildcardRecord = async ({
 			config.zoneId ??
 			selectZoneId(
 				await client.listZones({
-					providerType: "zenthcloud",
+					providerType: "company",
 					apiToken: config.apiToken,
 				}),
 				base,
 			);
 
 		if (!zoneId) {
-			throw new Error(`Zenthcloud: no zone manages ${base}`);
+			throw new Error(`Company: no zone manages ${base}`);
 		}
 
 		const record = await client.upsertRecord(
-			{ providerType: "zenthcloud", apiToken: config.apiToken },
+			{ providerType: "company", apiToken: config.apiToken },
 			{
 				zoneId,
 				type: recordTypeFor(config.target),
@@ -157,7 +157,7 @@ export const ensureCloudWildcardRecord = async ({
 
 		return { status: "ready", zoneId, recordId: record.id };
 	} catch (error) {
-		// Zenthcloud errors are safe to surface, but a provider can echo the token
+		// Company errors are safe to surface, but a provider can echo the token
 		// without any `key=value` shape, so mask the exact configured value too.
 		const message = error instanceof Error ? error.message : String(error);
 		throw new Error(redactSecretValues(message, [config.apiToken]));

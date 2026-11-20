@@ -1,12 +1,12 @@
 import { join } from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import type { apiGitlabTestConnection } from "@zenthcloud/server/db/schema";
+import { paths } from "@company/server/constants";
+import type { apiGitlabTestConnection } from "@company/server/db/schema";
 import {
 	findGitlabById,
 	type Gitlab,
 	updateGitlab,
-} from "@zenthcloud/server/services/gitlab";
-import type { InferResultType } from "@zenthcloud/server/types/with";
+} from "@company/server/services/gitlab";
+import type { InferResultType } from "@company/server/types/with";
 import { TRPCError } from "@trpc/server";
 import { quote } from "shell-quote";
 import type { z } from "zod";
@@ -29,7 +29,7 @@ export const refreshGitlabToken = async (gitlabProviderId: string) => {
 		return;
 	}
 
-	// Use internal URL for token refresh when GitLab is on same instance as Zenthcloud
+	// Use internal URL for token refresh when GitLab is on same instance as Company
 	const baseUrl = gitlabProvider.gitlabInternalUrl || gitlabProvider.gitlabUrl;
 	const response = await fetch(`${baseUrl}/oauth/token`, {
 		method: "POST",
@@ -352,7 +352,7 @@ export const validateGitlabProvider = async (gitlabProvider: Gitlab) => {
  * Shared request helper for the GitLab adapter.
  *
  * The internal URL is preferred when present: for a self-hosted GitLab running
- * next to Zenthcloud it avoids a round trip through the public hostname, and it is
+ * next to Company it avoids a round trip through the public hostname, and it is
  * what token refresh already uses.
  */
 const gitlabApiBase = (gitlabProvider: Gitlab) =>

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Script to replace zenthcloud, discord, and zenthcloud references with zenthcloud
+# Script to replace company, discord, and company references with company
 
 set -euo pipefail
 
-REPO_ROOT="/home/liam/Bureau/enterprise/zenthcloud"
+REPO_ROOT="/home/liam/Bureau/enterprise/company"
 cd "$REPO_ROOT"
 
 # Files to exclude
@@ -53,40 +53,40 @@ replace_in_files() {
     done <<< "$files"
 }
 
-# Replace zenthcloud with zenthcloud
-replace_in_files "zenthcloud" "zenthcloud"
-replace_in_files "ZENTHCLOUD" "ZENTHCLOUD"
-replace_in_files "zenthcloud" "zenthcloud"
+# Replace company with company
+replace_in_files "company" "company"
+replace_in_files "COMPANY" "COMPANY"
+replace_in_files "company" "company"
 
-# Replace zenthcloud with zenthcloud
-replace_in_files "zenthcloud" "zenthcloud"
-replace_in_files "Notploy" "Zenthcloud"
-replace_in_files "NOTPLOY" "ZENTHCLOUD"
+# Replace company with company
+replace_in_files "company" "company"
+replace_in_files "Notploy" "Company"
+replace_in_files "NOTPLOY" "COMPANY"
 
 # Replace discord references (but be careful with URLs)
 # We'll handle URLs separately
 
-# Replace discord webhook URLs with zenthcloud equivalents
-replace_in_files "discord.gg/GUkDugVh34" "zenthcloud.com/community"
-replace_in_files "discord.com/api/webhooks" "zenthcloud.com/api/webhooks"
+# Replace discord webhook URLs with company equivalents
+replace_in_files "discord.gg/GUkDugVh34" "company.com/community"
+replace_in_files "discord.com/api/webhooks" "company.com/api/webhooks"
 
-# Replace discord notification type with zenthcloud
-replace_in_files 'notificationType: z.literal("discord")' 'notificationType: z.literal("zenthcloud")'
-replace_in_files 'type: z.literal("discord")' 'type: z.literal("zenthcloud")'
+# Replace discord notification type with company
+replace_in_files 'notificationType: z.literal("discord")' 'notificationType: z.literal("company")'
+replace_in_files 'type: z.literal("discord")' 'type: z.literal("company")'
 
 # Replace discord table references
-replace_in_files 'discord: true,' 'zenthcloud: true,'
-replace_in_files 'discordId' 'zenthcloudId'
+replace_in_files 'discord: true,' 'company: true,'
+replace_in_files 'discordId' 'companyId'
 
 # Replace package names
-replace_in_files "@zenthcloud/server" "@zenthcloud/server"
-replace_in_files "@zenthcloud/status" "@zenthcloud/status"
+replace_in_files "@company/server" "@company/server"
+replace_in_files "@company/status" "@company/status"
 
 # Replace directory names in comments
-replace_in_files "apps/astron" "apps/zenthcloud"
+replace_in_files "apps/astron" "apps/company"
 
 # Replace in Docker image names
-replace_in_files "skygenesisenterprise/zenthcloud" "skygenesisenterprise/zenthcloud"
+replace_in_files "skygenesisenterprise/company" "skygenesisenterprise/company"
 
 echo ""
 echo "Replacement complete!"

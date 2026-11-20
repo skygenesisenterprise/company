@@ -1,38 +1,38 @@
-import { docker } from "@zenthcloud/server/constants";
-import { db } from "@zenthcloud/server/db";
+import { docker } from "@company/server/constants";
+import { db } from "@company/server/db";
 import {
 	type apiCreateApplication,
 	applications,
 	buildAppName,
-} from "@zenthcloud/server/db/schema";
-import { getAdvancedStats } from "@zenthcloud/server/monitoring/utils";
+} from "@company/server/db/schema";
+import { getAdvancedStats } from "@company/server/monitoring/utils";
 import {
 	getBuildCommand,
 	mechanizeDockerContainer,
-} from "@zenthcloud/server/utils/builders";
-import { sendBuildErrorNotifications } from "@zenthcloud/server/utils/notifications/build-error";
-import { sendBuildSuccessNotifications } from "@zenthcloud/server/utils/notifications/build-success";
+} from "@company/server/utils/builders";
+import { sendBuildErrorNotifications } from "@company/server/utils/notifications/build-error";
+import { sendBuildSuccessNotifications } from "@company/server/utils/notifications/build-success";
 import {
 	ExecError,
 	execAsync,
 	execAsyncRemote,
-} from "@zenthcloud/server/utils/process/execAsync";
-import { cloneBitbucketRepository } from "@zenthcloud/server/utils/providers/bitbucket";
-import { buildRemoteDocker } from "@zenthcloud/server/utils/providers/docker";
+} from "@company/server/utils/process/execAsync";
+import { cloneBitbucketRepository } from "@company/server/utils/providers/bitbucket";
+import { buildRemoteDocker } from "@company/server/utils/providers/docker";
 import {
 	cloneGitRepository,
 	getGitCommitInfo,
-} from "@zenthcloud/server/utils/providers/git";
-import { cloneGiteaRepository } from "@zenthcloud/server/utils/providers/gitea";
-import { cloneGithubRepository } from "@zenthcloud/server/utils/providers/github";
-import { cloneGitlabRepository } from "@zenthcloud/server/utils/providers/gitlab";
-import { redactSecrets } from "@zenthcloud/server/utils/security/redact";
-import { createTraefikConfig } from "@zenthcloud/server/utils/traefik/application";
+} from "@company/server/utils/providers/git";
+import { cloneGiteaRepository } from "@company/server/utils/providers/gitea";
+import { cloneGithubRepository } from "@company/server/utils/providers/github";
+import { cloneGitlabRepository } from "@company/server/utils/providers/gitlab";
+import { redactSecrets } from "@company/server/utils/security/redact";
+import { createTraefikConfig } from "@company/server/utils/traefik/application";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";
 import { encodeBase64 } from "../utils/docker/utils";
-import { getZenthcloudUrl } from "./admin";
+import { getCompanyUrl } from "./admin";
 import {
 	createDeployment,
 	createDeploymentPreview,
@@ -194,7 +194,7 @@ export const updateApplicationStatus = async (
 };
 
 /**
- * Zenthcloud Cloud: assign and provision the generated *.zenthcloud.app hostname
+ * Company Cloud: assign and provision the generated *.company.app hostname
  * once a deployment is live. Imported lazily because `cloud-domain` imports
  * this module; the cycle stays safe, and domain provisioning must never turn a
  * successful deployment into a failure (the ledger records the error instead).
@@ -239,7 +239,7 @@ export const deployApplication = async ({
 		serverId: serverId,
 	};
 
-	const buildLink = `${await getZenthcloudUrl()}/dashboard/project/${application.environment.projectId}/environment/${application.environmentId}/services/application/${application.applicationId}?tab=deployments`;
+	const buildLink = `${await getCompanyUrl()}/dashboard/project/${application.environment.projectId}/environment/${application.environmentId}/services/application/${application.applicationId}?tab=deployments`;
 	const deployment = deploymentId
 		? await findDeploymentById(deploymentId)
 		: await createDeployment({
@@ -358,7 +358,7 @@ export const rebuildApplication = async ({
 }) => {
 	const application = await findApplicationById(applicationId);
 	const serverId = application.buildServerId || application.serverId;
-	const buildLink = `${await getZenthcloudUrl()}/dashboard/project/${application.environment.projectId}/environment/${application.environmentId}/services/application/${application.applicationId}?tab=deployments`;
+	const buildLink = `${await getCompanyUrl()}/dashboard/project/${application.environment.projectId}/environment/${application.environmentId}/services/application/${application.applicationId}?tab=deployments`;
 
 	const deployment = await createDeployment({
 		applicationId: applicationId,
@@ -477,12 +477,12 @@ export const deployPreviewApplication = async ({
 		);
 		await updateIssueComment({
 			...issueParams,
-			body: `### Zenthcloud Preview Deployment\n\n${buildingComment}`,
+			body: `### Company Preview Deployment\n\n${buildingComment}`,
 		});
 		application.appName = previewDeployment.appName;
-		application.env = `${application.previewEnv}\nZENTHCLOUD_DEPLOY_URL=${previewDeployment?.domain?.host}`;
-		application.buildArgs = `${application.previewBuildArgs}\nZENTHCLOUD_DEPLOY_URL=${previewDeployment?.domain?.host}`;
-		application.buildSecrets = `${application.previewBuildSecrets}\nZENTHCLOUD_DEPLOY_URL=${previewDeployment?.domain?.host}`;
+		application.env = `${application.previewEnv}\nCOMPANY_DEPLOY_URL=${previewDeployment?.domain?.host}`;
+		application.buildArgs = `${application.previewBuildArgs}\nCOMPANY_DEPLOY_URL=${previewDeployment?.domain?.host}`;
+		application.buildSecrets = `${application.previewBuildSecrets}\nCOMPANY_DEPLOY_URL=${previewDeployment?.domain?.host}`;
 		application.rollbackActive = false;
 		application.buildRegistry = null;
 		application.rollbackRegistry = null;
@@ -512,7 +512,7 @@ export const deployPreviewApplication = async ({
 		);
 		await updateIssueComment({
 			...issueParams,
-			body: `### Zenthcloud Preview Deployment\n\n${successComment}`,
+			body: `### Company Preview Deployment\n\n${successComment}`,
 		});
 		await updateDeploymentStatus(deployment.deploymentId, "done");
 		await updatePreviewDeployment(previewDeploymentId, {
@@ -522,7 +522,7 @@ export const deployPreviewApplication = async ({
 		const comment = getIssueComment(application.name, "error", previewDomain);
 		await updateIssueComment({
 			...issueParams,
-			body: `### Zenthcloud Preview Deployment\n\n${comment}`,
+			body: `### Company Preview Deployment\n\n${comment}`,
 		});
 		await updateDeploymentStatus(deployment.deploymentId, "error");
 		await updatePreviewDeployment(previewDeploymentId, {
@@ -594,14 +594,14 @@ export const rebuildPreviewApplication = async ({
 		);
 		await updateIssueComment({
 			...issueParams,
-			body: `### Zenthcloud Preview Deployment\n\n${buildingComment}`,
+			body: `### Company Preview Deployment\n\n${buildingComment}`,
 		});
 
 		// Set application properties for preview deployment
 		application.appName = previewDeployment.appName;
-		application.env = `${application.previewEnv}\nZENTHCLOUD_DEPLOY_URL=${previewDeployment?.domain?.host}`;
-		application.buildArgs = `${application.previewBuildArgs}\nZENTHCLOUD_DEPLOY_URL=${previewDeployment?.domain?.host}`;
-		application.buildSecrets = `${application.previewBuildSecrets}\nZENTHCLOUD_DEPLOY_URL=${previewDeployment?.domain?.host}`;
+		application.env = `${application.previewEnv}\nCOMPANY_DEPLOY_URL=${previewDeployment?.domain?.host}`;
+		application.buildArgs = `${application.previewBuildArgs}\nCOMPANY_DEPLOY_URL=${previewDeployment?.domain?.host}`;
+		application.buildSecrets = `${application.previewBuildSecrets}\nCOMPANY_DEPLOY_URL=${previewDeployment?.domain?.host}`;
 		application.rollbackActive = false;
 		application.buildRegistry = null;
 		application.rollbackRegistry = null;
@@ -626,7 +626,7 @@ export const rebuildPreviewApplication = async ({
 		);
 		await updateIssueComment({
 			...issueParams,
-			body: `### Zenthcloud Preview Deployment\n\n${successComment}`,
+			body: `### Company Preview Deployment\n\n${successComment}`,
 		});
 		await updateDeploymentStatus(deployment.deploymentId, "done");
 		await updatePreviewDeployment(previewDeploymentId, {
@@ -653,7 +653,7 @@ export const rebuildPreviewApplication = async ({
 		const comment = getIssueComment(application.name, "error", previewDomain);
 		await updateIssueComment({
 			...issueParams,
-			body: `### Zenthcloud Preview Deployment\n\n${comment}`,
+			body: `### Company Preview Deployment\n\n${comment}`,
 		});
 		await updateDeploymentStatus(deployment.deploymentId, "error");
 		await updatePreviewDeployment(previewDeploymentId, {
@@ -666,7 +666,7 @@ export const rebuildPreviewApplication = async ({
 };
 
 export const getApplicationStats = async (appName: string) => {
-	if (appName === "zenthcloud") {
+	if (appName === "company") {
 		return await getAdvancedStats(appName);
 	}
 	const filter = {

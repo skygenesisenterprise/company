@@ -5,8 +5,8 @@ import {
   Select,
   Combobox,
   DropdownMenu,
-} from "@zenthcloud/kumo";
-import type { DialogProps } from "@zenthcloud/kumo";
+} from "@company/kumo";
+import type { DialogProps } from "@company/kumo";
 import { Warning, X } from "@phosphor-icons/react";
 
 export function DialogBasicDemo() {

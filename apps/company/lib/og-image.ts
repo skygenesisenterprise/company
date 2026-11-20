@@ -21,7 +21,7 @@ const LINE = `${OG_PALETTE.white}22`;
 
 export async function generateOGImage({
 	title,
-	eyebrow = "ZenthCloud",
+	eyebrow = "Company",
 }: GenerateOGImageOptions): Promise<Buffer> {
 	const interRegular = await fs.readFile(
 		join(process.cwd(), "public/fonts/Inter-Regular.ttf"),
@@ -187,7 +187,7 @@ export async function generateOGImage({
 							position: "relative",
 						},
 						children: [
-							{ type: "div", props: { children: "zenthcloud.com" } },
+							{ type: "div", props: { children: "company.com" } },
 							{
 								type: "div",
 								props: { children: "European roots. Global ambitions." },

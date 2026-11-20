@@ -1,0 +1,13 @@
+http:
+  routers:
+    company-router-app:
+      rule: Host(`company.docker.localhost`) && PathPrefix(`/`)
+      service: company-service-app
+      entryPoints:
+        - web
+  services:
+    company-service-app:
+      loadBalancer:
+        servers:
+          - url: http://company:3000
+        passHostHeader: true

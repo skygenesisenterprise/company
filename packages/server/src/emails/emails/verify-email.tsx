@@ -21,9 +21,9 @@ export type TemplateProps = {
 
 export const VerifyEmailTemplate = ({
 	userName = "User",
-	verificationUrl = "https://dash.zenthcloud.com/verify",
+	verificationUrl = "https://dash.company.com/verify",
 }: TemplateProps) => {
-	const previewText = "Verify your email address to get started with Zenthcloud";
+	const previewText = "Verify your email address to get started with Company";
 	return (
 		<Html>
 			<Head />
@@ -34,10 +34,10 @@ export const VerifyEmailTemplate = ({
 						{/* Header */}
 						<Section className="bg-[#09090b] rounded-t-xl px-[40px] py-[32px] text-center">
 							<Img
-								src="https://raw.githubusercontent.com/skygenesisenterprise/zenthcloud/refs/heads/master/web/apps/docs/public/logo-zenthcloud-blackpng.png"
+								src="https://raw.githubusercontent.com/skygenesisenterprise/company/refs/heads/master/web/apps/docs/public/logo-company-blackpng.png"
 								width="190"
 								height="120"
-								alt="Zenthcloud"
+								alt="Company"
 								className="my-0 mx-auto"
 							/>
 						</Section>
@@ -48,7 +48,7 @@ export const VerifyEmailTemplate = ({
 								Verify Your Email
 							</Heading>
 							<Text className="text-[#71717a] text-[14px] leading-[22px] m-0 mb-[24px]">
-								Hello {userName}, thank you for signing up for Zenthcloud. Please
+								Hello {userName}, thank you for signing up for Company. Please
 								verify your email address to activate your account.
 							</Text>
 
@@ -76,10 +76,10 @@ export const VerifyEmailTemplate = ({
 							<Text className="text-[#a1a1aa] text-[12px] leading-[18px] m-0">
 								This is an automated email from{" "}
 								<Link
-									href="https://zenthcloud.com"
+									href="https://company.com"
 									className="text-[#71717a] underline"
 								>
-									Zenthcloud Cloud
+									Company Cloud
 								</Link>
 								. If you didn't create an account, you can safely ignore this
 								email.

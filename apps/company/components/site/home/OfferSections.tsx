@@ -1,4 +1,4 @@
-import { Link, LinkButton } from "@zenthcloud/react";
+import { Link, LinkButton } from "@company/react";
 import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "@/components/Container";
 import { AvailabilityBadge } from "@/components/site/StatusBadge";

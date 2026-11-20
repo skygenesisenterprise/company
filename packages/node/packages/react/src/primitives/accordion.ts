@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { Accordion } from '@zenthcloud/kumo/primitives/accordion';
+ * import { Accordion } from '@company/kumo/primitives/accordion';
  * ```
  */
 

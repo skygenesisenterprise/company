@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Slider } from "@zenthcloud/kumo";
+import { Slider } from "@company/kumo";
 
 export function SliderBasicDemo() {
   return <Slider label="Volume" defaultValue={40} className="w-72" />;

@@ -1,4 +1,4 @@
-import { Badge, Link } from "@zenthcloud/kumo";
+import { Badge, Link } from "@company/kumo";
 import { CheckCircleIcon } from "@phosphor-icons/react";
 
 export function BadgeSemanticVariantsDemo() {

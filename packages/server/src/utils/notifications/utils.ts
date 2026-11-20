@@ -1,6 +1,6 @@
 import type {
 	custom,
-	zenthcloud,
+	company,
 	email,
 	gotify,
 	lark,
@@ -11,7 +11,7 @@ import type {
 	slack,
 	teams,
 	telegram,
-} from "@zenthcloud/server/db/schema";
+} from "@company/server/db/schema";
 import nodemailer from "nodemailer";
 import { Resend } from "resend";
 
@@ -77,7 +77,7 @@ export const sendResendNotification = async (
 		);
 	}
 };export const sendDiscordNotification = async (
-	connection: typeof zenthcloud.$inferInsert,
+	connection: typeof company.$inferInsert,
 	embed: any,
 ) => {
 	let response: Response;
@@ -89,7 +89,7 @@ export const sendResendNotification = async (
 		});
 	} catch (err) {
 		throw new Error(
-			`Failed to send zenthcloud notification: could not reach the webhook URL (${err instanceof Error ? err.message : "Unknown error"}). Check that the Zenthcloud server has outbound HTTPS access and that the URL is correct.`,
+			`Failed to send company notification: could not reach the webhook URL (${err instanceof Error ? err.message : "Unknown error"}). Check that the Company server has outbound HTTPS access and that the URL is correct.`,
 		);
 	}
 	if (!response.ok) {
@@ -107,7 +107,7 @@ export const sendResendNotification = async (
 			}
 		}
 		throw new Error(
-			`Failed to send zenthcloud notification: Discord answered HTTP ${response.status}${detail}`,
+			`Failed to send company notification: Discord answered HTTP ${response.status}${detail}`,
 		);
 	}
 };

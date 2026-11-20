@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-# Script to replace zenthcloud, zenthcloud, and discord references with zenthcloud
+# Script to replace company, company, and discord references with company
 
-REPO_ROOT="/home/liam/Bureau/enterprise/zenthcloud"
+REPO_ROOT="/home/liam/Bureau/enterprise/company"
 cd "$REPO_ROOT"
 
 echo "Starting replacements..."
@@ -34,43 +34,43 @@ replace_in_files() {
     echo ""
 }
 
-# Step 1: Replace zenthcloud (case-insensitive)
-echo "=== Step 1: Replacing zenthcloud ==="
+# Step 1: Replace company (case-insensitive)
+echo "=== Step 1: Replacing company ==="
 find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.json" -o -name "*.md" -o -name "*.yaml" -o -name "*.yml" -o -name "*.txt" -o -name "*.html" -o -name "*.css" \) \
     ! -path "./node_modules/*" \
     ! -path "./.git/*" \
     ! -path "./.pnpm-store/*" \
-    -exec grep -l "zenthcloud" {} + | while read -r file; do
+    -exec grep -l "company" {} + | while read -r file; do
     echo "  Processing: $file"
-    sed -i 's/zenthcloud/zenthcloud/gi' "$file"
+    sed -i 's/company/company/gi' "$file"
 done
 
 echo "Step 1 completed"
 echo ""
 
-# Step 2: Replace Zenthcloud (with space)
-echo "=== Step 2: Replacing Zenthcloud ==="
+# Step 2: Replace Company (with space)
+echo "=== Step 2: Replacing Company ==="
 find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.json" -o -name "*.md" -o -name "*.yaml" -o -name "*.yml" -o -name "*.txt" -o -name "*.html" -o -name "*.css" \) \
     ! -path "./node_modules/*" \
     ! -path "./.git/*" \
     ! -path "./.pnpm-store/*" \
-    -exec grep -l "Zenthcloud" {} + | while read -r file; do
+    -exec grep -l "Company" {} + | while read -r file; do
     echo "  Processing: $file"
-    sed -i 's/Zenthcloud/Zenthcloud/g' "$file"
+    sed -i 's/Company/Company/g' "$file"
 done
 
 echo "Step 2 completed"
 echo ""
 
-# Step 3: Replace zenthcloud (case-insensitive)
-echo "=== Step 3: Replacing zenthcloud ==="
+# Step 3: Replace company (case-insensitive)
+echo "=== Step 3: Replacing company ==="
 find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" -o -name "*.json" -o -name "*.md" -o -name "*.yaml" -o -name="*.yml" -o -name "*.txt" -o -name "*.html" -o -name "*.css" \) \
     ! -path "./node_modules/*" \
     ! -path "./.git/*" \
     ! -path "./.pnpm-store/*" \
-    -exec grep -l "zenthcloud" {} + | while read -r file; do
+    -exec grep -l "company" {} + | while read -r file; do
     echo "  Processing: $file"
-    sed -i 's/zenthcloud/zenthcloud/gi' "$file"
+    sed -i 's/company/company/gi' "$file"
 done
 
 echo "Step 3 completed"
@@ -84,7 +84,7 @@ find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx"
     ! -path "./.pnpm-store/*" \
     -exec grep -l "Notploy" {} + | while read -r file; do
     echo "  Processing: $file"
-    sed -i 's/Notploy/Zenthcloud/g' "$file"
+    sed -i 's/Notploy/Company/g' "$file"
 done
 
 echo "Step 4 completed"

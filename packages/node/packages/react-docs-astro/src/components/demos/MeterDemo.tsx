@@ -1,4 +1,4 @@
-import { Meter } from "@zenthcloud/kumo";
+import { Meter } from "@company/kumo";
 
 export function MeterBasicDemo() {
   return <Meter label="Storage used" value={65} />;

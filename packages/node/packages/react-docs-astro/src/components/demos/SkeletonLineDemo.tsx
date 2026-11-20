@@ -1,4 +1,4 @@
-import { SkeletonLine } from "@zenthcloud/kumo";
+import { SkeletonLine } from "@company/kumo";
 import type { ReactNode } from "react";
 
 export function SkeletonLineDemo() {

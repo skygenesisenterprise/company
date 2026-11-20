@@ -1,4 +1,4 @@
-import { findComposeById } from "@zenthcloud/server/services/compose";
+import { findComposeById } from "@company/server/services/compose";
 import { stringify } from "yaml";
 import { execAsync, execAsyncRemote } from "../process/execAsync";
 import { addAppNameToAllServiceNames } from "./collision/root-network";

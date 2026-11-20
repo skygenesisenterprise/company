@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
 
 	if (isRateLimited(clientKey(request))) {
 		return NextResponse.json(
-			{ message: "Too many requests. Try again later or email sales@zenthcloud.com." },
+			{ message: "Too many requests. Try again later or email sales@company.com." },
 			{ status: 429, headers: { "Retry-After": "600" } },
 		);
 	}
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
 			{
 				code: "FORM_BACKEND_NOT_CONFIGURED",
 				message:
-					"Mail delivery is not configured for this deployment. Please email sales@zenthcloud.com directly.",
+					"Mail delivery is not configured for this deployment. Please email sales@company.com directly.",
 			},
 			{ status: 503 },
 		);
@@ -95,8 +95,8 @@ export async function POST(request: NextRequest) {
 
 	const resend = new Resend(apiKey);
 	const { fullName, email, company, interest, region, message } = parsed.data;
-	const from = process.env.RESEND_FROM ?? "ZenthCloud website <website@zenthcloud.com>";
-	const recipients = (process.env.SALES_RECIPIENTS ?? "sales@zenthcloud.com")
+	const from = process.env.RESEND_FROM ?? "Company website <website@company.com>";
+	const recipients = (process.env.SALES_RECIPIENTS ?? "sales@company.com")
 		.split(",")
 		.map((value) => value.trim())
 		.filter(Boolean);
@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
 				message,
 				"",
 				"---",
-				"Sent from the zenthcloud.com contact-sales form.",
+				"Sent from the company.com contact-sales form.",
 			].join("\n"),
 		});
 
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json(
 				{
 					message:
-						"The message could not be delivered. Please email sales@zenthcloud.com.",
+						"The message could not be delivered. Please email sales@company.com.",
 				},
 				{ status: 502 },
 			);
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json(
 			{
 				message:
-					"The message could not be delivered. Please email sales@zenthcloud.com.",
+					"The message could not be delivered. Please email sales@company.com.",
 			},
 			{ status: 502 },
 		);

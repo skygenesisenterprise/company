@@ -1,4 +1,4 @@
-import { ShikiProvider, CodeHighlighted } from "@zenthcloud/kumo/code";
+import { ShikiProvider, CodeHighlighted } from "@company/kumo/code";
 import { useState } from "react";
 import type { ReactNode } from "react";
 
@@ -87,10 +87,10 @@ export function CodeHighlightedBashDemo() {
     <DemoProvider>
       <CodeHighlighted
         code={`# Install Kumo
-npm install @zenthcloud/kumo
+npm install @company/kumo
 
 # Or with pnpm
-pnpm add @zenthcloud/kumo
+pnpm add @company/kumo
 
 # Start development server
 pnpm dev`}
@@ -106,7 +106,7 @@ export function CodeHighlightedJsonDemo() {
     <DemoProvider>
       <CodeHighlighted
         code={`{
-  "name": "@zenthcloud/kumo",
+  "name": "@company/kumo",
   "version": "1.9.0",
   "dependencies": {
     "react": "^19.0.0",
@@ -178,7 +178,7 @@ export function CodeHighlightedCopyButtonDemo() {
   return (
     <DemoProvider>
       <CodeHighlighted
-        code={`npm install @zenthcloud/kumo`}
+        code={`npm install @company/kumo`}
         lang="bash"
         showCopyButton
       />
@@ -238,7 +238,7 @@ export function CodeHighlightedFullFeaturedDemo() {
   return (
     <DemoProvider>
       <CodeHighlighted
-        code={`import { ShikiProvider, CodeHighlighted } from "@zenthcloud/kumo/code";
+        code={`import { ShikiProvider, CodeHighlighted } from "@company/kumo/code";
 
 export function CodeExample({ code, language }: Props) {
   return (

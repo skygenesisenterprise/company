@@ -1,6 +1,6 @@
-import { db } from "@zenthcloud/server/db";
-import { notifications } from "@zenthcloud/server/db/schema";
-import ZenthcloudRestartEmail from "@zenthcloud/server/emails/emails/zenthcloud-restart";
+import { db } from "@company/server/db";
+import { notifications } from "@company/server/db/schema";
+import CompanyRestartEmail from "@company/server/emails/emails/company-restart";
 import { render } from "@react-email/components";
 import { format } from "date-fns";
 import { eq } from "drizzle-orm";
@@ -19,15 +19,15 @@ import {
 	sendTelegramNotification,
 } from "./utils";
 
-export const sendZenthcloudRestartNotifications = async () => {
+export const sendCompanyRestartNotifications = async () => {
 	try {
 		const date = new Date();
 		const unixDate = ~~(Number(date) / 1000);
 		const notificationList = await db.query.notifications.findMany({
-			where: eq(notifications.zenthcloudRestart, true),
+			where: eq(notifications.companyRestart, true),
 			with: {
 				email: true,
-				zenthcloud: true,
+				company: true,
 				telegram: true,
 				slack: true,
 				resend: true,
@@ -45,7 +45,7 @@ export const sendZenthcloudRestartNotifications = async () => {
 			const {
 				email,
 				resend,
-				zenthcloud,
+				company,
 				telegram,
 				slack,
 				gotify,
@@ -60,13 +60,13 @@ export const sendZenthcloudRestartNotifications = async () => {
 			try {
 				if (email || resend) {
 					const template = await render(
-						ZenthcloudRestartEmail({ date: date.toLocaleString() }),
+						CompanyRestartEmail({ date: date.toLocaleString() }),
 					).catch();
 
 					if (email) {
 						await sendEmailNotification(
 							email,
-							"Zenthcloud Server Restarted",
+							"Company Server Restarted",
 							template,
 						);
 					}
@@ -74,18 +74,18 @@ export const sendZenthcloudRestartNotifications = async () => {
 					if (resend) {
 						await sendResendNotification(
 							resend,
-							"Zenthcloud Server Restarted",
+							"Company Server Restarted",
 							template,
 						);
 					}
 				}
 
-				if (zenthcloud) {
+				if (company) {
 					const decorate = (decoration: string, text: string) =>
-						`${zenthcloud.decoration ? decoration : ""} ${text}`.trim();
+						`${company.decoration ? decoration : ""} ${text}`.trim();
 
-					await sendDiscordNotification(zenthcloud, {
-						title: decorate(">", "`✅` Zenthcloud Server Restarted"),
+					await sendDiscordNotification(company, {
+						title: decorate(">", "`✅` Company Server Restarted"),
 						color: 0x57f287,
 						fields: [
 							{
@@ -106,7 +106,7 @@ export const sendZenthcloudRestartNotifications = async () => {
 						],
 						timestamp: date.toISOString(),
 						footer: {
-							text: "Zenthcloud Restart Notification",
+							text: "Company Restart Notification",
 						},
 					});
 				}
@@ -116,7 +116,7 @@ export const sendZenthcloudRestartNotifications = async () => {
 						`${gotify.decoration ? decoration : ""} ${text}\n`;
 					await sendGotifyNotification(
 						gotify,
-						decorate("✅", "Zenthcloud Server Restarted"),
+						decorate("✅", "Company Server Restarted"),
 						`${decorate("🕒", `Date: ${date.toLocaleString()}`)}`,
 					);
 				}
@@ -124,7 +124,7 @@ export const sendZenthcloudRestartNotifications = async () => {
 				if (ntfy) {
 					await sendNtfyNotification(
 						ntfy,
-						"Zenthcloud Server Restarted",
+						"Company Server Restarted",
 						"white_check_mark",
 						"",
 						`🕒Date: ${date.toLocaleString()}`,
@@ -134,7 +134,7 @@ export const sendZenthcloudRestartNotifications = async () => {
 				if (telegram) {
 					await sendTelegramNotification(
 						telegram,
-						`<b>✅ Zenthcloud Server Restarted</b>\n\n<b>Date:</b> ${format(
+						`<b>✅ Company Server Restarted</b>\n\n<b>Date:</b> ${format(
 							date,
 							"PP",
 						)}\n<b>Time:</b> ${format(date, "pp")}`,
@@ -148,7 +148,7 @@ export const sendZenthcloudRestartNotifications = async () => {
 						attachments: [
 							{
 								color: "#00FF00",
-								pretext: ":white_check_mark: *Zenthcloud Server Restarted*",
+								pretext: ":white_check_mark: *Company Server Restarted*",
 								fields: [
 									{
 										title: "Time",
@@ -163,21 +163,21 @@ export const sendZenthcloudRestartNotifications = async () => {
 
 				if (mattermost) {
 					await sendMattermostNotification(mattermost, {
-						text: `**✅ Zenthcloud Server Restarted**\n\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}`,
+						text: `**✅ Company Server Restarted**\n\n**Date:** ${format(date, "PP")}\n**Time:** ${format(date, "pp")}`,
 						channel: mattermost.channel,
-						username: mattermost.username || "Zenthcloud",
+						username: mattermost.username || "Company",
 					});
 				}
 
 				if (custom) {
 					try {
 						await sendCustomNotification(custom, {
-							title: "Zenthcloud Server Restarted",
-							message: "Zenthcloud server has been restarted successfully",
+							title: "Company Server Restarted",
+							message: "Company server has been restarted successfully",
 							timestamp: date.toISOString(),
 							date: date.toLocaleString(),
 							status: "success",
-							type: "zenthcloud-restart",
+							type: "company-restart",
 						});
 					} catch (error) {
 						console.log(error);
@@ -204,7 +204,7 @@ export const sendZenthcloudRestartNotifications = async () => {
 							header: {
 								title: {
 									tag: "plain_text",
-									content: "✅ Zenthcloud Server Restarted",
+									content: "✅ Company Server Restarted",
 								},
 								subtitle: {
 									tag: "plain_text",
@@ -262,14 +262,14 @@ export const sendZenthcloudRestartNotifications = async () => {
 				if (pushover) {
 					await sendPushoverNotification(
 						pushover,
-						"Zenthcloud Server Restarted",
+						"Company Server Restarted",
 						`Date: ${date.toLocaleString()}`,
 					);
 				}
 
 				if (teams) {
 					await sendTeamsNotification(teams, {
-						title: "✅ Zenthcloud Server Restarted",
+						title: "✅ Company Server Restarted",
 						facts: [
 							{ name: "Status", value: "Successful" },
 							{ name: "Restart Time", value: format(date, "PP pp") },
@@ -281,6 +281,6 @@ export const sendZenthcloudRestartNotifications = async () => {
 			}
 		}
 	} catch (error) {
-		console.error("[Zenthcloud] Restart notifications failed:", error);
+		console.error("[Company] Restart notifications failed:", error);
 	}
 };

@@ -1,5 +1,5 @@
-import { db } from "@zenthcloud/server/db";
-import { member, organizationRole } from "@zenthcloud/server/db/schema";
+import { db } from "@company/server/db";
+import { member, organizationRole } from "@company/server/db/schema";
 import { TRPCError } from "@trpc/server";
 import { and, eq, sql } from "drizzle-orm";
 import {

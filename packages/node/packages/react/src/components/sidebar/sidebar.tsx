@@ -1008,7 +1008,7 @@ SidebarRoot.displayName = "Sidebar";
  * @example
  * ```tsx
  * <Sidebar.Header>
- *   <ZenthcloudLogo />
+ *   <CompanyLogo />
  *   <span>Design Engineering</span>
  *   <Button shape="square" icon={CaretUpDownIcon} aria-label="Switch" />
  * </Sidebar.Header>
@@ -1650,7 +1650,7 @@ SidebarMenuButton.displayName = "Sidebar.MenuButton";
 
 /**
  * Badge pill displayed inside a menu button (e.g., "Beta", "New").
- * Uses dashed border styling matching the Zenthcloud design system.
+ * Uses dashed border styling matching the Company design system.
  *
  * @example
  * ```tsx

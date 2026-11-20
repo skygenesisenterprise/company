@@ -239,10 +239,10 @@ export async function add(blockName: string | undefined): Promise<void> {
   if (block.dependencies.length > 0) {
     console.log(`\n📚 This block depends on the following Kumo components:\n`);
     for (const dep of block.dependencies) {
-      console.log(`  - ${dep} (from @zenthcloud/kumo)`);
+      console.log(`  - ${dep} (from @company/kumo)`);
     }
-    console.log("\nMake sure @zenthcloud/kumo is installed in your project:");
-    console.log("  pnpm add @zenthcloud/kumo");
+    console.log("\nMake sure @company/kumo is installed in your project:");
+    console.log("  pnpm add @company/kumo");
   }
 
   // Show import path

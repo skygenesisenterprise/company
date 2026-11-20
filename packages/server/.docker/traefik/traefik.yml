@@ -4,7 +4,7 @@ providers:
   docker:
     defaultRule: Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)
   file:
-    directory: /etc/zenthcloud/traefik/dynamic
+    directory: /etc/company/traefik/dynamic
     watch: true
 entryPoints:
   web:

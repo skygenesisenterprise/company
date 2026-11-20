@@ -1,4 +1,4 @@
-import { InlineCopyText } from "@zenthcloud/kumo";
+import { InlineCopyText } from "@company/kumo";
 
 /** Compact copy control for a short identifier. */
 export function InlineCopyTextBasicDemo() {

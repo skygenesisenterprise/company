@@ -6,7 +6,7 @@
  *
  * @example
  * ```tsx
- * import { RadioGroup } from '@zenthcloud/kumo/primitives/radio-group';
+ * import { RadioGroup } from '@company/kumo/primitives/radio-group';
  * ```
  */
 

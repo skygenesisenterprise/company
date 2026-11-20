@@ -66,7 +66,7 @@ export function formatContactDataForHubSpot(
 			},
 		],
 		context: {
-			pageUri: "https://dash.zenthcloud.com/register",
+			pageUri: "https://dash.company.com/register",
 			pageName: "Sign Up",
 		},
 	};

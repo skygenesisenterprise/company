@@ -1,6 +1,6 @@
-# Screenshot Worker (`@zenthcloud/kumo-screenshot-worker`)
+# Screenshot Worker (`@company/kumo-screenshot-worker`)
 
-Zenthcloud Worker that uses Puppeteer + Browser Rendering to capture screenshots of Kumo docs pages. Used for visual regression testing.
+Company Worker that uses Puppeteer + Browser Rendering to capture screenshots of Kumo docs pages. Used for visual regression testing.
 
 **Parent:** See [root AGENTS.md](../../AGENTS.md) for monorepo context.
 
@@ -22,17 +22,17 @@ kumo-screenshot-worker/
 
 ```bash
 cp .dev.vars.example .dev.vars   # then fill in API_KEY
-pnpm --filter @zenthcloud/kumo-screenshot-worker dev
+pnpm --filter @company/kumo-screenshot-worker dev
 ```
 
 **Deploy:**
 
 ```bash
 # Set secret (one-time per environment):
-pnpm --filter @zenthcloud/kumo-screenshot-worker exec wrangler secret put API_KEY
+pnpm --filter @company/kumo-screenshot-worker exec wrangler secret put API_KEY
 
 # Deploy:
-pnpm --filter @zenthcloud/kumo-screenshot-worker deploy
+pnpm --filter @company/kumo-screenshot-worker deploy
 ```
 
 ## SECRETS
@@ -79,10 +79,10 @@ When `captureSections: true`, the worker looks for elements with `data-vr-demo`,
 ## COMMANDS
 
 ```bash
-pnpm --filter @zenthcloud/kumo-screenshot-worker dev        # Local dev server
-pnpm --filter @zenthcloud/kumo-screenshot-worker deploy     # Deploy to Zenthcloud
-pnpm --filter @zenthcloud/kumo-screenshot-worker typecheck  # TypeScript check
-pnpm --filter @zenthcloud/kumo-screenshot-worker lint       # vp lint (Oxlint)
+pnpm --filter @company/kumo-screenshot-worker dev        # Local dev server
+pnpm --filter @company/kumo-screenshot-worker deploy     # Deploy to Company
+pnpm --filter @company/kumo-screenshot-worker typecheck  # TypeScript check
+pnpm --filter @company/kumo-screenshot-worker lint       # vp lint (Oxlint)
 ```
 
 ## NOTES

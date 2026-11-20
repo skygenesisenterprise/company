@@ -1,27 +1,27 @@
-import { findServerById } from "@zenthcloud/server/services/server";
-import { getWebServerSettings } from "@zenthcloud/server/services/web-server-settings";
+import { findServerById } from "@company/server/services/server";
+import { getWebServerSettings } from "@company/server/services/web-server-settings";
 import type { CreateServiceOptions } from "dockerode";
-import { getZenthcloudImageTag } from "../services/settings";
+import { getCompanyImageTag } from "../services/settings";
 import { isManagedCloud } from "../services/instance-identity";
 import { pullImage, pullRemoteImage } from "../utils/docker/utils";
 import { execAsync, execAsyncRemote } from "../utils/process/execAsync";
 import { getRemoteDocker } from "../utils/servers/remote-docker";
 
 const getMonitoringImage = () => {
-	let imageName = "zenthcloud/monitoring:latest";
+	let imageName = "company/monitoring:latest";
 
 	if (
-		(getZenthcloudImageTag() !== "latest" ||
+		(getCompanyImageTag() !== "latest" ||
 			process.env.NODE_ENV === "development") &&
 		!isManagedCloud()
 	) {
-		imageName = "zenthcloud/monitoring:canary";
+		imageName = "company/monitoring:canary";
 	}
 
 	return imageName;
 };
 
-// Swarm tasks are zenthcloud-monitoring.<slot>.<id>, so this only matches the
+// Swarm tasks are company-monitoring.<slot>.<id>, so this only matches the
 // pre-v0.30.0 standalone container. A cleanup failure must not block the deploy.
 const removeLegacyContainer = async (
 	docker: Awaited<ReturnType<typeof getRemoteDocker>>,
@@ -70,7 +70,7 @@ const deployMonitoringService = async (
 export const setupMonitoring = async (serverId: string) => {
 	const server = await findServerById(serverId);
 
-	const serviceName = "zenthcloud-monitoring";
+	const serviceName = "company-monitoring";
 	const imageName = getMonitoringImage();
 
 	const settings: CreateServiceOptions = {
@@ -106,7 +106,7 @@ export const setupMonitoring = async (serverId: string) => {
 					},
 					{
 						Type: "bind",
-						Source: "/etc/zenthcloud/monitoring/monitoring.db",
+						Source: "/etc/company/monitoring/monitoring.db",
 						Target: "/app/monitoring.db",
 					},
 				],
@@ -127,7 +127,7 @@ export const setupMonitoring = async (serverId: string) => {
 
 	await execAsyncRemote(
 		serverId,
-		"mkdir -p /etc/zenthcloud/monitoring && touch /etc/zenthcloud/monitoring/monitoring.db",
+		"mkdir -p /etc/company/monitoring && touch /etc/company/monitoring/monitoring.db",
 	);
 	await pullRemoteImage(imageName, serverId);
 	await deployMonitoringService(docker, serviceName, settings);
@@ -136,7 +136,7 @@ export const setupMonitoring = async (serverId: string) => {
 export const setupWebMonitoring = async () => {
 	const webServerSettings = await getWebServerSettings();
 
-	const serviceName = "zenthcloud-monitoring";
+	const serviceName = "company-monitoring";
 	const imageName = getMonitoringImage();
 	const port = webServerSettings?.metricsConfig?.server?.port;
 
@@ -175,7 +175,7 @@ export const setupWebMonitoring = async () => {
 					},
 					{
 						Type: "bind",
-						Source: "/etc/zenthcloud/monitoring/monitoring.db",
+						Source: "/etc/company/monitoring/monitoring.db",
 						Target: "/app/monitoring.db",
 					},
 				],
@@ -204,7 +204,7 @@ export const setupWebMonitoring = async () => {
 	const docker = await getRemoteDocker();
 
 	await execAsync(
-		"mkdir -p /etc/zenthcloud/monitoring && touch /etc/zenthcloud/monitoring/monitoring.db",
+		"mkdir -p /etc/company/monitoring && touch /etc/company/monitoring/monitoring.db",
 	);
 	await pullImage(imageName);
 	await deployMonitoringService(docker, serviceName, settings);

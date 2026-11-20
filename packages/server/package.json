@@ -1,9 +1,9 @@
 {
-  "name": "@zenthcloud/server",
+  "name": "@company/server",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skygenesisenterprise/zenthcloud.git",
+    "url": "https://github.com/skygenesisenterprise/company.git",
     "directory": "packages/server"
   },
   "main": "./src/index.ts",

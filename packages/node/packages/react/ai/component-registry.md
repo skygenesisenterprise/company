@@ -10,7 +10,7 @@ Autocomplete — free-form text input with an optional filtered suggestion list.
 
 **Type:** component
 
-**Import:** `import { Autocomplete } from "@zenthcloud/kumo";`
+**Import:** `import { Autocomplete } from "@company/kumo";`
 
 **Category:** Other
 
@@ -103,7 +103,7 @@ Small status label for categorizing or highlighting content.
 
 **Type:** component
 
-**Import:** `import { Badge } from "@zenthcloud/kumo";`
+**Import:** `import { Badge } from "@company/kumo";`
 
 **Category:** Display
 
@@ -149,7 +149,7 @@ Full-width message bar with an optional trailing CTA slot.
 
 **Type:** component
 
-**Import:** `import { Banner } from "@zenthcloud/kumo";`
+**Import:** `import { Banner } from "@company/kumo";`
 
 **Category:** Feedback
 
@@ -199,7 +199,7 @@ Breadcrumbs component
 
 **Type:** component
 
-**Import:** `import { Breadcrumbs } from "@zenthcloud/kumo";`
+**Import:** `import { Breadcrumbs } from "@company/kumo";`
 
 **Category:** Display
 
@@ -248,7 +248,7 @@ BubbleMap component
 
 **Type:** component
 
-**Import:** `import { BubbleMap } from "@zenthcloud/kumo";`
+**Import:** `import { BubbleMap } from "@company/kumo";`
 
 **Category:** Data Visualization
 
@@ -267,7 +267,7 @@ Primary action trigger. Supports multiple variants, sizes, shapes, icons, and lo
 
 **Type:** component
 
-**Import:** `import { Button } from "@zenthcloud/kumo";`
+**Import:** `import { Button } from "@company/kumo";`
 
 **Category:** Action
 
@@ -337,7 +337,7 @@ Joins a small set of tightly-coupled buttons into a single control — most comm
 
 **Type:** component
 
-**Import:** `import { ButtonGroup } from "@zenthcloud/kumo";`
+**Import:** `import { ButtonGroup } from "@company/kumo";`
 
 **Category:** Action
 
@@ -359,7 +359,7 @@ Chart — a low-level wrapper around [Apache ECharts](https://echarts.apache.org
 
 **Type:** component
 
-**Import:** `import { Chart } from "@zenthcloud/kumo";`
+**Import:** `import { Chart } from "@company/kumo";`
 
 **Category:** Data Visualization
 
@@ -378,7 +378,7 @@ Checkbox component
 
 **Type:** component
 
-**Import:** `import { Checkbox } from "@zenthcloud/kumo";`
+**Import:** `import { Checkbox } from "@company/kumo";`
 
 **Category:** Input
 
@@ -456,7 +456,7 @@ ChoroplethMap component
 
 **Type:** component
 
-**Import:** `import { ChoroplethMap } from "@zenthcloud/kumo";`
+**Import:** `import { ChoroplethMap } from "@company/kumo";`
 
 **Category:** Data Visualization
 
@@ -475,7 +475,7 @@ Read-only text field with a one-click copy-to-clipboard button.
 
 **Type:** component
 
-**Import:** `import { ClipboardText } from "@zenthcloud/kumo";`
+**Import:** `import { ClipboardText } from "@company/kumo";`
 
 **Category:** Action
 
@@ -556,7 +556,7 @@ Code component
 
 **Type:** component
 
-**Import:** `import { Code } from "@zenthcloud/kumo";`
+**Import:** `import { Code } from "@company/kumo";`
 
 **Category:** Display
 
@@ -601,7 +601,7 @@ Collapsible — a composable disclosure component for showing/hiding content.
 
 **Type:** component
 
-**Import:** `import { Collapsible } from "@zenthcloud/kumo";`
+**Import:** `import { Collapsible } from "@company/kumo";`
 
 **Category:** Display
 
@@ -649,7 +649,7 @@ Combobox — autocomplete input with filterable dropdown list.
 
 **Type:** component
 
-**Import:** `import { Combobox } from "@zenthcloud/kumo";`
+**Import:** `import { Combobox } from "@company/kumo";`
 
 **Category:** Input
 
@@ -795,7 +795,7 @@ CommandPalette — accessible command palette / spotlight search overlay.
 
 **Type:** component
 
-**Import:** `import { CommandPalette } from "@zenthcloud/kumo";`
+**Import:** `import { CommandPalette } from "@company/kumo";`
 
 **Category:** Navigation
 
@@ -820,7 +820,7 @@ DatePicker — a date selection calendar.
 
 **Type:** component
 
-**Import:** `import { DatePicker } from "@zenthcloud/kumo";`
+**Import:** `import { DatePicker } from "@company/kumo";`
 
 **Category:** Other
 
@@ -843,7 +843,7 @@ DateRangePicker — dual-calendar date range selector.
 
 **Type:** component
 
-**Import:** `import { DateRangePicker } from "@zenthcloud/kumo";`
+**Import:** `import { DateRangePicker } from "@company/kumo";`
 
 **Category:** Input
 
@@ -911,7 +911,7 @@ Dialog component
 
 **Type:** component
 
-**Import:** `import { Dialog } from "@zenthcloud/kumo";`
+**Import:** `import { Dialog } from "@company/kumo";`
 
 **Category:** Overlay
 
@@ -970,7 +970,7 @@ DropdownMenu — accessible dropdown menu anchored to a trigger.
 
 **Type:** component
 
-**Import:** `import { DropdownMenu } from "@zenthcloud/kumo";`
+**Import:** `import { DropdownMenu } from "@company/kumo";`
 
 **Category:** Overlay
 
@@ -1117,7 +1117,7 @@ Placeholder shown when a list, table, or page has no content to display.
 
 **Type:** component
 
-**Import:** `import { Empty } from "@zenthcloud/kumo";`
+**Import:** `import { Empty } from "@company/kumo";`
 
 **Category:** Display
 
@@ -1152,7 +1152,7 @@ Form field wrapper that provides a label, optional description, and error displa
 
 **Type:** component
 
-**Import:** `import { Field } from "@zenthcloud/kumo";`
+**Import:** `import { Field } from "@company/kumo";`
 
 **Category:** Input
 
@@ -1187,7 +1187,7 @@ GlobeMap — an SVG orthographic globe with hatched land and geographic markers.
 
 **Type:** component
 
-**Import:** `import { GlobeMap } from "@zenthcloud/kumo";`
+**Import:** `import { GlobeMap } from "@company/kumo";`
 
 **Category:** Data Visualization
 
@@ -1232,7 +1232,7 @@ Responsive CSS grid layout container with preset column configurations.
 
 **Type:** component
 
-**Import:** `import { Grid } from "@zenthcloud/kumo";`
+**Import:** `import { Grid } from "@company/kumo";`
 
 **Category:** Layout
 
@@ -1275,7 +1275,7 @@ Compact, borderless copy control for IDs and other short values displayed inline
 
 **Type:** component
 
-**Import:** `import { InlineCopyText } from "@zenthcloud/kumo";`
+**Import:** `import { InlineCopyText } from "@company/kumo";`
 
 **Category:** Action
 
@@ -1324,7 +1324,7 @@ Input component
 
 **Type:** component
 
-**Import:** `import { Input } from "@zenthcloud/kumo";`
+**Import:** `import { Input } from "@company/kumo";`
 
 **Category:** Input
 
@@ -1371,7 +1371,7 @@ InputGroup component
 
 **Type:** component
 
-**Import:** `import { InputGroup } from "@zenthcloud/kumo";`
+**Import:** `import { InputGroup } from "@company/kumo";`
 
 **Category:** Input
 
@@ -1453,7 +1453,7 @@ Label component for form fields.
 
 **Type:** component
 
-**Import:** `import { Label } from "@zenthcloud/kumo";`
+**Import:** `import { Label } from "@company/kumo";`
 
 **Category:** Other
 
@@ -1488,7 +1488,7 @@ LayerCard component
 
 **Type:** component
 
-**Import:** `import { LayerCard } from "@zenthcloud/kumo";`
+**Import:** `import { LayerCard } from "@company/kumo";`
 
 **Category:** Display
 
@@ -1532,7 +1532,7 @@ LayerDialog component
 
 **Type:** component
 
-**Import:** `import { LayerDialog } from "@zenthcloud/kumo";`
+**Import:** `import { LayerDialog } from "@company/kumo";`
 
 **Category:** Overlay
 
@@ -1598,7 +1598,7 @@ Link component
 
 **Type:** component
 
-**Import:** `import { Link } from "@zenthcloud/kumo";`
+**Import:** `import { Link } from "@company/kumo";`
 
 **Category:** Other
 
@@ -1648,7 +1648,7 @@ Animated circular spinner for indicating loading states.
 
 **Type:** component
 
-**Import:** `import { Loader } from "@zenthcloud/kumo";`
+**Import:** `import { Loader } from "@company/kumo";`
 
 **Category:** Feedback
 
@@ -1669,7 +1669,7 @@ MenuBar — horizontal icon-button toolbar with keyboard arrow-key navigation.
 
 **Type:** component
 
-**Import:** `import { MenuBar } from "@zenthcloud/kumo";`
+**Import:** `import { MenuBar } from "@company/kumo";`
 
 **Category:** Navigation
 
@@ -1699,7 +1699,7 @@ Progress bar showing a measured value within a known range (e.g. quota usage).
 
 **Type:** component
 
-**Import:** `import { Meter } from "@zenthcloud/kumo";`
+**Import:** `import { Meter } from "@company/kumo";`
 
 **Category:** Display
 
@@ -1734,7 +1734,7 @@ Pagination component
 
 **Type:** component
 
-**Import:** `import { Pagination } from "@zenthcloud/kumo";`
+**Import:** `import { Pagination } from "@company/kumo";`
 
 **Category:** Navigation
 
@@ -1801,7 +1801,7 @@ Popover component for displaying accessible popup content anchored to a trigger.
 
 **Type:** component
 
-**Import:** `import { Popover } from "@zenthcloud/kumo";`
+**Import:** `import { Popover } from "@company/kumo";`
 
 **Category:** Overlay
 
@@ -1878,7 +1878,7 @@ Radio — radio button group for single-select choices.
 
 **Type:** component
 
-**Import:** `import { Radio } from "@zenthcloud/kumo";`
+**Import:** `import { Radio } from "@company/kumo";`
 
 **Category:** Input
 
@@ -1942,7 +1942,7 @@ SankeyChart component
 
 **Type:** component
 
-**Import:** `import { SankeyChart } from "@zenthcloud/kumo";`
+**Import:** `import { SankeyChart } from "@company/kumo";`
 
 **Category:** Data Visualization
 
@@ -1961,7 +1961,7 @@ Select component
 
 **Type:** component
 
-**Import:** `import { Select } from "@zenthcloud/kumo";`
+**Import:** `import { Select } from "@company/kumo";`
 
 **Category:** Input
 
@@ -2098,7 +2098,7 @@ Password/secret input that masks its value by default and reveals on click. Incl
 
 **Type:** component
 
-**Import:** `import { SensitiveInput } from "@zenthcloud/kumo";`
+**Import:** `import { SensitiveInput } from "@company/kumo";`
 
 **Category:** Other
 
@@ -2153,7 +2153,7 @@ Sidebar — responsive navigation panel with expand/collapse support.
 
 **Type:** component
 
-**Import:** `import { Sidebar } from "@zenthcloud/kumo";`
+**Import:** `import { Sidebar } from "@company/kumo";`
 
 **Category:** Other
 
@@ -2318,7 +2318,7 @@ Slider component
 
 **Type:** component
 
-**Import:** `import { Slider } from "@zenthcloud/kumo";`
+**Import:** `import { Slider } from "@company/kumo";`
 
 **Category:** Input
 
@@ -2360,7 +2360,7 @@ Surface component
 
 **Type:** component
 
-**Import:** `import { Surface } from "@zenthcloud/kumo";`
+**Import:** `import { Surface } from "@company/kumo";`
 
 **Category:** Layout
 
@@ -2385,7 +2385,7 @@ Switch component
 
 **Type:** component
 
-**Import:** `import { Switch } from "@zenthcloud/kumo";`
+**Import:** `import { Switch } from "@company/kumo";`
 
 **Category:** Input
 
@@ -2448,7 +2448,7 @@ Table — semantic HTML table with styled rows, cells, and selection support.
 
 **Type:** component
 
-**Import:** `import { Table } from "@zenthcloud/kumo";`
+**Import:** `import { Table } from "@company/kumo";`
 
 **Category:** Other
 
@@ -2521,7 +2521,7 @@ TableOfContents — presentational compound component for section navigation.
 
 **Type:** component
 
-**Import:** `import { TableOfContents } from "@zenthcloud/kumo";`
+**Import:** `import { TableOfContents } from "@company/kumo";`
 
 **Category:** Other
 
@@ -2566,7 +2566,7 @@ Tab navigation component with segmented or underline style. Built on Base UI Tab
 
 **Type:** component
 
-**Import:** `import { Tabs } from "@zenthcloud/kumo";`
+**Import:** `import { Tabs } from "@company/kumo";`
 
 **Category:** Navigation
 
@@ -2614,7 +2614,7 @@ TagInput component
 
 **Type:** component
 
-**Import:** `import { TagInput } from "@zenthcloud/kumo";`
+**Import:** `import { TagInput } from "@company/kumo";`
 
 **Category:** Other
 
@@ -2668,7 +2668,7 @@ Text component
 
 **Type:** component
 
-**Import:** `import { Text } from "@zenthcloud/kumo";`
+**Import:** `import { Text } from "@company/kumo";`
 
 **Category:** Display
 
@@ -2718,7 +2718,7 @@ TimeseriesChart — a time-series line or bar chart.
 
 **Type:** component
 
-**Import:** `import { TimeseriesChart } from "@zenthcloud/kumo";`
+**Import:** `import { TimeseriesChart } from "@company/kumo";`
 
 **Category:** Data Visualization
 
@@ -2741,7 +2741,7 @@ Toasty — toast notification provider and viewport.
 
 **Type:** component
 
-**Import:** `import { Toasty } from "@zenthcloud/kumo";`
+**Import:** `import { Toasty } from "@company/kumo";`
 
 **Category:** Feedback
 
@@ -2773,7 +2773,7 @@ Toolbar component
 
 **Type:** component
 
-**Import:** `import { Toolbar } from "@zenthcloud/kumo";`
+**Import:** `import { Toolbar } from "@company/kumo";`
 
 **Category:** Other
 
@@ -2834,7 +2834,7 @@ Accessible popup that shows additional information on hover/focus. Wrap your app
 
 **Type:** component
 
-**Import:** `import { Tooltip } from "@zenthcloud/kumo";`
+**Import:** `import { Tooltip } from "@company/kumo";`
 
 **Category:** Overlay
 
@@ -2879,13 +2879,13 @@ Usage:
 
 ---
 
-### ZenthcloudLogo
+### CompanyLogo
 
-Zenthcloud logo component.
+Company logo component.
 
 **Type:** component
 
-**Import:** `import { ZenthcloudLogo } from "@zenthcloud/kumo";`
+**Import:** `import { CompanyLogo } from "@company/kumo";`
 
 **Category:** Other
 
@@ -3160,7 +3160,7 @@ Multi-line textarea input with Input variants and InputArea-specific dimensions
 
 **Type:** component
 
-**Import:** `import { InputArea } from "@zenthcloud/kumo (synthetic - uses Input component)";`
+**Import:** `import { InputArea } from "@company/kumo (synthetic - uses Input component)";`
 
 **Category:** Input
 
@@ -3201,7 +3201,7 @@ Multi-line textarea input with Input variants and InputArea-specific dimensions
 ## Quick Reference
 
 **Components by Category:**
-- **Other:** Autocomplete, DatePicker, Label, Link, SensitiveInput, Sidebar, Table, TableOfContents, TagInput, Toolbar, ZenthcloudLogo, DeleteResource
+- **Other:** Autocomplete, DatePicker, Label, Link, SensitiveInput, Sidebar, Table, TableOfContents, TagInput, Toolbar, CompanyLogo, DeleteResource
 - **Display:** Badge, Breadcrumbs, Code, Collapsible, Empty, LayerCard, Meter, Text
 - **Feedback:** Banner, Loader, Toasty
 - **Data Visualization:** BubbleMap, Chart, ChoroplethMap, GlobeMap, SankeyChart, TimeseriesChart

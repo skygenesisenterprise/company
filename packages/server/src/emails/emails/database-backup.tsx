@@ -22,7 +22,7 @@ export type TemplateProps = {
 };
 
 export const DatabaseBackupEmail = ({
-	projectName = "zenthcloud",
+	projectName = "company",
 	applicationName = "frontend",
 	databaseType = "postgres",
 	type = "success",
@@ -41,11 +41,11 @@ export const DatabaseBackupEmail = ({
 						<Section className="mt-[32px]">
 							<Img
 								src={
-									"https://raw.githubusercontent.com/skygenesisenterprise/zenthcloud/refs/heads/master/apps/zenthcloud/logo.png"
+									"https://raw.githubusercontent.com/skygenesisenterprise/company/refs/heads/master/apps/company/logo.png"
 								}
 								width="100"
 								height="50"
-								alt="Zenthcloud"
+								alt="Company"
 								className="my-0 mx-auto"
 							/>
 						</Section>

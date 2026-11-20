@@ -5,13 +5,13 @@
  * Provides types and utilities for accessing component metadata.
  */
 
-// Import shared types from @zenthcloud/kumo
+// Import shared types from @company/kumo
 import type {
   ComponentRegistry,
   ComponentSchema,
   PropSchema,
   SubComponentSchema,
-} from "@zenthcloud/kumo";
+} from "@company/kumo";
 
 // Re-export with aliases for backwards compatibility
 export type { ComponentRegistry };

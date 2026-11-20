@@ -1,11 +1,11 @@
 ---
 name: kumo-design
-description: Zenthcloud product design guidance. Use when designing, implementing, or reviewing Zenthcloud dashboard interfaces, Kumo UI, responsive styling, dialogs, or frontend tests.
+description: Company product design guidance. Use when designing, implementing, or reviewing Company dashboard interfaces, Kumo UI, responsive styling, dialogs, or frontend tests.
 ---
 
-# Zenthcloud Design
+# Company Design
 
-Apply these rules when designing, implementing, or reviewing Zenthcloud product interfaces. Follow recommended examples and avoid patterns marked as examples to avoid.
+Apply these rules when designing, implementing, or reviewing Company product interfaces. Follow recommended examples and avoid patterns marked as examples to avoid.
 
 ## Rules
 

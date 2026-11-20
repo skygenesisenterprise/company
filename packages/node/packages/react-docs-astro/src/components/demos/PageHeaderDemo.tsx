@@ -1,5 +1,5 @@
 import { PageHeader } from "../kumo/page-header/page-header";
-import { Breadcrumbs, Button } from "@zenthcloud/kumo";
+import { Breadcrumbs, Button } from "@company/kumo";
 import {
   HouseIcon,
   GearIcon,
@@ -19,7 +19,7 @@ export function PageHeaderHeroDemo() {
             Workers & Pages
           </Breadcrumbs.Link>
           <Breadcrumbs.Separator />
-          <Breadcrumbs.Current>zenthcloud-dev-platform</Breadcrumbs.Current>
+          <Breadcrumbs.Current>company-dev-platform</Breadcrumbs.Current>
         </Breadcrumbs>
       }
       tabs={[

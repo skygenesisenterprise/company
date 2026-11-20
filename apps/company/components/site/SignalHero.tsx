@@ -1,4 +1,4 @@
-import { Link } from "@zenthcloud/react";
+import { Link } from "@company/react";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "../Container";
 import { homeHero } from "@/lib/content/home";

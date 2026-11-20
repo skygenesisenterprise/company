@@ -1,5 +1,5 @@
-import type { unboundDnsConfigSchema } from "@zenthcloud/server/db/schema";
-import { execAsyncRemote } from "@zenthcloud/server/utils/process/execAsync";
+import type { unboundDnsConfigSchema } from "@company/server/db/schema";
+import { execAsyncRemote } from "@company/server/utils/process/execAsync";
 import type { z } from "zod";
 import { stripTrailingDot, toSubdomain } from "../http";
 import type { DnsClient, DnsRecord, DnsZone } from "../types";

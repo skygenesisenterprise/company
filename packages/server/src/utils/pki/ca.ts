@@ -3,21 +3,21 @@ import forge from "node-forge";
 import {
 	INSTANCE_IDENTITY_EXTENSION_VERSION,
 	type InstanceIdentityDocument,
-	ZENTHCLOUD_IDENTITY_EXTENSION_OID,
-	type ZenthcloudCapability,
-	type ZenthcloudProduct,
+	COMPANY_IDENTITY_EXTENSION_OID,
+	type CompanyCapability,
+	type CompanyProduct,
 } from "./types";
 
 /**
  * Native PKI / certificate authority (issue #75 §2).
  *
- * Zenthcloud's trust model has two layers:
+ * Company's trust model has two layers:
  *  - an offline **root** trust anchor, and
  *  - **issuing** CAs that sign instance certificates.
  *
  * Self-hosted instances bootstrap a *local* root and issuing CA so they can
  * validate their own trust chain without any online dependency. Cloud/Console
- * chain to a Zenthcloud-issued CA. Either way, CA private keys never leave the
+ * chain to a Company-issued CA. Either way, CA private keys never leave the
  * machine that generated them and are never returned by a public API.
  *
  * Only X.509 primitives are used here so instance certificates stay
@@ -55,7 +55,7 @@ export const DEFAULT_INSTANCE_VALIDITY_DAYS = 825;
 const ASN1 = forge.asn1;
 
 /**
- * node-forge types extensions loosely (`any[]`), so the shape Zenthcloud relies on
+ * node-forge types extensions loosely (`any[]`), so the shape Company relies on
  * is declared here rather than trusted from the declaration.
  */
 interface CertificateExtension {
@@ -182,7 +182,7 @@ const instanceExtensions = (
 	// Certificates built by the shell installer omit it and rely on identity.json.
 	if (includeIdentityExtension) {
 		extensions.push({
-			id: ZENTHCLOUD_IDENTITY_EXTENSION_OID,
+			id: COMPANY_IDENTITY_EXTENSION_OID,
 			critical: false,
 			value: JSON.stringify(identity),
 		});
@@ -227,7 +227,7 @@ const buildCertificate = (params: {
 
 /**
  * Creates a self-signed root certificate authority. For self-hosted this is the
- * instance's own offline trust anchor; for Zenthcloud it is the published root
+ * instance's own offline trust anchor; for Company it is the published root
  * whose private key is kept offline.
  */
 export const createRootCertificateAuthority = (
@@ -239,8 +239,8 @@ export const createRootCertificateAuthority = (
 		now?: Date;
 	} = {},
 ): CertificateAuthority => {
-	const commonName = options.commonName ?? "Zenthcloud Local Root CA";
-	const organization = options.organization ?? "Zenthcloud";
+	const commonName = options.commonName ?? "Company Local Root CA";
+	const organization = options.organization ?? "Company";
 	const { privateKey, publicKey, privateKeyPem } = generateInstanceKeyPair(
 		options.keySize,
 	);
@@ -284,8 +284,8 @@ export const createIssuingCertificateAuthority = (options: {
 	validityDays?: number;
 	now?: Date;
 }): CertificateAuthority => {
-	const commonName = options.commonName ?? "Zenthcloud Instance Issuing CA";
-	const organization = options.organization ?? "Zenthcloud";
+	const commonName = options.commonName ?? "Company Instance Issuing CA";
+	const organization = options.organization ?? "Company";
 	const { privateKey, publicKey, privateKeyPem } = generateInstanceKeyPair(
 		options.keySize,
 	);
@@ -324,8 +324,8 @@ export const issueInstanceCertificate = (options: {
 	issuer: CertificateAuthority;
 	publicKey: forge.pki.PublicKey;
 	instanceId: string;
-	product: ZenthcloudProduct;
-	capabilities: ZenthcloudCapability[];
+	product: CompanyProduct;
+	capabilities: CompanyCapability[];
 	subjectKeyFingerprint: string;
 	createdAt?: Date;
 	validityDays?: number;
@@ -347,8 +347,8 @@ export const issueInstanceCertificate = (options: {
 
 	const certificate = buildCertificate({
 		subject: [
-			{ name: "commonName", value: `zenthcloud-instance-${options.instanceId}` },
-			{ name: "organizationName", value: "Zenthcloud" },
+			{ name: "commonName", value: `company-instance-${options.instanceId}` },
+			{ name: "organizationName", value: "Company" },
 			{ name: "organizationalUnitName", value: options.product },
 		],
 		issuerName: options.issuer.certificate.subject.attributes,

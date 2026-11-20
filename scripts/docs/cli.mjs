@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Documentation synchronization for Zenthcloud.
+ * Documentation synchronization for Company.
  *
  *   node scripts/docs/cli.mjs check [--only <groups>] [--changed] [--base <ref>] [--json]
  *   node scripts/docs/cli.mjs generate [--only <groups>] [--json]
@@ -250,7 +250,7 @@ function loadCliGroups(config, diagnostics) {
 				"no command groups parsed from the generated CLI",
 				{
 					file: config.sources.cliCommands,
-					hint: "Run 'pnpm --filter @zenthcloud/cli run generate'.",
+					hint: "Run 'pnpm --filter @company/cli run generate'.",
 				},
 			);
 		}
@@ -571,7 +571,7 @@ function checkCliHelp(config, groups, diagnostics) {
 	if (top.status !== 0) {
 		diagnostics.warning(
 			"cli.help-unavailable",
-			`zenthcloud --help failed: ${(top.stderr || top.stdout || "").trim().split("\n")[0]}`,
+			`company --help failed: ${(top.stderr || top.stdout || "").trim().split("\n")[0]}`,
 		);
 		return;
 	}
@@ -579,7 +579,7 @@ function checkCliHelp(config, groups, diagnostics) {
 		if (!new RegExp(`\\b${group.name}\\b`).test(top.stdout)) {
 			diagnostics.error(
 				"cli.help-mismatch",
-				`documented group "${group.name}" does not appear in zenthcloud --help`,
+				`documented group "${group.name}" does not appear in company --help`,
 				{ file: config.sources.cliCommands },
 			);
 		}
@@ -592,7 +592,7 @@ function checkCliHelp(config, groups, diagnostics) {
 		if (result.status !== 0) {
 			diagnostics.warning(
 				"cli.help-unavailable",
-				`zenthcloud ${group.name} ${command.action} --help failed`,
+				`company ${group.name} ${command.action} --help failed`,
 			);
 			continue;
 		}
@@ -606,7 +606,7 @@ function checkCliHelp(config, groups, diagnostics) {
 			if (!documented.has(match[1])) {
 				diagnostics.error(
 					"cli.help-mismatch",
-					`"${match[1]}" is offered by zenthcloud ${group.name} ${command.action} but not documented`,
+					`"${match[1]}" is offered by company ${group.name} ${command.action} but not documented`,
 					{ file: "web/apps/docs/content/docs/cli" },
 				);
 			}
@@ -1086,7 +1086,7 @@ async function runCoverage({ options, config, namespaces, groups, templates, dia
 }
 
 function printHelp() {
-	console.log(`Zenthcloud documentation sync
+	console.log(`Company documentation sync
 
 Usage:
   node scripts/docs/cli.mjs check [options]

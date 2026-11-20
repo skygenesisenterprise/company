@@ -79,8 +79,8 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 							<ul className="mt-3 space-y-2 text-sm text-muted-foreground">
 								<li>
 									Sales:{" "}
-									<a href="mailto:sales@zenthcloud.com" className="text-foreground underline underline-offset-4">
-										sales@zenthcloud.com
+									<a href="mailto:sales@company.com" className="text-foreground underline underline-offset-4">
+										sales@company.com
 									</a>
 								</li>
 								<li>
@@ -91,7 +91,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 										rel="noreferrer"
 										className="text-foreground underline underline-offset-4"
 									>
-										status.zenthcloud.com
+										status.company.com
 									</a>
 								</li>
 								<li>
@@ -102,7 +102,7 @@ export default async function CompanyDetailPage({ params }: PageProps) {
 										rel="noreferrer"
 										className="text-foreground underline underline-offset-4"
 									>
-										docs.zenthcloud.com
+										docs.company.com
 									</a>
 								</li>
 							</ul>

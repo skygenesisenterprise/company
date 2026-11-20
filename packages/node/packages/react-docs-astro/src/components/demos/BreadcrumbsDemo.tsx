@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "@zenthcloud/kumo";
+import { Breadcrumbs } from "@company/kumo";
 import { House } from "@phosphor-icons/react";
 
 export function BreadcrumbsDemo() {

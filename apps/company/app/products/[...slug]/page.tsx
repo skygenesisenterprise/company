@@ -68,7 +68,7 @@ export default async function ProductPage({ params }: PageProps) {
 		url: `${SITE_URL}${product.route}`,
 		provider: {
 			"@type": "Organization",
-			name: "ZenthCloud",
+			name: "Company",
 			url: SITE_URL,
 		},
 	};

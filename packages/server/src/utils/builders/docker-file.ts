@@ -1,7 +1,7 @@
 import {
 	getEnvironmentVariablesObject,
 	prepareEnvironmentVariablesForShell,
-} from "@zenthcloud/server/utils/docker/utils";
+} from "@company/server/utils/docker/utils";
 import { quote } from "shell-quote";
 import {
 	getBuildAppDirectory,

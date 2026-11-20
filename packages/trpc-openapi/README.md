@@ -1,4 +1,4 @@
-# ZenthCloud tRPC OpenAPI
+# Company tRPC OpenAPI
 
 [![npm](https://img.shields.io/npm/v/trpc-to-openapi.svg?style=flat&color=brightgreen)](https://www.npmjs.com/package/trpc-to-openapi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-black.svg)](./LICENSE)
@@ -15,14 +15,14 @@
 
 ## Contents
 
-- [ZenthCloud tRPC OpenAPI](#zenthcloud-trpc-openapi)
+- [Company tRPC OpenAPI](#company-trpc-openapi)
   - [Contents](#contents)
-  - [Why ZenthCloud tRPC OpenAPI matters](#why-zenthcloud-trpc-openapi-matters)
+  - [Why Company tRPC OpenAPI matters](#why-company-trpc-openapi-matters)
   - [What you can do](#what-you-can-do)
     - [Customizations (Dokploy-style)](#customizations-dokploy-style)
   - [Quick start](#quick-start)
   - [Requirements](#requirements)
-  - [How ZenthCloud tRPC OpenAPI is built](#how-zenthcloud-trpc-openapi-is-built)
+  - [How Company tRPC OpenAPI is built](#how-company-trpc-openapi-is-built)
     - [HTTP requests](#http-requests)
       - [Path parameters](#path-parameters)
       - [Query parameters](#query-parameters)
@@ -47,7 +47,7 @@
   - [License](#license)
   - [Note](#note)
 
-## Why ZenthCloud tRPC OpenAPI matters
+## Why Company tRPC OpenAPI matters
 
 🎯 **One source of truth** — Define procedures once in tRPC and expose them as REST endpoints and OpenAPI operations.
 
@@ -145,7 +145,7 @@ export const openApiDocument = generateOpenApiDocument(appRouter, {
 
 Adapters are currently available for [`Express`](http://expressjs.com/), [`Next.js`](https://nextjs.org/), [`Fastify`](https://www.fastify.io/), [`Nuxt`](https://nuxtjs.org/) and [`Node:HTTP`](https://nodejs.org/api/http.html).
 
-[`Fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), [`Zenthcloud Workers`](https://github.com/skygenesisenterprise/zenthcloud) and more are planned; PRs are welcome. There is no support for AWS lambdas.
+[`Fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API), [`Company Workers`](https://github.com/skygenesisenterprise/company) and more are planned; PRs are welcome. There is no support for AWS lambdas.
 
 ```typescript
 import http from 'http';
@@ -192,7 +192,7 @@ Please note:
 - Trailing slashes are ignored.
 - Routing is case-insensitive.
 
-## How ZenthCloud tRPC OpenAPI is built
+## How Company tRPC OpenAPI is built
 
 The package generates an OpenAPI document from tRPC metadata and routes incoming HTTP requests back to the matching procedure through a framework adapter.
 
@@ -495,15 +495,15 @@ Yes. The `filter` option receives procedure metadata and returns whether to incl
 - OpenAPI specification: [swagger.io/specification](https://swagger.io/specification/)
 - Zod: [github.com/colinhacks/zod](https://github.com/colinhacks/zod)
 - Complete test suite: [`test/`](test)
-- ZenthCloud repository: [github.com/skygenesisenterprise/zenthcloud](https://github.com/skygenesisenterprise/zenthcloud)
+- Company repository: [github.com/skygenesisenterprise/company](https://github.com/skygenesisenterprise/company)
 
 ## Contributing
 
-Contributions and suggestions are welcome. Read the repository [contribution guide](https://github.com/skygenesisenterprise/zenthcloud) before participating.
+Contributions and suggestions are welcome. Read the repository [contribution guide](https://github.com/skygenesisenterprise/company) before participating.
 
 ## Security
 
-Do not report security vulnerabilities in public issues. Follow the private reporting instructions in the repository [`SECURITY.md`](https://github.com/skygenesisenterprise/zenthcloud).
+Do not report security vulnerabilities in public issues. Follow the private reporting instructions in the repository [`SECURITY.md`](https://github.com/skygenesisenterprise/company).
 
 ## License
 

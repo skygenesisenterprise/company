@@ -91,9 +91,9 @@ export function buildContextFromEnv(): CIContext {
     commitSha,
     shortSha: commitSha.substring(0, 8),
     prNumber: process.env.GITHUB_PR_NUMBER ?? process.env.PR_NUMBER ?? "",
-    repository: process.env.GITHUB_REPOSITORY ?? "zenthcloud/kumo",
+    repository: process.env.GITHUB_REPOSITORY ?? "company/kumo",
     apiToken: process.env.GITHUB_TOKEN ?? "",
-    packageName: process.env.PACKAGE_NAME ?? "@zenthcloud/kumo",
+    packageName: process.env.PACKAGE_NAME ?? "@company/kumo",
     packageVersion: process.env.PACKAGE_VERSION ?? "",
     kumoDocsPreviewUrl: process.env.KUMO_DOCS_PREVIEW_URL,
   };

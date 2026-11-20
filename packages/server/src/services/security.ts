@@ -1,9 +1,9 @@
-import { db } from "@zenthcloud/server/db";
-import { type apiCreateSecurity, security } from "@zenthcloud/server/db/schema";
+import { db } from "@company/server/db";
+import { type apiCreateSecurity, security } from "@company/server/db/schema";
 import {
 	createSecurityMiddleware,
 	removeSecurityMiddleware,
-} from "@zenthcloud/server/utils/traefik/security";
+} from "@company/server/utils/traefik/security";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";

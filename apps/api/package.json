@@ -1,12 +1,12 @@
 {
-	"name": "@zenthcloud/api",
+	"name": "@company/api",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/skygenesisenterprise/zenthcloud.git"
+		"url": "git+https://github.com/skygenesisenterprise/company.git"
 	},
-	"homepage": "https://github.com/skygenesisenterprise/zenthcloud",
+	"homepage": "https://github.com/skygenesisenterprise/company",
 	"bugs": {
-		"url": "https://github.com/skygenesisenterprise/zenthcloud/issues"
+		"url": "https://github.com/skygenesisenterprise/company/issues"
 	},
 	"version": "0.0.1",
 	"type": "module",
@@ -19,7 +19,7 @@
 	},
 	"dependencies": {
 		"inngest": "3.40.1",
-		"@zenthcloud/server": "workspace:*",
+		"@company/server": "workspace:*",
 		"@hono/node-server": "^1.14.3",
 		"@hono/zod-validator": "0.9.1",
 		"dotenv": "^16.4.5",

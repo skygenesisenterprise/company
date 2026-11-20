@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path, { join } from "node:path";
-import { paths } from "@zenthcloud/server/constants";
-import type { Application } from "@zenthcloud/server/services/application";
-import { findServerById } from "@zenthcloud/server/services/server";
-import { readValidDirectory } from "@zenthcloud/server/wss/utils";
+import { paths } from "@company/server/constants";
+import type { Application } from "@company/server/services/application";
+import { findServerById } from "@company/server/services/server";
+import { readValidDirectory } from "@company/server/wss/utils";
 import AdmZip from "adm-zip";
 import { Client, type SFTPWrapper } from "ssh2";
 import {

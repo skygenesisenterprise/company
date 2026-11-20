@@ -1,4 +1,4 @@
-import type { technitiumDnsConfigSchema } from "@zenthcloud/server/db/schema";
+import type { technitiumDnsConfigSchema } from "@company/server/db/schema";
 import type { z } from "zod";
 import { type DnsClient, dnsFetch } from "./types";
 
