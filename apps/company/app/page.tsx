@@ -1,21 +1,12 @@
 import type { Metadata } from "next";
 import { SignalHero } from "@/components/site/SignalHero";
-import {
-	EcosystemSection,
-	ProductsSection,
-	SolutionsSection,
-} from "@/components/site/home/EcosystemSections";
-import {
-	IndependenceSection,
-	OpenSourceSection,
-} from "@/components/site/home/EngineeringSections";
-import { HomeCtaSection } from "@/components/site/home/HomeCtaSection";
-import {
-	NewsSection,
-	PartnershipsSection,
-	ResearchSection,
-} from "@/components/site/home/InstitutionalSections";
-import { IntroductionSection } from "@/components/site/home/IntroductionSection";
+import { BuildSection } from "@/components/site/home/build-section";
+import { ComparisonSection } from "@/components/site/home/comparison-section";
+import { CoverageSection } from "@/components/site/home/coverage-section";
+import { PlatformPricingSection } from "@/components/site/home/platform-pricing-section";
+import { ProjectRailSection } from "@/components/site/home/project-rail-section";
+import { Reveal } from "@/components/site/home/Reveal";
+import { TeamSection } from "@/components/site/home/team-section";
 import { homeSeo, productCategories } from "@/lib/content/ecosystem";
 import { links } from "@/lib/content/site";
 import { SITE_URL, pageMetadata } from "@/lib/domain/queries";
@@ -72,13 +63,10 @@ const structuredData = {
 };
 
 /**
- * Homepage composition.
- *
- * The hero (`SignalHero`) and the footer (`SiteFooter`, in the root layout) are
- * protected and unchanged. Everything between them presents Sky Genesis
- * Enterprise as a technology group: introduction, the six technology domains,
- * selected projects, solution patterns, deployment philosophy, open source,
- * partnerships, research, news and a closing call to action.
+ * Homepage composition after the protected hero: deployment coverage and
+ * pillars, a browsable project rail, the independence comparison, a tabbed
+ * platform/pricing surface, a bento of working surfaces and the closing panel.
+ * The footer in the root layout is protected.
  */
 export default function HomePage() {
 	return (
@@ -90,16 +78,16 @@ export default function HomePage() {
 
 			<div className="bg-background text-foreground">
 				<SignalHero />
-				<IntroductionSection />
-				<EcosystemSection />
-				<ProductsSection />
-				<SolutionsSection />
-				<IndependenceSection />
-				<OpenSourceSection />
-				<PartnershipsSection />
-				<ResearchSection />
-				<NewsSection />
-				<HomeCtaSection />
+				<Reveal>
+					<div className="zenth-root isolate bg-background font-sans">
+						<CoverageSection />
+						<ProjectRailSection />
+						<ComparisonSection />
+						<PlatformPricingSection />
+						<TeamSection />
+						<BuildSection />
+					</div>
+				</Reveal>
 			</div>
 		</>
 	);

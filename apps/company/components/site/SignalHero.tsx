@@ -1,7 +1,7 @@
 import { Link } from "@company/react";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { Container } from "../Container";
 import { homeHero } from "@/lib/content/home";
+import { Container } from "../Container";
 
 /**
  * Homepage hero: one saturated brand panel inset into the white stage, a fine
@@ -18,7 +18,10 @@ export function SignalHero() {
 						className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_95%_85%_at_50%_45%,transparent_38%,rgba(0,0,0,0.16))]"
 						aria-hidden="true"
 					/>
-					<div className="signal-dots absolute inset-0 opacity-80" aria-hidden="true" />
+					<div
+						className="signal-dots absolute inset-0 opacity-80"
+						aria-hidden="true"
+					/>
 					<div
 						className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-[radial-gradient(ellipse_75%_100%_at_50%_100%,rgba(255,255,255,0.55),transparent_72%)]"
 						aria-hidden="true"

@@ -9,9 +9,9 @@
 export const homeHero = {
 	eyebrow: "Enterprise cloud infrastructure",
 	title: "Cloud infrastructure.",
-	highlight: "Built to connect.",
+	highlight: "Boundaries you can verify.",
 	description:
-		"Compute, storage, networking, platform and security services on infrastructure operated by Company and by named partners. One catalogue, with availability and commercial state published per product and region.",
+		"Compute, storage, networking and platform services on infrastructure operated by Company or a named partner. Availability and commercial state are published per product and region.",
 	primaryCta: { href: "/products", label: "Explore products" },
 	secondaryCta: { href: "/pricing", label: "View pricing" },
 } as const;

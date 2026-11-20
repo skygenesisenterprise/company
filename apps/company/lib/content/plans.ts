@@ -56,7 +56,7 @@ export type FaqEntry = { question: string; answer: string };
 
 export const planSection = {
 	eyebrow: "Cloud subscriptions",
-	title: "Choose how far you want to go.",
+	title: "Platform plans, not infrastructure.",
 	description:
 		"Three plans on Company Cloud. Each one opens the same six service families; what changes is the depth you can operate, the quotas you get and the support behind them.",
 	note: "Subscription plans are platform plans. The 14 resource plans in the catalogue are consumption items, not subscriptions. Prices are not published yet: every plan is modelled and none is an offer.",
@@ -140,7 +140,8 @@ export const plans: readonly SubscriptionPlan[] = [
 			"Dedicated and hybrid infrastructure",
 			"Contractual support, SLA and onboarding",
 		],
-		limitNote: "Scope, commitments and support terms are defined in the agreement.",
+		limitNote:
+			"Scope, commitments and support terms are defined in the agreement.",
 		cta: { label: "Contact sales", href: "/contact-sales" },
 	},
 ];
@@ -204,8 +205,7 @@ export const comparison = {
 			capability: "Compute & Containers",
 			free: "Core resources and lifecycle, single workspace",
 			pro: "Advanced lifecycle and higher quotas across workspaces",
-			enterprise:
-				"Custom capacity, dedicated hardware and private estates",
+			enterprise: "Custom capacity, dedicated hardware and private estates",
 		},
 		{
 			capability: "Storage & Databases",

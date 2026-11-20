@@ -108,7 +108,11 @@ export const productCategories: NavCategory[] = [
 				description: "React design-system components",
 				kind: "component",
 			},
-			{ name: "React Zicons", description: "React icon set", kind: "component" },
+			{
+				name: "React Zicons",
+				description: "React icon set",
+				kind: "component",
+			},
 			{
 				name: "React Desktop",
 				description: "React components for desktop-style interfaces",
@@ -264,7 +268,7 @@ export function getCategoryById(
 
 export const introduction = {
 	eyebrow: "Sky Genesis Enterprise",
-	title: "Building an independent technological ecosystem.",
+	title: "An independent technology group.",
 	paragraphs: [
 		"Sky Genesis Enterprise is a technology group. We develop software, platforms and infrastructure, and we operate them where that is useful to the organisations and people who depend on them.",
 		"Our work spans cloud infrastructure, developer tooling, identity and security, productivity software, digital communities and specialised financial platforms. These are independent projects, not labels applied to a single product.",
@@ -309,7 +313,7 @@ export const introduction = {
 
 export const ecosystemSection = {
 	eyebrow: "Our ecosystem",
-	title: "Six technological domains. One group.",
+	title: "Six domains. One group.",
 	description:
 		"The group operates across complementary domains. Each category is an institutional classification with its own projects; a project belongs to the domain that describes its actual purpose, not to a single brand.",
 	note: "Aether is a cross-category family: its identity, security and productivity projects sit in the domains they serve. A public repository does not by itself imply a finished or commercially available product.",
@@ -441,6 +445,35 @@ export const deploymentModels = [
 	},
 ] as const;
 
+/** Homepage section 04 — "Why choose" comparison, in the shape of a decision:
+ * the closed-cloud alternative on the left, the group's design constraints on
+ * the right. The right-hand points are the independence and sustainability
+ * principles already published elsewhere on the site; only the framing is new. */
+export const whySection = {
+	eyebrow: "Why choose Sky Genesis Enterprise",
+	title: "Independence is the design constraint.",
+	description:
+		"There are two ways to build a digital estate. The first rents capability and accepts the coupling that comes with it; the second is how the group designs, publishes and operates its projects.",
+	before: {
+		title: "Fighting infrastructure with “cloud”.",
+		points: [
+			"Proprietary coupling makes every project harder to replace, move or retire.",
+			"A single provider relationship becomes a single point of dependency.",
+			"Marketing language blurs what is operated for you and what you actually run.",
+			"Tools are rented faster than they can be evaluated or exited.",
+			"Security is sold as an add-on rather than designed into the product.",
+		],
+	},
+	after: {
+		title: "Shipping with Sky Genesis Enterprise.",
+		points: [
+			...independenceSection.points,
+			"Security and clarity are treated as part of the product, not as marketing claims.",
+			"Projects are designed to be maintained, documented and handed over.",
+		],
+	},
+} as const;
+
 /* -------------------------------------------------------------------------- */
 /* 06 — Open source and developers                                            */
 /* -------------------------------------------------------------------------- */
@@ -498,9 +531,7 @@ export const openSourceGroups: OpenSourceGroup[] = [
 		id: "platforms",
 		title: "Platforms",
 		description: "Hosted or self-hostable platforms with their own lifecycle.",
-		items: [
-			{ name: "Giteria", detail: "Git hosting and code collaboration" },
-		],
+		items: [{ name: "Giteria", detail: "Git hosting and code collaboration" }],
 	},
 ];
 
@@ -553,7 +584,8 @@ export const partnershipsSection = {
 		},
 		{
 			title: "Infrastructure partners",
-			description: "A provider whose capacity is used and disclosed per product.",
+			description:
+				"A provider whose capacity is used and disclosed per product.",
 		},
 		{
 			title: "Institutional relationships",
@@ -565,7 +597,8 @@ export const partnershipsSection = {
 		},
 		{
 			title: "Community and ecosystem",
-			description: "An open-source or community relationship, without commercial status.",
+			description:
+				"An open-source or community relationship, without commercial status.",
 		},
 	],
 	links: [
@@ -597,15 +630,18 @@ export const researchAreas = [
 	},
 	{
 		title: "Identity and security",
-		description: "Access models, credentials and protection of digital estates.",
+		description:
+			"Access models, credentials and protection of digital estates.",
 	},
 	{
 		title: "Developer tooling",
-		description: "Interfaces, automation and the ergonomics of building software.",
+		description:
+			"Interfaces, automation and the ergonomics of building software.",
 	},
 	{
 		title: "Artificial intelligence",
-		description: "Applied work around models, agents and supporting infrastructure.",
+		description:
+			"Applied work around models, agents and supporting infrastructure.",
 	},
 	{
 		title: "Open-source technology",
@@ -659,7 +695,7 @@ export const newsDestinations = [
 
 export const homeCta = {
 	eyebrow: "Work with us",
-	title: "Build the future of technology with us.",
+	title: "Explore, contribute or partner.",
 	description:
 		"Whether you are evaluating infrastructure, contributing to a project, or exploring a partnership, there is a route that matches the conversation.",
 	primary: { href: "/products", label: "Explore the ecosystem" },

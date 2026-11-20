@@ -2,9 +2,10 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Section header used across the homepage. Keeping the eyebrow, heading and
+ * Section header used across the homepage. Keeping the lead-in, heading and
  * description in one place is what makes the page read as a single editorial
- * system rather than a stack of unrelated blocks.
+ * system rather than a stack of unrelated blocks. Each part carries
+ * `data-reveal` so the Reveal client component can stagger its entrance.
  */
 export function SectionIntro({
 	id,
@@ -32,27 +33,33 @@ export function SectionIntro({
 				className,
 			)}
 		>
-			<p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+			<p
+				data-reveal
+				className="text-[13px] font-medium text-primary"
+			>
 				{eyebrow}
 			</p>
 			<h2
 				id={id}
+				data-reveal
 				className="mt-3 font-display text-3xl leading-[1.08] tracking-tight text-foreground sm:text-4xl lg:text-5xl"
 			>
 				{title}
 			</h2>
 			{description ? (
 				<p
-				className={cn(
-					"mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground",
-					centered && "mx-auto",
-				)}
-			>
+					data-reveal
+					className={cn(
+						"mt-4 max-w-2xl text-base leading-7 text-foreground/85",
+						centered && "mx-auto",
+					)}
+				>
 					{description}
 				</p>
 			) : null}
 			{actions ? (
 				<div
+					data-reveal
 					className={cn(
 						"mt-7 flex flex-wrap items-center gap-3",
 						centered && "justify-center",

@@ -11,88 +11,72 @@ import {
 } from "@/lib/content/ecosystem";
 import { SectionIntro } from "./SectionIntro";
 
-/**
- * 02 — Our ecosystem. Six domains as editorial rows: number, domain, scope,
- * selected projects and one destination. Deliberately not six equal cards.
- */
 export function EcosystemSection() {
 	return (
 		<section
 			aria-labelledby="ecosystem-title"
-			className="border-b border-border bg-muted/30 py-20 sm:py-28"
+			className="bg-brand py-20 text-brand-foreground sm:py-28 lg:py-32"
 		>
 			<Container>
-				<div className="grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-16">
-					<div className="lg:sticky lg:top-24 lg:h-fit">
-						<SectionIntro
+				<div data-reveal className="grid gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-end lg:gap-16">
+					<div>
+						<p className="text-sm font-semibold text-brand-foreground/75 sm:text-base">
+							{ecosystemSection.eyebrow}
+						</p>
+						<h2
 							id="ecosystem-title"
-							eyebrow={ecosystemSection.eyebrow}
-							title={ecosystemSection.title}
-							description={ecosystemSection.description}
-						/>
-						<p className="mt-6 max-w-md border-l-2 border-primary/40 pl-4 text-sm leading-relaxed text-muted-foreground">
+							className="mt-3 max-w-2xl font-display text-4xl font-medium leading-[1.04] tracking-tight sm:text-5xl lg:text-6xl"
+						>
+							{ecosystemSection.title}
+						</h2>
+					</div>
+					<div>
+						<p className="max-w-3xl text-lg leading-8 text-brand-foreground/85">
+							{ecosystemSection.description}
+						</p>
+						<p className="mt-4 max-w-3xl text-base leading-7 text-brand-foreground/75">
 							{ecosystemSection.note}
 						</p>
 						<Link
 							href="/products"
 							variant="plain"
-							className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-primary no-underline hover:underline"
+							className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-foreground no-underline hover:underline"
 						>
 							Browse the full catalogue
-							<ArrowRight className="size-3.5" aria-hidden="true" />
+							<ArrowRight className="size-4" aria-hidden="true" />
 						</Link>
 					</div>
+				</div>
 
-					<ol className="border-t border-border">
+				<ul data-reveal className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 						{productCategories.map((category) => (
-							<li key={category.id} className="border-b border-border py-7">
-								<div className="grid gap-4 sm:grid-cols-[3rem_minmax(0,1fr)] md:grid-cols-[3rem_minmax(0,1fr)_auto] md:items-start md:gap-6">
-									<span className="pt-1 font-mono text-xs text-muted-foreground">
-										{category.number}
-									</span>
-
-									<div className="min-w-0">
-										<h3 className="font-display text-xl tracking-tight text-foreground">
-											<Link
-												href={category.href}
-												variant="plain"
-												className="text-foreground no-underline hover:text-primary"
-											>
-												{category.name}
-											</Link>
-										</h3>
-										<p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-											{category.description}
-										</p>
-										<p className="mt-3 text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-											{category.scope.join(" · ")}
-										</p>
-										<ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-foreground">
-											{category.products.slice(0, 3).map((product) => (
-												<li key={product.name}>{product.name}</li>
-											))}
-											{category.products.length > 3 ? (
-												<li className="text-muted-foreground">
-													+{category.products.length - 3} more
-												</li>
-											) : null}
-										</ul>
-									</div>
-
-									<Link
-										href={category.href}
-										variant="plain"
-										className="inline-flex items-center gap-1.5 self-start text-sm font-medium text-primary no-underline hover:underline md:justify-self-end"
-									>
-										Explore
-										<span className="sr-only"> {category.name}</span>
-										<ArrowRight className="size-3.5" aria-hidden="true" />
-									</Link>
-								</div>
+							<li key={category.id} className="flex flex-col bg-background p-6 text-foreground sm:p-7">
+								<p className="text-sm font-medium text-primary">
+									{category.scope.join(" · ")}
+								</p>
+								<h3 className="mt-4 font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+									{category.name}
+								</h3>
+								<p className="mt-3 text-base leading-7 text-foreground/75">
+									{category.description}
+								</p>
+								<ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-foreground">
+									{category.products.map((product) => (
+										<li key={product.name}>{product.name}</li>
+									))}
+								</ul>
+								<Link
+									href={category.href}
+									variant="plain"
+									className="mt-auto inline-flex min-h-11 items-center gap-2 pt-5 text-sm font-semibold text-primary no-underline hover:underline"
+								>
+									Explore this domain
+									<span className="sr-only">: {category.name}</span>
+									<ArrowRight className="size-4" aria-hidden="true" />
+								</Link>
 							</li>
 						))}
-					</ol>
-				</div>
+				</ul>
 			</Container>
 		</section>
 	);
@@ -110,7 +94,7 @@ export function ProductsSection() {
 	return (
 		<section
 			aria-labelledby="products-title"
-			className="border-b border-border bg-background py-20 sm:py-28"
+			className="bg-background py-20 sm:py-28 lg:py-32"
 		>
 			<Container>
 				<SectionIntro
@@ -120,62 +104,62 @@ export function ProductsSection() {
 					description={productsSection.description}
 				/>
 
-				<div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12">
-					<article className="flex min-w-0 flex-col border border-border bg-muted/40 p-7 sm:p-9">
+				<div data-reveal className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-8">
+					<article className="flex min-w-0 flex-col bg-primary p-7 text-primary-foreground sm:p-10 lg:min-h-[480px]">
 						<div className="flex flex-wrap items-center justify-between gap-3">
-							<p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+							<p className="text-sm font-semibold text-primary-foreground/80">
 								{lead.category.name}
 							</p>
-							<span className="border border-border px-1.5 py-px text-[10px] uppercase tracking-wide text-muted-foreground">
+							<span className="text-sm text-primary-foreground/80">
 								{lead.product.kind === "component" ? "Component" : "Project"}
 							</span>
 						</div>
-						<h3 className="mt-5 font-display text-3xl tracking-tight text-foreground sm:text-4xl">
+						<h3 className="mt-16 max-w-xl font-display text-4xl font-medium leading-[1.04] tracking-tight text-primary-foreground sm:text-5xl lg:text-6xl">
 							{lead.product.name}
 						</h3>
-						<p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+						<p className="mt-5 max-w-lg text-lg leading-8 text-primary-foreground/85">
 							{lead.product.description}
 						</p>
-						<div className="mt-auto pt-8">
+						<div className="mt-auto pt-10">
 							<Link
 								href={lead.product.href ?? lead.category.href}
 								variant="plain"
-								className="inline-flex items-center gap-1.5 text-sm font-medium text-primary no-underline hover:underline"
+								className="inline-flex min-h-12 items-center gap-2 bg-primary-foreground px-5 text-sm font-semibold text-primary no-underline transition-colors hover:bg-primary-foreground/90"
 							>
 								{lead.product.href ? "View project" : "Open the category overview"}
-								<ArrowRight className="size-3.5" aria-hidden="true" />
+								<ArrowRight className="size-4" aria-hidden="true" />
 							</Link>
 						</div>
 					</article>
 
-					<div className="min-w-0">
-						<ul className="divide-y divide-border border-y border-border">
+					<div className="min-w-0 bg-muted/30 p-5 sm:p-7">
+						<ul className="grid gap-3">
 							{rest.map(({ product, category }) => (
-								<li key={product.name} className="py-5">
+								<li key={product.name} className="bg-background p-5 sm:p-6">
 									<div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-										<p className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+										<p className="text-sm font-medium text-muted-foreground">
 											{category.name}
 										</p>
 										<Link
 											href={product.href ?? category.href}
 											variant="plain"
-											className="inline-flex items-center gap-1.5 text-sm font-medium text-primary no-underline hover:underline"
+											className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-primary no-underline hover:underline"
 										>
 											Open
 											<span className="sr-only"> {product.name}</span>
-											<ArrowRight className="size-3.5" aria-hidden="true" />
+											<ArrowRight className="size-4" aria-hidden="true" />
 										</Link>
 									</div>
-									<h3 className="mt-1 font-display text-lg tracking-tight text-foreground">
+									<h3 className="mt-2 font-display text-xl font-medium tracking-tight text-foreground">
 										{product.name}
 									</h3>
-									<p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+									<p className="mt-2 text-base leading-6 text-foreground/75">
 										{product.description}
 									</p>
 								</li>
 							))}
 						</ul>
-						<p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+						<p className="mt-5 text-sm leading-6 text-muted-foreground">
 							{productsSection.note}
 						</p>
 					</div>
@@ -190,7 +174,7 @@ export function SolutionsSection() {
 	return (
 		<section
 			aria-labelledby="solutions-title"
-			className="border-b border-border bg-muted/30 py-20 sm:py-28"
+			className="bg-muted/30 py-20 sm:py-28 lg:py-32"
 		>
 			<Container>
 				<SectionIntro
@@ -200,47 +184,35 @@ export function SolutionsSection() {
 					description={solutionsSection.description}
 				/>
 
-				<ol className="mt-12 border-t border-border">
-					{solutionPatterns.map((pattern, index) => (
-						<li key={pattern.id} className="border-b border-border py-7">
-							<div className="grid gap-4 md:grid-cols-[3rem_minmax(0,1.1fr)_minmax(0,0.9fr)_auto] md:items-start md:gap-6">
-								<span className="pt-1 font-mono text-xs text-muted-foreground">
-									{String(index + 1).padStart(2, "0")}
-								</span>
-
-								<div className="min-w-0">
-									<div className="flex flex-wrap items-center gap-2">
-										<h3 className="font-display text-lg tracking-tight text-foreground">
-											{pattern.title}
-										</h3>
-										<span className="border border-border px-1.5 py-px text-[10px] uppercase tracking-wide text-muted-foreground">
-											{pattern.relationship}
-										</span>
-									</div>
-									<p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-										{pattern.description}
-									</p>
-								</div>
-
-								<p className="min-w-0 text-sm leading-relaxed text-foreground">
-									{pattern.productNames.join(" · ")}
-								</p>
-
-								<Link
-									href={pattern.href}
-									variant="plain"
-									className="inline-flex items-center gap-1.5 self-start text-sm font-medium text-primary no-underline hover:underline md:justify-self-end"
-								>
-									Explore
-									<span className="sr-only"> {pattern.title}</span>
-									<ArrowRight className="size-3.5" aria-hidden="true" />
-								</Link>
-							</div>
+				<ul data-reveal className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+					{solutionPatterns.map((pattern) => (
+						<li key={pattern.id} className="flex flex-col bg-background p-6 sm:p-8">
+							<p className="text-sm font-medium text-primary">
+								{pattern.relationship}
+							</p>
+							<h3 className="mt-4 font-display text-2xl font-medium leading-tight tracking-tight sm:text-3xl">
+								{pattern.title}
+							</h3>
+							<p className="mt-4 text-base leading-7 text-foreground/75">
+								{pattern.description}
+							</p>
+							<p className="mt-5 text-sm font-medium leading-6 text-foreground">
+								{pattern.productNames.join(" · ")}
+							</p>
+							<Link
+								href={pattern.href}
+								variant="plain"
+								className="mt-auto inline-flex min-h-11 items-center gap-2 pt-5 text-sm font-semibold text-primary no-underline hover:underline"
+							>
+								Explore this solution
+								<span className="sr-only">: {pattern.title}</span>
+								<ArrowRight className="size-4" aria-hidden="true" />
+							</Link>
 						</li>
 					))}
-				</ol>
+				</ul>
 
-				<p className="mt-5 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+				<p data-reveal className="mt-5 max-w-3xl text-[13px] leading-relaxed text-muted-foreground">
 					{solutionsSection.note}
 				</p>
 			</Container>

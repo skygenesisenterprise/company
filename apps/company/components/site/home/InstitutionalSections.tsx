@@ -90,7 +90,7 @@ export function ResearchSection() {
 							title={researchSection.title}
 							description={researchSection.description}
 						/>
-						<p className="mt-6 border-l-2 border-primary/40 pl-4 text-xs leading-relaxed text-muted-foreground">
+						<p className="mt-6 border-l-2 border-primary/40 pl-4 text-[13px] leading-relaxed text-muted-foreground">
 							{researchSection.note}
 						</p>
 					</div>
@@ -101,7 +101,7 @@ export function ResearchSection() {
 								key={area.title}
 								className="grid gap-2 border-b border-border py-5 sm:grid-cols-[3rem_minmax(0,15rem)_minmax(0,1fr)] sm:gap-5"
 							>
-								<span className="font-mono text-xs text-muted-foreground">
+								<span className="font-mono text-[13px] text-muted-foreground">
 									{String(index + 1).padStart(2, "0")}
 								</span>
 								<h3 className="text-sm font-semibold text-foreground">
@@ -168,7 +168,7 @@ export function NewsSection() {
 												/>
 											)}
 										</span>
-										<span className="mt-0.5 block text-xs leading-relaxed text-muted-foreground">
+										<span className="mt-0.5 block text-[13px] leading-relaxed text-muted-foreground">
 											{destination.description}
 										</span>
 									</span>
@@ -180,6 +180,99 @@ export function NewsSection() {
 						))}
 					</ul>
 				</div>
+			</Container>
+		</section>
+	);
+}
+
+/**
+ * 07b — Institutional band. The three public-facing surfaces (partnerships,
+ * research, publications) condensed into one compact band so the homepage
+ * keeps the short, low-band rhythm of the reference composition; the full
+ * sections remain available for the pages that need them.
+ */
+export function InstitutionBandSection() {
+	const columns = [
+		{
+			id: "partnerships",
+			title: partnershipsSection.title,
+			description: partnershipsSection.emptyState,
+			list: partnershipsSection.relationshipTypes.map((type) => type.title),
+			links: partnershipsSection.links,
+		},
+		{
+			id: "research",
+			title: researchSection.title,
+			description: researchSection.note,
+			list: researchAreas.map((area) => area.title),
+			links: [] as readonly { href: string; label: string }[],
+		},
+		{
+			id: "news",
+			title: newsSection.title,
+			description: newsSection.emptyState,
+			list: [] as string[],
+			links: newsDestinations,
+		},
+	];
+
+	return (
+		<section
+			aria-labelledby="institution-band-title"
+			className="bg-background py-20 sm:py-28"
+		>
+			<Container>
+				<SectionIntro
+					id="institution-band-title"
+					eyebrow="The group in public"
+					title="Partnerships, research and publications."
+				/>
+
+				<ul data-reveal className="mt-12 grid gap-5 lg:grid-cols-3">
+					{columns.map((column) => (
+						<li
+							key={column.id}
+							className="flex min-w-0 flex-col bg-muted/40 p-7 sm:p-8"
+						>
+							<h3 className="font-display text-xl font-medium leading-snug tracking-tight text-foreground">
+								{column.title}
+							</h3>
+							<p className="mt-3 text-sm leading-6 text-muted-foreground">
+								{column.description}
+							</p>
+
+							{column.list.length > 0 ? (
+								<ul className="mt-5 flex flex-wrap gap-x-4 gap-y-2">
+									{column.list.map((item) => (
+										<li
+											key={item}
+											className="text-sm leading-6 text-foreground/80"
+										>
+											{item}
+										</li>
+									))}
+								</ul>
+							) : null}
+
+							{column.links.length > 0 ? (
+								<ul className="mt-auto space-y-0.5 pt-6">
+									{column.links.map((link) => (
+										<li key={link.href}>
+											<Link
+												href={link.href}
+												variant="plain"
+												className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-primary no-underline hover:underline"
+											>
+												{link.label}
+												<ArrowRight className="size-3.5" aria-hidden="true" />
+											</Link>
+										</li>
+									))}
+								</ul>
+							) : null}
+						</li>
+					))}
+				</ul>
 			</Container>
 		</section>
 	);
