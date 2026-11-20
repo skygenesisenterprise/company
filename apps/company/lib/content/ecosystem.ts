@@ -308,27 +308,81 @@ export const introduction = {
 } as const;
 
 /* -------------------------------------------------------------------------- */
-/* 02 — Ecosystem                                                             */
+/* 02 — Technology domains                                                    */
+/* -------------------------------------------------------------------------- */
+
+export const domainsSection = {
+	eyebrow: "Technology domains",
+	title: "Six domains. One group.",
+	description:
+		"The group operates across complementary domains. Each category is an institutional classification with its own projects; a project belongs to the domain that describes its actual purpose, not to a single brand.",
+	note: "A public repository does not by itself imply a finished or commercially available product. Availability and maturity are stated only where they are verified.",
+} as const;
+
+/* -------------------------------------------------------------------------- */
+/* 03 — The ecosystem                                                         */
 /* -------------------------------------------------------------------------- */
 
 export const ecosystemSection = {
 	eyebrow: "Our ecosystem",
-	title: "Six domains. One group.",
+	title: "Independent initiatives, shared foundations.",
 	description:
-		"The group operates across complementary domains. Each category is an institutional classification with its own projects; a project belongs to the domain that describes its actual purpose, not to a single brand.",
-	note: "Aether is a cross-category family: its identity, security and productivity projects sit in the domains they serve. A public repository does not by itself imply a finished or commercially available product.",
+		"The ecosystem is a set of independent projects, each published with its own scope and state. What they share is a way of working: deployment choices are documented, interfaces are explicit, and no project is presented as more mature than its published state.",
+	note: "A family is a shared identity across domains, not a merged product. Aether covers identity, security and productivity; Zenth anchors cloud and infrastructure. Listing two projects together does not imply a shipped integration between them.",
 } as const;
 
+export interface EcosystemFamily {
+	name: string;
+	categories: { id: ProductCategoryId; name: string; href: string }[];
+	projects: string[];
+}
+
+/** Families are derived from the category records, never declared twice. */
+export function getFamilies(): EcosystemFamily[] {
+	const families = new Map<string, EcosystemFamily>();
+	for (const category of productCategories) {
+		for (const product of category.products) {
+			if (!product.family) continue;
+			const family = families.get(product.family) ?? {
+				name: product.family,
+				categories: [],
+				projects: [],
+			};
+			if (!family.categories.some((entry) => entry.id === category.id)) {
+				family.categories.push({
+					id: category.id,
+					name: category.name,
+					href: category.href,
+				});
+			}
+			family.projects.push(product.name);
+			families.set(product.family, family);
+		}
+	}
+	return [...families.values()];
+}
+
 /* -------------------------------------------------------------------------- */
-/* 03 — Products and platforms                                                */
+/* 04 — Featured projects                                                     */
 /* -------------------------------------------------------------------------- */
 
 export const productsSection = {
-	eyebrow: "Products and platforms",
+	eyebrow: "Featured projects",
 	title: "Selected projects from across the group.",
 	description:
-		"A curated selection rather than the complete catalogue. Each project is shown with the domain it belongs to and the destination that currently exists for it.",
-	note: "Maturity is only displayed where it can be verified. No project on this page is presented as commercially available.",
+		"A curated selection rather than the complete catalogue. Each project is shown with the domain it belongs to, its published state and the destination that currently exists for it.",
+	note: "Maturity is only displayed where it can be verified. No project on this page is presented as commercially available; every entry links to the page that documents it today.",
+} as const;
+
+/** Rendered in place of a maturity badge while no project declares a verified
+ * state. Keeping the wording here avoids per-component availability claims. */
+export const projectState = {
+	unverified: "State not verified",
+	kind: {
+		product: "Project",
+		component: "Component",
+		integration: "Integration",
+	},
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -475,7 +529,20 @@ export const whySection = {
 } as const;
 
 /* -------------------------------------------------------------------------- */
-/* 06 — Open source and developers                                            */
+/* 06 — Engineering principles                                               */
+/* -------------------------------------------------------------------------- */
+
+export const engineeringSection = {
+	eyebrow: "Engineering principles",
+	title: "Independence, openness, interoperability.",
+	description:
+		"The group's engineering constraints are published so they can be checked against the projects. They describe how software is designed and operated here; they are not a certification, an audit result or a service commitment.",
+	note: independenceSection.note,
+	countLabel: "published constraints",
+} as const;
+
+/* -------------------------------------------------------------------------- */
+/* 07 — Open source and developers                                            */
 /* -------------------------------------------------------------------------- */
 
 export const openSourceSection = {
@@ -577,30 +644,38 @@ export const partnershipsSection = {
 		{
 			title: "Official partners",
 			description: "A confirmed commercial or strategic partnership.",
+			state: "None published",
 		},
 		{
 			title: "Technology partners",
 			description: "A documented technical integration with a named product.",
+			state: "None published",
 		},
 		{
 			title: "Infrastructure partners",
 			description:
 				"A provider whose capacity is used and disclosed per product.",
+			state: "Named per product",
 		},
 		{
 			title: "Institutional relationships",
 			description: "A membership, affiliation or formal cooperation.",
+			state: "None published",
 		},
 		{
 			title: "Research collaborations",
 			description: "A joint research activity with a stated scope.",
+			state: "None published",
 		},
 		{
 			title: "Community and ecosystem",
 			description:
 				"An open-source or community relationship, without commercial status.",
+			state: "Contribution route open",
 		},
 	],
+	stateLegend:
+		"Published state only. A relationship is listed once it is confirmed and named; an expressed interest is never shown as a partnership.",
 	links: [
 		{ href: "/company/partners", label: "Partnership routes" },
 		{ href: "/infrastructure/partners", label: "Infrastructure providers" },

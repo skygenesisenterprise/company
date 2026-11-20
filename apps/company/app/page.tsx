@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { SignalHero } from "@/components/site/SignalHero";
 import { BuildSection } from "@/components/site/home/build-section";
-import { ComparisonSection } from "@/components/site/home/comparison-section";
-import { CoverageSection } from "@/components/site/home/coverage-section";
-import { PlatformPricingSection } from "@/components/site/home/platform-pricing-section";
-import { ProjectRailSection } from "@/components/site/home/project-rail-section";
+import { DomainsSection } from "@/components/site/home/domains-section";
+import { EcosystemSection } from "@/components/site/home/ecosystem-section";
+import { EngineeringPrinciplesSection } from "@/components/site/home/engineering-principles-section";
+import { FeaturedProjectsSection } from "@/components/site/home/featured-projects-section";
+import { IntroductionSection } from "@/components/site/home/introduction-section";
+import { NewsSection } from "@/components/site/home/news-section";
+import { PartnersSection } from "@/components/site/home/partners-section";
 import { Reveal } from "@/components/site/home/Reveal";
-import { TeamSection } from "@/components/site/home/team-section";
+import { ResearchSection } from "@/components/site/home/research-section";
 import { homeSeo, productCategories } from "@/lib/content/ecosystem";
 import { links } from "@/lib/content/site";
 import { SITE_URL, pageMetadata } from "@/lib/domain/queries";
@@ -63,10 +66,11 @@ const structuredData = {
 };
 
 /**
- * Homepage composition after the protected hero: deployment coverage and
- * pillars, a browsable project rail, the independence comparison, a tabbed
- * platform/pricing surface, a bento of working surfaces and the closing panel.
- * The footer in the root layout is protected.
+ * Homepage composition, after the protected hero: the institutional
+ * introduction, the six technology domains, the ecosystem relationships, the
+ * featured projects, the engineering principles, partners, research, news and
+ * the closing panel. All editorial content comes from `lib/content`; the
+ * footer in the root layout is protected.
  */
 export default function HomePage() {
 	return (
@@ -80,11 +84,14 @@ export default function HomePage() {
 				<SignalHero />
 				<Reveal>
 					<div className="zenth-root isolate bg-background font-sans">
-						<CoverageSection />
-						<ProjectRailSection />
-						<ComparisonSection />
-						<PlatformPricingSection />
-						<TeamSection />
+						<IntroductionSection />
+						<DomainsSection />
+						<EcosystemSection />
+						<FeaturedProjectsSection />
+						<EngineeringPrinciplesSection />
+						<PartnersSection />
+						<ResearchSection />
+						<NewsSection />
 						<BuildSection />
 					</div>
 				</Reveal>

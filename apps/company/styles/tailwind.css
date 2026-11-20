@@ -286,6 +286,18 @@
 		mask-image: radial-gradient(ellipse at center, black 30%, transparent 82%);
 	}
 
+	/* Homepage hero panel: four fifths of the first screen, measured below the
+	 * 64px header and its 8px stage inset. The panel stays the dominant block on
+	 * the page while the top of the introduction enters the view, so the page
+	 * reads as continuing rather than as one locked screen. `lvh` is the largest
+	 * viewport, so a collapsing mobile toolbar never changes the height; `vh` is
+	 * the fallback. 1.6rem is 80% of the former 2rem offset, so the whole
+	 * first-screen box is scaled by the same factor. */
+	.hero-panel {
+		min-height: calc(80vh - 1.6rem);
+		min-height: calc(80lvh - 1.6rem);
+	}
+
 	/* Editorial hairline grid used by catalogue and spec tables. */
 	.hairline-grid {
 		@apply border-border border-l border-t;

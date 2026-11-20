@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
 	featuredProjectNames,
+	getFamilies,
 	getFeaturedProjects,
 	homeCta,
 	newsDestinations,
@@ -34,6 +35,36 @@ describe("ecosystem categories", () => {
 			"security-identity",
 			"business-productivity",
 		]);
+	});
+});
+
+describe("ecosystem families", () => {
+	it("derives families from the catalogue records", () => {
+		const families = getFamilies();
+		expect(families.map((family) => family.name).sort()).toEqual([
+			"Aether",
+			"Zenth",
+		]);
+
+		const aether = families.find((family) => family.name === "Aether");
+		expect(aether?.categories.map((category) => category.id)).toEqual([
+			"security-identity",
+			"business-productivity",
+		]);
+
+		const zenth = families.find((family) => family.name === "Zenth");
+		expect(zenth?.categories.map((category) => category.id)).toEqual([
+			"cloud-infrastructure",
+		]);
+	});
+
+	it("never lists a family project twice", () => {
+		for (const family of getFamilies()) {
+			expect(new Set(family.projects).size).toBe(family.projects.length);
+			for (const project of family.projects) {
+				expect(allProducts).toContain(project);
+			}
+		}
 	});
 });
 
